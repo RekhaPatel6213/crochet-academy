@@ -1,0 +1,310 @@
+/* Course Detail Modal Layout */
+.modal-header-bar {
+  background-color: #FFFFFF;
+  padding: 1rem 1.75rem;
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.modal-tabs-row {
+  background-color: var(--bg-card-subtle);
+  padding: 0.65rem 1.75rem;
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.tab-group {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  background-color: #FFFFFF;
+  padding: 0.25rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+}
+
+.tab-btn {
+  padding: 0.45rem 0.85rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.82rem;
+  font-weight: 600;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all var(--transition-fast);
+}
+.tab-btn.active {
+  background-color: var(--color-primary);
+  color: #FFFFFF;
+}
+
+.video-player-container {
+  background-color: #000000;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  margin-bottom: 1.5rem;
+}
+
+.video-ratio-box {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}
+.video-ratio-box iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.video-bookmarks-bar {
+  background-color: #2D231E;
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  overflow-x: auto;
+  font-size: 0.78rem;
+  color: #FFFFFF;
+}
+
+.bookmark-pill {
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-full);
+  background-color: rgba(255, 255, 255, 0.12);
+  color: #FAF7F2;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: all var(--transition-fast);
+}
+.bookmark-pill:hover {
+  background-color: rgba(255, 255, 255, 0.22);
+}
+.bookmark-pill.active {
+  background-color: var(--color-primary);
+  font-weight: 700;
+}
+
+.step-card-box {
+  background-color: #FFFFFF;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 1.5rem;
+}
+
+.step-formula-box {
+  background-color: var(--color-honey-light);
+  border: 1px solid rgba(217, 155, 67, 0.35);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.step-tip-box {
+  background-color: var(--color-sage-light);
+  border: 1px solid rgba(107, 142, 123, 0.25);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  margin-top: 1rem;
+}
+
+/* Packages Grid & Tiers: Strictly all packages in ONE row */
+.packages-tier-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+  align-items: stretch;
+}
+
+@media (max-width: 992px) {
+  .packages-tier-grid {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 1rem;
+    padding-bottom: 0.85rem;
+    -webkit-overflow-scrolling: touch;
+  }
+  .packages-tier-grid .package-card {
+    min-width: 250px;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+  }
+}
+
+.package-card {
+  background-color: #FFFFFF;
+  border: 2px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.4rem 1.15rem;
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all var(--transition-normal);
+}
+.package-card:hover {
+  border-color: rgba(200, 109, 81, 0.4);
+}
+.package-card.selected {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px rgba(200, 109, 81, 0.15);
+}
+
+.package-price-number {
+  font-family: var(--font-serif);
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--text-main);
+  line-height: 1;
+}
+
+/* Exam MCQ Options */
+.mcq-option-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.15rem 1.4rem;
+  border-radius: var(--radius-lg);
+  border: 2px solid var(--border-subtle);
+  background-color: var(--bg-canvas);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  margin-bottom: 0.85rem;
+}
+.mcq-option-card:hover {
+  border-color: rgba(200, 109, 81, 0.35);
+  background-color: #FFFFFF;
+}
+.mcq-option-card.selected {
+  background-color: var(--color-primary-light);
+  border-color: var(--color-primary);
+  box-shadow: 0 2px 8px rgba(200, 109, 81, 0.12);
+}
+
+.option-badge {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.82rem;
+  background-color: #FFFFFF;
+  border: 1px solid var(--border-subtle);
+}
+.mcq-option-card.selected .option-badge {
+  background-color: var(--color-primary);
+  color: #FFFFFF;
+  border-color: var(--color-primary);
+}
+
+/* Certificate Ornate Frame */
+.certificate-frame {
+  background-color: #FFFDF9;
+  border: 8px solid rgba(217, 155, 67, 0.5);
+  border-radius: var(--radius-xl);
+  padding: 3rem 2.5rem;
+  position: relative;
+  box-shadow: var(--shadow-lg);
+  text-align: center;
+  overflow: hidden;
+}
+
+.cert-corner-tl {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  width: 42px;
+  height: 42px;
+  border-top: 3px solid #D99B43;
+  border-left: 3px solid #D99B43;
+}
+.cert-corner-tr {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 42px;
+  height: 42px;
+  border-top: 3px solid #D99B43;
+  border-right: 3px solid #D99B43;
+}
+.cert-corner-bl {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  width: 42px;
+  height: 42px;
+  border-bottom: 3px solid #D99B43;
+  border-left: 3px solid #D99B43;
+}
+.cert-corner-br {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  width: 42px;
+  height: 42px;
+  border-bottom: 3px solid #D99B43;
+  border-right: 3px solid #D99B43;
+}
+
+.guild-seal {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 3px solid #D99B43;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #D99B43;
+  font-weight: 800;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  margin: 0 auto;
+  box-shadow: inset 0 0 10px rgba(217, 155, 67, 0.2);
+}
+
+/* Print styling */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #printable-certificate, #printable-certificate * {
+    visibility: visible;
+  }
+  #printable-certificate {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 3cm;
+  }
+}
