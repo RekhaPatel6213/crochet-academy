@@ -1,6 +1,24 @@
 {
   "categories": [
     {
+      "id": "accessories",
+      "title": "Accessories & Bags",
+      "subtitle": "Tote bags, bucket hats, clutch purses & winter cowls",
+      "description": "<p>Functional everyday fashion items. Learn <strong>durable stitches</strong> (thermal, waistcoat stitch) and adding fabric lining, zippers, and handles.</p><ul><li>Reinforced bottom oval bases for totes</li><li>Stiff structured bucket hat crowns & brims</li><li>Sewing cotton fabric liners & zipper closures</li></ul>",
+      "badge": "Practical",
+      "accent": "#B4654A",
+      "iconName": "ShoppingBag",
+      "projectCount": 6,
+      "difficulty": "Intermediate",
+      "coverImage": "https://images.unsplash.com/photo-1590736969955-71cc94801759?auto=format&fit=crop&w=800&q=80",
+      "images": [
+        "https://images.unsplash.com/photo-1590736969955-71cc94801759?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1608248597359-5613531b46a7?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1516762689617-e1cffcef479d?auto=format&fit=crop&w=800&q=80"
+      ],
+      "videoUrl": "https://www.youtube.com/embed/z5cKzWdOaI4"
+    },
+    {
       "id": "amigurumi",
       "title": "Amigurumi & Plushies",
       "subtitle": "Adorable 3D stuffed toys, animals & characters",
@@ -19,22 +37,22 @@
       "videoUrl": "https://www.youtube.com/embed/z5cKzWdOaI4"
     },
     {
-      "id": "wearables",
-      "title": "Wearables & Garments",
-      "subtitle": "Cardigans, cozy sweaters, beanies & stylish tops",
-      "description": "<p>Learn <em>gauge swatching</em>, sizing measurements, ribbing elasticity, and drape control for <strong>comfortable, wearable crochet garments</strong>.</p><ul><li>Custom body measurements & sizing charts</li><li>Elastic ribbed cuffs and collared necklines</li><li>Blocking & invisible mattress stitch seaming</li></ul>",
-      "badge": "Trending",
-      "accent": "#6B8E7B",
-      "iconName": "Shirt",
-      "projectCount": 6,
-      "difficulty": "Beginner to Advanced",
-      "coverImage": "https://images.unsplash.com/photo-1608248597359-5613531b46a7?auto=format&fit=crop&w=800&q=80",
+      "id": "beginner-stitches",
+      "title": "Beginner Stitch Lab",
+      "subtitle": "Chain, Single, Half-Double, Double Crochet & Magic Ring",
+      "description": "<p>Zero experience needed! Discover <strong>hook holding grips</strong> (knife vs. pencil), yarn tension, stitch anatomy, and essential stitch foundations.</p><ul><li>Slip knot & chain row foundational tension</li><li>Single, Half-Double, Double & Treble crochet</li><li>Count your stitches accurately & spot turning chains</li></ul>",
+      "badge": "Start Here",
+      "accent": "#4A7C59",
+      "iconName": "BookOpen",
+      "projectCount": 10,
+      "difficulty": "Absolute Beginner",
+      "coverImage": "https://images.unsplash.com/photo-1516762689617-e1cffcef479d?auto=format&fit=crop&w=800&q=80",
       "images": [
-        "https://images.unsplash.com/photo-1608248597359-5613531b46a7?auto=format&fit=crop&w=800&q=80",
         "https://images.unsplash.com/photo-1516762689617-e1cffcef479d?auto=format&fit=crop&w=800&q=80",
-        "https://images.unsplash.com/photo-1590736969955-71cc94801759?auto=format&fit=crop&w=800&q=80"
+        "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=800&q=80"
       ],
-      "videoUrl": "https://www.youtube.com/embed/5D3n_Qj9bPk"
+      "videoUrl": "https://www.youtube.com/embed/z5cKzWdOaI4"
     },
     {
       "id": "granny-squares",
@@ -73,42 +91,6 @@
       "videoUrl": "https://www.youtube.com/embed/S2pEw7qFv3A"
     },
     {
-      "id": "accessories",
-      "title": "Accessories & Bags",
-      "subtitle": "Tote bags, bucket hats, clutch purses & winter cowls",
-      "description": "<p>Functional everyday fashion items. Learn <strong>durable stitches</strong> (thermal, waistcoat stitch) and adding fabric lining, zippers, and handles.</p><ul><li>Reinforced bottom oval bases for totes</li><li>Stiff structured bucket hat crowns & brims</li><li>Sewing cotton fabric liners & zipper closures</li></ul>",
-      "badge": "Practical",
-      "accent": "#B4654A",
-      "iconName": "ShoppingBag",
-      "projectCount": 6,
-      "difficulty": "Intermediate",
-      "coverImage": "https://images.unsplash.com/photo-1590736969955-71cc94801759?auto=format&fit=crop&w=800&q=80",
-      "images": [
-        "https://images.unsplash.com/photo-1590736969955-71cc94801759?auto=format&fit=crop&w=800&q=80",
-        "https://images.unsplash.com/photo-1608248597359-5613531b46a7?auto=format&fit=crop&w=800&q=80",
-        "https://images.unsplash.com/photo-1516762689617-e1cffcef479d?auto=format&fit=crop&w=800&q=80"
-      ],
-      "videoUrl": "https://www.youtube.com/embed/z5cKzWdOaI4"
-    },
-    {
-      "id": "beginner-stitches",
-      "title": "Beginner Stitch Lab",
-      "subtitle": "Chain, Single, Half-Double, Double Crochet & Magic Ring",
-      "description": "<p>Zero experience needed! Discover <strong>hook holding grips</strong> (knife vs. pencil), yarn tension, stitch anatomy, and essential stitch foundations.</p><ul><li>Slip knot & chain row foundational tension</li><li>Single, Half-Double, Double & Treble crochet</li><li>Count your stitches accurately & spot turning chains</li></ul>",
-      "badge": "Start Here",
-      "accent": "#4A7C59",
-      "iconName": "BookOpen",
-      "projectCount": 10,
-      "difficulty": "Absolute Beginner",
-      "coverImage": "https://images.unsplash.com/photo-1516762689617-e1cffcef479d?auto=format&fit=crop&w=800&q=80",
-      "images": [
-        "https://images.unsplash.com/photo-1516762689617-e1cffcef479d?auto=format&fit=crop&w=800&q=80",
-        "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=800&q=80",
-        "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=800&q=80"
-      ],
-      "videoUrl": "https://www.youtube.com/embed/z5cKzWdOaI4"
-    },
-    {
       "id": "lace-shawls-mastery",
       "title": "Lace & Shawls Mastery",
       "subtitle": "Gossamer stitches, blocking wires & crescent drape",
@@ -124,6 +106,24 @@
         "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=800&q=80"
       ],
       "videoUrl": "https://www.youtube.com/embed/S2pEw7qFv3A"
+    },
+    {
+      "id": "wearables",
+      "title": "Wearables & Garments",
+      "subtitle": "Cardigans, cozy sweaters, beanies & stylish tops",
+      "description": "<p>Learn <em>gauge swatching</em>, sizing measurements, ribbing elasticity, and drape control for <strong>comfortable, wearable crochet garments</strong>.</p><ul><li>Custom body measurements & sizing charts</li><li>Elastic ribbed cuffs and collared necklines</li><li>Blocking & invisible mattress stitch seaming</li></ul>",
+      "badge": "Trending",
+      "accent": "#6B8E7B",
+      "iconName": "Shirt",
+      "projectCount": 6,
+      "difficulty": "Beginner to Advanced",
+      "coverImage": "https://images.unsplash.com/photo-1608248597359-5613531b46a7?auto=format&fit=crop&w=800&q=80",
+      "images": [
+        "https://images.unsplash.com/photo-1608248597359-5613531b46a7?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1516762689617-e1cffcef479d?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1590736969955-71cc94801759?auto=format&fit=crop&w=800&q=80"
+      ],
+      "videoUrl": "https://www.youtube.com/embed/5D3n_Qj9bPk"
     }
   ],
   "courses": [
@@ -175,49 +175,49 @@
       ],
       "steps": [
         {
-          "stepNumber": 1,
           "title": "Starting the Body (Yellow Yarn)",
-          "timestamp": "01:10",
-          "stitchFormula": "Round 1: 6 SC in MR [6] | Round 2: INC in each st around [12]",
-          "instruction": "Begin with a magic ring using yellow yarn. Work 6 single crochets into the loop, then pull the tail gently to seal the hole. On Round 2, make 2 single crochets into every stitch to expand to 12 stitches.",
           "proTip": "Use a stitch marker in the last stitch of each round so you never lose your place when crocheting in spirals.",
-          "diagram": "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=600&q=80"
+          "diagram": "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=600&q=80",
+          "timestamp": "01:10",
+          "stepNumber": 1,
+          "instruction": "Begin with a magic ring using yellow yarn. Work 6 single crochets into the loop, then pull the tail gently to seal the hole. On Round 2, make 2 single crochets into every stitch to expand to 12 stitches.",
+          "stitchFormula": "Round 1: 6 SC in MR [6] | Round 2: INC in each st around [12]"
         },
         {
-          "stepNumber": 2,
           "title": "Expanding the Sphere & Color Alternation",
-          "timestamp": "05:40",
-          "stitchFormula": "R3: (1 SC, INC) x6 [18] | R4: (2 SC, INC) x6 [24] | R5: SC around in Yellow [24]",
-          "instruction": "Expand the diameter gradually until you reach 24 stitches. On Round 6, switch to black yarn on the last yarn-over of stitch 24 for a clean color transition without steps.",
           "proTip": "Carry unused yarn gently inside the body without pulling too tightly to prevent puckering.",
-          "diagram": "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=600&q=80"
+          "diagram": "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=600&q=80",
+          "timestamp": "05:40",
+          "stepNumber": 2,
+          "instruction": "Expand the diameter gradually until you reach 24 stitches. On Round 6, switch to black yarn on the last yarn-over of stitch 24 for a clean color transition without steps.",
+          "stitchFormula": "R3: (1 SC, INC) x6 [18] | R4: (2 SC, INC) x6 [24] | R5: SC around in Yellow [24]"
         },
         {
-          "stepNumber": 3,
           "title": "Black Stripes & Inserting Safety Eyes",
-          "timestamp": "12:15",
-          "stitchFormula": "R6-R7: Black SC around [24] | R8-R9: Yellow SC around [24] | R10: Black SC around [24]",
-          "instruction": "Work alternating two-round stripes. Before beginning the closing decreases, insert 8mm safety eyes between rounds 7 and 8, spaced approximately 5 stitches apart. Secure firmly with backing washers.",
           "proTip": "Embroider a sweet smile with black embroidery floss before stuffing the body firmly with fiberfill.",
-          "diagram": "https://images.unsplash.com/photo-1590736969955-71cc94801759?auto=format&fit=crop&w=600&q=80"
+          "diagram": "https://images.unsplash.com/photo-1590736969955-71cc94801759?auto=format&fit=crop&w=600&q=80",
+          "timestamp": "12:15",
+          "stepNumber": 3,
+          "instruction": "Work alternating two-round stripes. Before beginning the closing decreases, insert 8mm safety eyes between rounds 7 and 8, spaced approximately 5 stitches apart. Secure firmly with backing washers.",
+          "stitchFormula": "R6-R7: Black SC around [24] | R8-R9: Yellow SC around [24] | R10: Black SC around [24]"
         },
         {
-          "stepNumber": 4,
           "title": "Closing Decreases & Stuffing",
-          "timestamp": "18:30",
-          "stitchFormula": "R11: (2 SC, DEC) x6 [18] | R12: (1 SC, DEC) x6 [12] | R13: DEC x6 [6]",
-          "instruction": "Firmly stuff the body with fiberfill stuffing, shaping it into an oval. Work invisible decreases around. Cut yarn leaving an 8-inch tail, weave through the front loops of the final 6 stitches and cinch closed.",
           "proTip": "Use the 'invisible decrease' method (hooking under front loops only) so no holes or stuffing poke out.",
-          "diagram": "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=600&q=80"
+          "diagram": "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=600&q=80",
+          "timestamp": "18:30",
+          "stepNumber": 4,
+          "instruction": "Firmly stuff the body with fiberfill stuffing, shaping it into an oval. Work invisible decreases around. Cut yarn leaving an 8-inch tail, weave through the front loops of the final 6 stitches and cinch closed.",
+          "stitchFormula": "R11: (2 SC, DEC) x6 [18] | R12: (1 SC, DEC) x6 [12] | R13: DEC x6 [6]"
         },
         {
-          "stepNumber": 5,
           "title": "Crafting & Attaching the Wings",
-          "timestamp": "24:00",
-          "stitchFormula": "Make 2: In White, MR: CH 2, 2 DC, 2 HDC, 2 SC, CH 2, SL ST into ring. Pull tight.",
-          "instruction": "Create two delicate teardrop wings in pure white. Sew securely onto the upper back between rounds 6 and 9 with whip stitches.",
           "proTip": "Weave tails deeply inside the plushie so your bee is child-safe and durable.",
-          "diagram": "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=600&q=80"
+          "diagram": "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=600&q=80",
+          "timestamp": "24:00",
+          "stepNumber": 5,
+          "instruction": "Create two delicate teardrop wings in pure white. Sew securely onto the upper back between rounds 6 and 9 with whip stitches.",
+          "stitchFormula": "Make 2: In White, MR: CH 2, 2 DC, 2 HDC, 2 SC, CH 2, SL ST into ring. Pull tight."
         }
       ]
     },
@@ -267,110 +267,98 @@
       ],
       "steps": [
         {
-          "stepNumber": 1,
           "title": "Center Seed Puff (Brown Yarn)",
-          "timestamp": "00:45",
-          "stitchFormula": "R1: MR, CH 1, 8 Puff stitches with CH 1 space between each. [8 puffs]",
-          "instruction": "Work into the magic ring to form a rich textured seed center with 8 fluffy puff stitches.",
           "proTip": "Keep yarn loops pulled to a uniform 1/2 inch height before finishing each puff stitch.",
-          "diagram": "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=600&q=80"
+          "diagram": "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=600&q=80",
+          "timestamp": "00:45",
+          "stepNumber": 1,
+          "instruction": "Work into the magic ring to form a rich textured seed center with 8 fluffy puff stitches.",
+          "stitchFormula": "R1: MR, CH 1, 8 Puff stitches with CH 1 space between each. [8 puffs]"
         },
         {
-          "stepNumber": 2,
           "title": "Vibrant Yellow Petals (Mustard Yellow)",
-          "timestamp": "08:20",
-          "stitchFormula": "R2: In each CH 1 space, work 4-DC cluster petals separated by CH 2. [16 petals]",
-          "instruction": "Attach vibrant mustard yarn into any chain space. Work 2 cluster petals into each space to double petal count to 16.",
           "proTip": "Pull cluster loops firmly at the crown for pointed, organic sunflower petals.",
-          "diagram": "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=600&q=80"
+          "diagram": "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=600&q=80",
+          "timestamp": "08:20",
+          "stepNumber": 2,
+          "instruction": "Attach vibrant mustard yarn into any chain space. Work 2 cluster petals into each space to double petal count to 16.",
+          "stitchFormula": "R2: In each CH 1 space, work 4-DC cluster petals separated by CH 2. [16 petals]"
         },
         {
-          "stepNumber": 3,
           "title": "Squaring the Circle (Cream/Oatmeal Yarn)",
-          "timestamp": "16:40",
-          "stitchFormula": "R3: Corners: (3 TR, CH 2, 3 TR) | Sides: 3 DC, 3 HDC, 3 DC in successive spaces.",
-          "instruction": "Transform the round flower into a crisp square motif by distributing treble crochet corners and shorter half-double stitches along the sides.",
           "proTip": "Double check you have exactly four 90-degree corners spaced evenly.",
-          "diagram": "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=600&q=80"
+          "diagram": "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=600&q=80",
+          "timestamp": "16:40",
+          "stepNumber": 3,
+          "instruction": "Transform the round flower into a crisp square motif by distributing treble crochet corners and shorter half-double stitches along the sides.",
+          "stitchFormula": "R3: Corners: (3 TR, CH 2, 3 TR) | Sides: 3 DC, 3 HDC, 3 DC in successive spaces."
         },
         {
-          "stepNumber": 4,
           "title": "Blocking & Invisible Seaming",
-          "timestamp": "28:10",
-          "stitchFormula": "Make 13 squares total. Steam block each square to 5x5 inches. Join using Mattress stitch.",
-          "instruction": "Pin out squares on a blocking board and lightly steam to relax fibers. Arrange in 3x3 layout with gusset and join seamlessly.",
           "proTip": "Blocking elevates handmade crochet to boutique-grade luxury.",
-          "diagram": "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=600&q=80"
+          "diagram": "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=600&q=80",
+          "timestamp": "28:10",
+          "stepNumber": 4,
+          "instruction": "Pin out squares on a blocking board and lightly steam to relax fibers. Arrange in 3x3 layout with gusset and join seamlessly.",
+          "stitchFormula": "Make 13 squares total. Steam block each square to 5x5 inches. Join using Mattress stitch."
         }
       ]
     },
     {
-      "id": "wearable-cozy-cardigan",
-      "title": "Cozy Ribbed Hexagon Cardigan",
-      "categoryId": "wearables",
-      "level": "Intermediate",
-      "duration": "1h 15m",
-      "rating": 4.8,
-      "reviewsCount": 289,
-      "package": "Master",
-      "summary": "Construct an effortlessly stylish, oversized drape cardigan using two folded crochet hexagons with plush ribbed cuffs and neckline.",
-      "coverImage": "https://images.unsplash.com/photo-1608248597359-5613531b46a7?auto=format&fit=crop&w=800&q=80",
-      "videoUrl": "https://www.youtube.com/embed/5D3n_Qj9bPk",
+      "id": "home-boho-plant-hanger",
+      "title": "Boho Macramé-Look Crochet Plant Hanger",
+      "categoryId": "home-decor",
+      "level": "Beginner",
+      "duration": "40 mins",
+      "rating": 4.85,
+      "reviewsCount": 194,
+      "package": "Starter",
+      "summary": "Craft sturdy hanging baskets for succulents and indoor plants using durable cotton rope and decorative open mesh stitches.",
+      "coverImage": "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=800&q=80",
+      "videoUrl": "https://www.youtube.com/embed/6iW_iNf16bU",
       "materials": [
-        "DK or Worsted Acrylic/Wool blend (approx. 700g - 900g based on size XS-3XL)",
-        "5.0mm (H/8) and 4.0mm (for ribbing) hooks",
-        "Tape measure & locking stitch markers"
+        "100% Recycled Cotton Cord or 24-ply twine (150 yards)",
+        "6.0mm (J/10) Hook",
+        "2-inch natural wooden hanging ring",
+        "Flower pot (4\" to 6\" diameter for sizing)"
       ],
       "abbreviations": [
         {
-          "code": "GRN-CORNER",
-          "meaning": "(3 DC, CH 2, 3 DC) in same space"
+          "code": "CH-SP",
+          "meaning": "Chain Space"
         },
         {
-          "code": "FPDC",
-          "meaning": "Front Post Double Crochet (Ribbing)"
-        },
-        {
-          "code": "BPDC",
-          "meaning": "Back Post Double Crochet (Ribbing)"
+          "code": "MESH",
+          "meaning": "DC + CH 3 + DC mesh network"
         }
       ],
       "steps": [
         {
+          "title": "Solid Bottom Base Disc",
+          "proTip": "HDC provides a firm, sturdy platform that supports potted plant weight.",
+          "diagram": "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=600&q=80",
+          "timestamp": "01:00",
           "stepNumber": 1,
-          "title": "Laying the First Hexagon Foundation",
-          "timestamp": "02:15",
-          "stitchFormula": "R1: MR, CH 3, (2 DC, CH 2) x5, 2 DC, CH 1, SL ST. [6 distinct corners]",
-          "instruction": "Form a flat 6-sided hexagon. As rounds grow, the shape will naturally ruffle, ready to fold in half into an L-shaped sleeve and torso.",
-          "proTip": "Count 3-DC clusters on each side every 3 rounds to guarantee symmetrical garment panels.",
-          "diagram": "https://images.unsplash.com/photo-1608248597359-5613531b46a7?auto=format&fit=crop&w=600&q=80"
+          "instruction": "Crochet a flat circle matching the bottom base diameter of your plant pot.",
+          "stitchFormula": "R1: 8 HDC in MR | R2: 2 HDC in each [16] | R3: (1 HDC, INC) around [24]"
         },
         {
+          "title": "Building the Diamond Mesh Basket Wall",
+          "proTip": "Slip the pot in periodically to test fit tension.",
+          "diagram": "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=600&q=80",
+          "timestamp": "12:30",
           "stepNumber": 2,
-          "title": "Sizing Up & Folding into Sleeves",
-          "timestamp": "18:40",
-          "stitchFormula": "Continue rounds until the side measurement matches your upper sleeve circumference.",
-          "instruction": "Fold each hexagon in half to form an 'L'. Mirror for right and left halves of the cardigan.",
-          "proTip": "Try on the sleeves over your clothes before seaming the back and shoulder seams.",
-          "diagram": "https://images.unsplash.com/photo-1608248597359-5613531b46a7?auto=format&fit=crop&w=600&q=80"
+          "instruction": "Work airy diamond mesh rounds upward to hug the tapered slope of the ceramic pot.",
+          "stitchFormula": "CH 4, skip 2 sts, SC into next st around to create flexible cradle."
         },
         {
+          "title": "Four-Strand Suspension Cords & Wooden Ring Join",
+          "proTip": "Hang on a door handle while tying to ensure all four suspension arms are identical length.",
+          "diagram": "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=600&q=80",
+          "timestamp": "24:00",
           "stepNumber": 3,
-          "title": "Seaming Back & Adding Length",
-          "timestamp": "32:10",
-          "stitchFormula": "Join back with Slip Stitch seam or Mattress stitch; work bottom hem in back-and-forth rows.",
-          "instruction": "Join the two halves along the spine. Add extra rows across the lower hem to reach your desired length.",
-          "proTip": "Use stitch markers to hold the pieces aligned while seaming.",
-          "diagram": "https://images.unsplash.com/photo-1608248597359-5613531b46a7?auto=format&fit=crop&w=600&q=80"
-        },
-        {
-          "stepNumber": 4,
-          "title": "Elasticized Ribbed Cuffs & Collar Band",
-          "timestamp": "48:00",
-          "stitchFormula": "Switch to 4.0mm hook: Alternate FPDC and BPDC around neckline and wrists.",
-          "instruction": "Create a tailored elastic cuff and shawl collar using post stitches.",
-          "proTip": "Post stitches draw in the fabric naturally without any elastic thread needed.",
-          "diagram": "https://images.unsplash.com/photo-1608248597359-5613531b46a7?auto=format&fit=crop&w=600&q=80"
+          "instruction": "Attach the 4 suspension cords evenly spaced to the wooden ceiling ring.",
+          "stitchFormula": "Divide top rim into 4 quadrants. Chain 60 for each arm. Join to wooden ring with sturdy slip stitches."
         }
       ]
     },
@@ -407,139 +395,115 @@
       ],
       "steps": [
         {
-          "stepNumber": 1,
           "title": "The 2-Finger Crossed Loop Technique",
-          "timestamp": "00:30",
-          "stitchFormula": "Wrap yarn across index and middle finger forming an 'X' on top.",
-          "instruction": "Hold yarn tail with thumb. Wrap working yarn over fingers and form an X. Slide hook under first strand and grab back strand.",
           "proTip": "Do not pull tight yet; maintain a relaxed circle.",
-          "diagram": "https://images.unsplash.com/photo-1516762689617-e1cffcef479d?auto=format&fit=crop&w=600&q=80"
+          "diagram": "https://images.unsplash.com/photo-1516762689617-e1cffcef479d?auto=format&fit=crop&w=600&q=80",
+          "timestamp": "00:30",
+          "stepNumber": 1,
+          "instruction": "Hold yarn tail with thumb. Wrap working yarn over fingers and form an X. Slide hook under first strand and grab back strand.",
+          "stitchFormula": "Wrap yarn across index and middle finger forming an 'X' on top."
         },
         {
-          "stepNumber": 2,
           "title": "Securing with Chain 1",
-          "timestamp": "03:15",
-          "stitchFormula": "Yarn over and pull through loop to anchor the ring.",
-          "instruction": "This initial chain does not count as a stitch, but secures your magic ring so it will not unravel.",
           "proTip": "Make sure you crochet over BOTH the loop and the yarn tail together.",
-          "diagram": "https://images.unsplash.com/photo-1516762689617-e1cffcef479d?auto=format&fit=crop&w=600&q=80"
+          "diagram": "https://images.unsplash.com/photo-1516762689617-e1cffcef479d?auto=format&fit=crop&w=600&q=80",
+          "timestamp": "03:15",
+          "stepNumber": 2,
+          "instruction": "This initial chain does not count as a stitch, but secures your magic ring so it will not unravel.",
+          "stitchFormula": "Yarn over and pull through loop to anchor the ring."
         },
         {
-          "stepNumber": 3,
           "title": "Working 6 Single Crochets into the Loop",
-          "timestamp": "06:00",
-          "stitchFormula": "Insert hook in ring, yarn over, pull up loop (2 loops on hook), yarn over, pull through both.",
-          "instruction": "Repeat 6 times. Count the 'V' shapes along the top rim to confirm exactly 6 stitches.",
           "proTip": "Count stitches before pulling the tail tight.",
-          "diagram": "https://images.unsplash.com/photo-1516762689617-e1cffcef479d?auto=format&fit=crop&w=600&q=80"
+          "diagram": "https://images.unsplash.com/photo-1516762689617-e1cffcef479d?auto=format&fit=crop&w=600&q=80",
+          "timestamp": "06:00",
+          "stepNumber": 3,
+          "instruction": "Repeat 6 times. Count the 'V' shapes along the top rim to confirm exactly 6 stitches.",
+          "stitchFormula": "Insert hook in ring, yarn over, pull up loop (2 loops on hook), yarn over, pull through both."
         },
         {
-          "stepNumber": 4,
           "title": "Cinching Tight with Zero Center Gap",
-          "timestamp": "10:15",
-          "stitchFormula": "Pull working tail firmly until center hole vanishes entirely.",
-          "instruction": "Firmly pull the loose tail. The center hole will close seamlessly without puckering.",
           "proTip": "Weave in the center tail in opposite directions with a needle so it never opens in the wash.",
-          "diagram": "https://images.unsplash.com/photo-1516762689617-e1cffcef479d?auto=format&fit=crop&w=600&q=80"
+          "diagram": "https://images.unsplash.com/photo-1516762689617-e1cffcef479d?auto=format&fit=crop&w=600&q=80",
+          "timestamp": "10:15",
+          "stepNumber": 4,
+          "instruction": "Firmly pull the loose tail. The center hole will close seamlessly without puckering.",
+          "stitchFormula": "Pull working tail firmly until center hole vanishes entirely."
         }
       ]
     },
     {
-      "id": "home-boho-plant-hanger",
-      "title": "Boho Macramé-Look Crochet Plant Hanger",
-      "categoryId": "home-decor",
-      "level": "Beginner",
-      "duration": "40 mins",
-      "rating": 4.85,
-      "reviewsCount": 194,
-      "package": "Starter",
-      "summary": "Craft sturdy hanging baskets for succulents and indoor plants using durable cotton rope and decorative open mesh stitches.",
-      "coverImage": "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=800&q=80",
-      "videoUrl": "https://www.youtube.com/embed/6iW_iNf16bU",
+      "id": "wearable-cozy-cardigan",
+      "title": "Cozy Ribbed Hexagon Cardigan",
+      "categoryId": "wearables",
+      "level": "Intermediate",
+      "duration": "1h 15m",
+      "rating": 4.8,
+      "reviewsCount": 289,
+      "package": "Master",
+      "summary": "Construct an effortlessly stylish, oversized drape cardigan using two folded crochet hexagons with plush ribbed cuffs and neckline.",
+      "coverImage": "https://images.unsplash.com/photo-1608248597359-5613531b46a7?auto=format&fit=crop&w=800&q=80",
+      "videoUrl": "https://www.youtube.com/embed/5D3n_Qj9bPk",
       "materials": [
-        "100% Recycled Cotton Cord or 24-ply twine (150 yards)",
-        "6.0mm (J/10) Hook",
-        "2-inch natural wooden hanging ring",
-        "Flower pot (4\" to 6\" diameter for sizing)"
+        "DK or Worsted Acrylic/Wool blend (approx. 700g - 900g based on size XS-3XL)",
+        "5.0mm (H/8) and 4.0mm (for ribbing) hooks",
+        "Tape measure & locking stitch markers"
       ],
       "abbreviations": [
         {
-          "code": "CH-SP",
-          "meaning": "Chain Space"
+          "code": "GRN-CORNER",
+          "meaning": "(3 DC, CH 2, 3 DC) in same space"
         },
         {
-          "code": "MESH",
-          "meaning": "DC + CH 3 + DC mesh network"
+          "code": "FPDC",
+          "meaning": "Front Post Double Crochet (Ribbing)"
+        },
+        {
+          "code": "BPDC",
+          "meaning": "Back Post Double Crochet (Ribbing)"
         }
       ],
       "steps": [
         {
+          "title": "Laying the First Hexagon Foundation",
+          "proTip": "Count 3-DC clusters on each side every 3 rounds to guarantee symmetrical garment panels.",
+          "diagram": "https://images.unsplash.com/photo-1608248597359-5613531b46a7?auto=format&fit=crop&w=600&q=80",
+          "timestamp": "02:15",
           "stepNumber": 1,
-          "title": "Solid Bottom Base Disc",
-          "timestamp": "01:00",
-          "stitchFormula": "R1: 8 HDC in MR | R2: 2 HDC in each [16] | R3: (1 HDC, INC) around [24]",
-          "instruction": "Crochet a flat circle matching the bottom base diameter of your plant pot.",
-          "proTip": "HDC provides a firm, sturdy platform that supports potted plant weight.",
-          "diagram": "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=600&q=80"
+          "instruction": "Form a flat 6-sided hexagon. As rounds grow, the shape will naturally ruffle, ready to fold in half into an L-shaped sleeve and torso.",
+          "stitchFormula": "R1: MR, CH 3, (2 DC, CH 2) x5, 2 DC, CH 1, SL ST. [6 distinct corners]"
         },
         {
+          "title": "Sizing Up & Folding into Sleeves",
+          "proTip": "Try on the sleeves over your clothes before seaming the back and shoulder seams.",
+          "diagram": "https://images.unsplash.com/photo-1608248597359-5613531b46a7?auto=format&fit=crop&w=600&q=80",
+          "timestamp": "18:40",
           "stepNumber": 2,
-          "title": "Building the Diamond Mesh Basket Wall",
-          "timestamp": "12:30",
-          "stitchFormula": "CH 4, skip 2 sts, SC into next st around to create flexible cradle.",
-          "instruction": "Work airy diamond mesh rounds upward to hug the tapered slope of the ceramic pot.",
-          "proTip": "Slip the pot in periodically to test fit tension.",
-          "diagram": "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=600&q=80"
+          "instruction": "Fold each hexagon in half to form an 'L'. Mirror for right and left halves of the cardigan.",
+          "stitchFormula": "Continue rounds until the side measurement matches your upper sleeve circumference."
         },
         {
+          "title": "Seaming Back & Adding Length",
+          "proTip": "Use stitch markers to hold the pieces aligned while seaming.",
+          "diagram": "https://images.unsplash.com/photo-1608248597359-5613531b46a7?auto=format&fit=crop&w=600&q=80",
+          "timestamp": "32:10",
           "stepNumber": 3,
-          "title": "Four-Strand Suspension Cords & Wooden Ring Join",
-          "timestamp": "24:00",
-          "stitchFormula": "Divide top rim into 4 quadrants. Chain 60 for each arm. Join to wooden ring with sturdy slip stitches.",
-          "instruction": "Attach the 4 suspension cords evenly spaced to the wooden ceiling ring.",
-          "proTip": "Hang on a door handle while tying to ensure all four suspension arms are identical length.",
-          "diagram": "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=600&q=80"
+          "instruction": "Join the two halves along the spine. Add extra rows across the lower hem to reach your desired length.",
+          "stitchFormula": "Join back with Slip Stitch seam or Mattress stitch; work bottom hem in back-and-forth rows."
+        },
+        {
+          "title": "Elasticized Ribbed Cuffs & Collar Band",
+          "proTip": "Post stitches draw in the fabric naturally without any elastic thread needed.",
+          "diagram": "https://images.unsplash.com/photo-1608248597359-5613531b46a7?auto=format&fit=crop&w=600&q=80",
+          "timestamp": "48:00",
+          "stepNumber": 4,
+          "instruction": "Create a tailored elastic cuff and shawl collar using post stitches.",
+          "stitchFormula": "Switch to 4.0mm hook: Alternate FPDC and BPDC around neckline and wrists."
         }
       ]
     }
   ],
   "packages": [
-    {
-      "id": "pkg-free",
-      "name": "Free Community Sampler",
-      "tagline": "Free Starter Access",
-      "price": 0,
-      "billing": "free forever",
-      "popular": false,
-      "color": "#8B6F8E",
-      "badge": "100% Free",
-      "features": [
-        "Access to Beginner Stitch Lab Foundations",
-        "Free Project Masterclasses (e.g. Chubby Honeybee)",
-        "Step-by-step Video Player with Timestamps",
-        "Downloadable Stitch Abbreviations Key",
-        "Practice MCQ Quiz Mode (No Card Required)"
-      ],
-      "includesCertification": false
-    },
-    {
-      "id": "pkg-starter",
-      "name": "Online Foundation Batch",
-      "tagline": "Learn Crochet from Anjali (Beginner Essentials)",
-      "price": 999,
-      "billing": "per month",
-      "popular": false,
-      "color": "#6B8E7B",
-      "features": [
-        "Access to Beginner Stitch Lab & Essentials",
-        "5 Step-by-Step Project Masterclasses (Bouquets & Keychains)",
-        "HD Video Tutorials with Timestamped Steps",
-        "Downloadable Stitch Guides & Pattern Sheets",
-        "Direct WhatsApp doubt support with Anjali Kumari"
-      ],
-      "includesCertification": false,
-      "badge": "Beginner Pick"
-    },
     {
       "id": "pkg-artisan",
       "name": "Comprehensive Studio Batch",
@@ -560,6 +524,24 @@
       "includesCertification": true
     },
     {
+      "id": "pkg-free",
+      "name": "Free Community Sampler",
+      "tagline": "Free Starter Access",
+      "price": 0,
+      "billing": "free forever",
+      "popular": false,
+      "color": "#8B6F8E",
+      "badge": "100% Free",
+      "features": [
+        "Access to Beginner Stitch Lab Foundations",
+        "Free Project Masterclasses (e.g. Chubby Honeybee)",
+        "Step-by-step Video Player with Timestamps",
+        "Downloadable Stitch Abbreviations Key",
+        "Practice MCQ Quiz Mode (No Card Required)"
+      ],
+      "includesCertification": false
+    },
+    {
       "id": "pkg-master",
       "name": "VIP Master Crafter & Certification",
       "tagline": "Complete Lifetime Mastery & Verified Credential",
@@ -577,6 +559,24 @@
         "Exclusive wholesale yarn discount (15% off at our yarn shop)"
       ],
       "includesCertification": true
+    },
+    {
+      "id": "pkg-starter",
+      "name": "Online Foundation Batch",
+      "tagline": "Learn Crochet from Anjali (Beginner Essentials)",
+      "price": 999,
+      "billing": "per month",
+      "popular": false,
+      "color": "#6B8E7B",
+      "badge": "Beginner Pick",
+      "features": [
+        "Access to Beginner Stitch Lab & Essentials",
+        "5 Step-by-Step Project Masterclasses (Bouquets & Keychains)",
+        "HD Video Tutorials with Timestamped Steps",
+        "Downloadable Stitch Guides & Pattern Sheets",
+        "Direct WhatsApp doubt support with Anjali Kumari"
+      ],
+      "includesCertification": false
     }
   ],
   "mcqQuestions": [
@@ -716,12 +716,332 @@
     "studentName": "Rekha  Patel",
     "studentEmail": "php4@nividaweb.com"
   },
+  "settings": {
+    "logo": "/logo.png",
+    "address": "2039, 12th Avenue, Gaur City 2, Greater Noida West, Uttar Pradesh 201009",
+    "favicon": "/favicon.ico",
+    "gstName": "GST (India)",
+    "gstRate": 5,
+    "tagline": "Handmade • Unique • With Love ♡",
+    "taxMode": "exclusive",
+    "enableGst": true,
+    "promoCode": "ANJALI10",
+    "companyName": "Tishaya Petal & Loop",
+    "contactEmail": "anjalicrochetknit@gmail.com",
+    "contactPhone": "+91 8882967692",
+    "currencyCode": "INR",
+    "supportHours": "Open Every Day: 10:00 AM – 9:00 PM IST",
+    "currencySymbol": "₹",
+    "whatsappNumber": "918882967692",
+    "defaultDiscount": 10,
+    "promoBannerText": "🌸 Anjali Crochet Knit ♡ Bouquets from ₹499 & Keychains from ₹40 · WhatsApp: +91 8882967692 · Pan-India Delivery!",
+    "showPromoBanner": true,
+    "currencyPosition": "prefix",
+    "freeShippingThreshold": 499
+  },
   "adminUser": {
     "email": "admin@petalloop.com",
     "password": "admin123",
     "name": "Artisan Director",
     "role": "Super Admin"
   },
+  "products": [
+    {
+      "id": "prod-baby-booties-set",
+      "title": "Cloud-Soft Baby Booties & Rattle Keepsake Set",
+      "subtitle": "",
+      "price": 299,
+      "originalPrice": 399,
+      "badge": "Baby Shower Gift",
+      "rating": 5,
+      "reviewsCount": 35,
+      "stock": 20,
+      "material": "",
+      "dimensions": "",
+      "leadTime": "",
+      "deliveryDays": "",
+      "care": "",
+      "categoryId": "amigurumi",
+      "images": [
+        "https://images.unsplash.com/photo-1516762689617-e1cffcef479d?auto=format&fit=crop&w=800&q=80"
+      ],
+      "inStock": true
+    },
+    {
+      "id": "prod-cherry-strawberry-charms",
+      "title": "Sweet Strawberry & Cherry Charm Pair",
+      "subtitle": "",
+      "price": 99,
+      "originalPrice": 149,
+      "badge": "Twin Set",
+      "rating": 5,
+      "reviewsCount": 51,
+      "stock": 45,
+      "material": "",
+      "dimensions": "",
+      "leadTime": "",
+      "deliveryDays": "",
+      "care": "",
+      "categoryId": "amigurumi",
+      "images": [
+        "https://images.unsplash.com/photo-1590736969955-71cc94801759?auto=format&fit=crop&w=800&q=80"
+      ],
+      "inStock": true
+    },
+    {
+      "id": "prod-chubby-amigurumi-bear",
+      "title": "Chubby Amigurumi Teddy Bear with Bow",
+      "subtitle": "",
+      "price": 249,
+      "originalPrice": 349,
+      "badge": "Handmade Plush",
+      "rating": 5,
+      "reviewsCount": 43,
+      "stock": 15,
+      "material": "",
+      "dimensions": "",
+      "leadTime": "",
+      "deliveryDays": "",
+      "care": "",
+      "categoryId": "amigurumi",
+      "images": [
+        "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=800&q=80"
+      ],
+      "inStock": true
+    },
+    {
+      "id": "prod-crochet-rose-bouquet",
+      "title": "Handcrafted Forever Rose & Lily Bouquet",
+      "subtitle": "",
+      "price": 699,
+      "originalPrice": 899,
+      "badge": "Bestseller Bouquet",
+      "rating": 5,
+      "reviewsCount": 64,
+      "stock": 25,
+      "material": "",
+      "dimensions": "",
+      "leadTime": "",
+      "deliveryDays": "",
+      "care": "",
+      "categoryId": "amigurumi",
+      "images": [
+        "https://images.unsplash.com/photo-1590736969955-71cc94801759?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=800&q=80"
+      ],
+      "inStock": true
+    },
+    {
+      "id": "prod-custom-wedding-hampers",
+      "title": "Custom Bulk Wedding & Return Gift Hamper",
+      "subtitle": "",
+      "price": 1299,
+      "originalPrice": 1599,
+      "badge": "Wholesale & Hampers",
+      "rating": 5,
+      "reviewsCount": 18,
+      "stock": 10,
+      "material": "",
+      "dimensions": "",
+      "leadTime": "",
+      "deliveryDays": "",
+      "care": "",
+      "categoryId": "amigurumi",
+      "images": [
+        "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=800&q=80"
+      ],
+      "inStock": true
+    },
+    {
+      "id": "prod-daisy-tote-bag",
+      "title": "Pastel Daisy Granny Square Shoulder Handbag",
+      "subtitle": "",
+      "price": 799,
+      "originalPrice": 999,
+      "badge": "Trending Style",
+      "rating": 4.8,
+      "reviewsCount": 29,
+      "stock": 12,
+      "material": "",
+      "dimensions": "",
+      "leadTime": "",
+      "deliveryDays": "",
+      "care": "",
+      "categoryId": "amigurumi",
+      "images": [
+        "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=800&q=80"
+      ],
+      "inStock": true
+    },
+    {
+      "id": "prod-ergonomic-hooks-kit",
+      "title": "Rosewood & Ergonomic Grip Crochet Hook Kit",
+      "subtitle": "",
+      "price": 449,
+      "originalPrice": 599,
+      "badge": "Master Tool",
+      "rating": 5,
+      "reviewsCount": 42,
+      "stock": 30,
+      "material": "",
+      "dimensions": "",
+      "leadTime": "",
+      "deliveryDays": "",
+      "care": "",
+      "categoryId": "amigurumi",
+      "images": [
+        "https://images.unsplash.com/photo-1516762689617-e1cffcef479d?auto=format&fit=crop&w=800&q=80"
+      ],
+      "inStock": true
+    },
+    {
+      "id": "prod-sunburst-plant-pot",
+      "title": "Handcrafted Potted Desk Succulent & Daisy",
+      "subtitle": "",
+      "price": 349,
+      "originalPrice": 450,
+      "badge": "Evergreen Décor",
+      "rating": 4.9,
+      "reviewsCount": 27,
+      "stock": 18,
+      "material": "",
+      "dimensions": "",
+      "leadTime": "",
+      "deliveryDays": "",
+      "care": "",
+      "categoryId": "amigurumi",
+      "images": [
+        "https://images.unsplash.com/photo-1608248597359-5613531b46a7?auto=format&fit=crop&w=800&q=80"
+      ],
+      "inStock": true
+    },
+    {
+      "id": "prod-sunflower-keychain",
+      "title": "Sunny Sunflower Crochet Keychain & Bag Clip",
+      "subtitle": "",
+      "price": 40,
+      "originalPrice": 60,
+      "badge": "Affordable Favorite",
+      "rating": 4.9,
+      "reviewsCount": 112,
+      "stock": 80,
+      "material": "",
+      "dimensions": "",
+      "leadTime": "",
+      "deliveryDays": "",
+      "care": "",
+      "categoryId": "amigurumi",
+      "images": [
+        "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=800&q=80"
+      ],
+      "inStock": true
+    },
+    {
+      "id": "prod-yarn-skein-pack",
+      "title": "Branded Wool & Yarn Skein Pack (4 Colors)",
+      "subtitle": "",
+      "price": 299,
+      "originalPrice": 380,
+      "badge": "Artisan Quality",
+      "rating": 4.9,
+      "reviewsCount": 76,
+      "stock": 50,
+      "material": "",
+      "dimensions": "",
+      "leadTime": "",
+      "deliveryDays": "",
+      "care": "",
+      "categoryId": "amigurumi",
+      "images": [
+        "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=800&q=80"
+      ],
+      "inStock": true
+    }
+  ],
+  "productOrders": [
+    {
+      "id": "ORD-529679",
+      "customerName": "Clara Miller",
+      "customerEmail": "clara@test.com",
+      "customerPhone": "",
+      "customerAddress": {},
+      "items": [
+        {
+          "id": "prod-honeybee-plush",
+          "image": "",
+          "price": 28,
+          "title": "Handcrafted Honeybee Amigurumi Plush",
+          "quantity": 1
+        }
+      ],
+      "itemsCount": 1,
+      "subtotal": 28,
+      "discount": 0,
+      "gst": 0,
+      "shipping": 5.99,
+      "total": 33.99,
+      "paymentMethod": "Credit Card",
+      "status": "Processing",
+      "date": "2026-10-15"
+    },
+    {
+      "id": "ORD-8821",
+      "customerName": "Sophia Martinez",
+      "customerEmail": "sophia.m@gmail.com",
+      "customerPhone": "+1 555-019-2831",
+      "customerAddress": {},
+      "items": [
+        {
+          "id": "prod-honeybee-plush",
+          "image": "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=800&q=80",
+          "price": 28,
+          "title": "Handcrafted Honeybee Amigurumi Plush",
+          "quantity": 2
+        }
+      ],
+      "itemsCount": 1,
+      "subtotal": 56,
+      "discount": 5.6,
+      "gst": 0,
+      "shipping": 0,
+      "total": 50.4,
+      "paymentMethod": "Credit Card (Visa ending 4242)",
+      "status": "Processing",
+      "date": "2026-10-13"
+    }
+  ],
+  "customOrders": [
+    {
+      "id": "CUST-3351",
+      "customerName": "Emma Watson",
+      "customerEmail": "emma@test.com",
+      "customerPhone": "555-4422",
+      "projectType": "",
+      "colorPalette": "Warm Honey & Terracotta",
+      "dimensions": "",
+      "deadline": "",
+      "budget": "",
+      "referenceUrl": "",
+      "notes": "",
+      "status": "Under Review",
+      "date": ""
+    },
+    {
+      "id": "CUST-701",
+      "customerName": "Chloe Davenport",
+      "customerEmail": "chloe.davenport@artsy.com",
+      "customerPhone": "+1 555-832-1944",
+      "projectType": "",
+      "colorPalette": "Golden Honey & Cream",
+      "dimensions": "",
+      "deadline": "",
+      "budget": "",
+      "referenceUrl": "",
+      "notes": "",
+      "status": "In Production",
+      "date": ""
+    }
+  ],
   "orders": [
     {
       "id": "ORD-5982",
@@ -774,375 +1094,6 @@
       "status": "Active"
     }
   ],
-  "examSubmissions": [
-    {
-      "id": "SUB-101",
-      "studentName": "Clara Vance",
-      "score": 90,
-      "passed": true,
-      "credentialId": "PETAL-CERT-94A1",
-      "date": "2026-10-11",
-      "honors": "Master Artisan with Highest Distinction"
-    },
-    {
-      "id": "SUB-102",
-      "studentName": "Elena Rostova",
-      "score": 100,
-      "passed": true,
-      "credentialId": "PETAL-CERT-94A2",
-      "date": "2026-10-11",
-      "honors": "Master Artisan with Highest Distinction"
-    },
-    {
-      "id": "SUB-103",
-      "studentName": "Noah Bennett",
-      "score": 70,
-      "passed": false,
-      "credentialId": null,
-      "date": "2026-10-12",
-      "honors": "Below 80% (Needs Retake)"
-    }
-  ],
-  "products": [
-    {
-      "id": "prod-crochet-rose-bouquet",
-      "title": "Handcrafted Forever Rose & Lily Bouquet",
-      "category": "Flowers & Bouquets",
-      "price": 699,
-      "originalPrice": 899,
-      "stock": 25,
-      "rating": 5,
-      "reviewsCount": 64,
-      "badge": "Bestseller Bouquet",
-      "coverImage": "https://images.unsplash.com/photo-1590736969955-71cc94801759?auto=format&fit=crop&w=800&q=80",
-      "images": [
-        "https://images.unsplash.com/photo-1590736969955-71cc94801759?auto=format&fit=crop&w=800&q=80",
-        "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=800&q=80"
-      ],
-      "description": "Exquisite hand-crocheted eternal bouquet of blooming red and blush roses, soft white lilies, and eucalyptus foliage. Wrapped in premium kraft Korean wrapping paper with satin bow. Never wilts, perfect for birthdays and anniversaries.",
-      "specs": {
-        "Material": "100% Milk Cotton & Wire Stems",
-        "Stems": "7 Stems (Roses, Lilies, Foliage)",
-        "Height": "14 inches",
-        "Care": "Gently dust with soft brush"
-      }
-    },
-    {
-      "id": "prod-sunflower-keychain",
-      "title": "Sunny Sunflower Crochet Keychain & Bag Clip",
-      "category": "Keychains & Clips",
-      "price": 40,
-      "originalPrice": 60,
-      "stock": 80,
-      "rating": 4.9,
-      "reviewsCount": 112,
-      "badge": "Affordable Favorite",
-      "coverImage": "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=800&q=80",
-      "images": [
-        "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=800&q=80"
-      ],
-      "description": "Delightful mini sunny sunflower with rich brown textured center and golden yellow petals. Comes with sturdy golden metal swivel keychain hook for backpacks, keys, and totes.",
-      "specs": {
-        "Diameter": "2.5 inches",
-        "Hardware": "Golden Zinc Alloy Swivel Clasp",
-        "Yarn": "Mercerized Soft Cotton"
-      }
-    },
-    {
-      "id": "prod-chubby-amigurumi-bear",
-      "title": "Chubby Amigurumi Teddy Bear with Bow",
-      "category": "Plushies & Amigurumi",
-      "price": 249,
-      "originalPrice": 349,
-      "stock": 15,
-      "rating": 5,
-      "reviewsCount": 43,
-      "badge": "Handmade Plush",
-      "coverImage": "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=800&q=80",
-      "images": [
-        "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=800&q=80"
-      ],
-      "description": "Irresistibly cuddly plush amigurumi bear crocheted in ultra-soft chenille yarn with safety eyes and matching necktie ribbon. 100% baby-safe and hypoallergenic.",
-      "specs": {
-        "Height": "7 inches",
-        "Filling": "Hypoallergenic Cloud Polyfill",
-        "Safety": "Anchored Safety Eyes & Nose"
-      }
-    },
-    {
-      "id": "prod-daisy-tote-bag",
-      "title": "Pastel Daisy Granny Square Shoulder Handbag",
-      "category": "Bags & Accessories",
-      "price": 799,
-      "originalPrice": 999,
-      "stock": 12,
-      "rating": 4.8,
-      "reviewsCount": 29,
-      "badge": "Trending Style",
-      "coverImage": "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=800&q=80",
-      "images": [
-        "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=800&q=80"
-      ],
-      "description": "Bohemian chic crochet tote bag made of 13 daisy motif granny squares. Features reinforced dual strap handles, canvas cotton interior lining, and magnetic snap button.",
-      "specs": {
-        "Dimensions": "13 x 14 inches",
-        "Strap Drop": "11 inches",
-        "Lining": "Internal Cotton Canvas with Pocket"
-      }
-    },
-    {
-      "id": "prod-baby-booties-set",
-      "title": "Cloud-Soft Baby Booties & Rattle Keepsake Set",
-      "category": "Baby & Kids",
-      "price": 299,
-      "originalPrice": 399,
-      "stock": 20,
-      "rating": 5,
-      "reviewsCount": 35,
-      "badge": "Baby Shower Gift",
-      "coverImage": "https://images.unsplash.com/photo-1516762689617-e1cffcef479d?auto=format&fit=crop&w=800&q=80",
-      "images": [
-        "https://images.unsplash.com/photo-1516762689617-e1cffcef479d?auto=format&fit=crop&w=800&q=80"
-      ],
-      "description": "Newborn gift box including 1 pair of snug pastel booties and a wooden teething ring bunny rattle. Ultra gentle on tender infant skin, breathable organic combed cotton.",
-      "specs": {
-        "Age": "0 to 6 Months",
-        "Ring": "Natural Smooth Beech Wood",
-        "Yarn": "100% Organic Combed Cotton"
-      }
-    },
-    {
-      "id": "prod-sunburst-plant-pot",
-      "title": "Handcrafted Potted Desk Succulent & Daisy",
-      "category": "Home Décor",
-      "price": 349,
-      "originalPrice": 450,
-      "stock": 18,
-      "rating": 4.9,
-      "reviewsCount": 27,
-      "badge": "Evergreen Décor",
-      "coverImage": "https://images.unsplash.com/photo-1608248597359-5613531b46a7?auto=format&fit=crop&w=800&q=80",
-      "images": [
-        "https://images.unsplash.com/photo-1608248597359-5613531b46a7?auto=format&fit=crop&w=800&q=80"
-      ],
-      "description": "Cute desk accessory featuring crocheted blooming succulent and daisy nestled in a ceramic style mini crochet pot. Zero watering required, stays fresh all year.",
-      "specs": {
-        "Dimensions": "5 x 3.5 inches",
-        "Base": "Weighted Stability Base",
-        "Yarn": "Vibrant Acrylic Cotton"
-      }
-    },
-    {
-      "id": "prod-cherry-strawberry-charms",
-      "title": "Sweet Strawberry & Cherry Charm Pair",
-      "category": "Keychains & Clips",
-      "price": 99,
-      "originalPrice": 149,
-      "stock": 45,
-      "rating": 5,
-      "reviewsCount": 51,
-      "badge": "Twin Set",
-      "coverImage": "https://images.unsplash.com/photo-1590736969955-71cc94801759?auto=format&fit=crop&w=800&q=80",
-      "images": [
-        "https://images.unsplash.com/photo-1590736969955-71cc94801759?auto=format&fit=crop&w=800&q=80"
-      ],
-      "description": "Two fruit charms with leafy green stems and glossy beads. Ideal for attaching to car rear-view mirrors, tote zippers, or gifting to a best friend.",
-      "specs": {
-        "Quantity": "2 Pieces (1 Strawberry + 1 Cherry Pair)",
-        "Length": "4.5 inches"
-      }
-    },
-    {
-      "id": "prod-yarn-skein-pack",
-      "title": "Branded Wool & Yarn Skein Pack (4 Colors)",
-      "category": "Wool & Yarn",
-      "price": 299,
-      "originalPrice": 380,
-      "stock": 50,
-      "rating": 4.9,
-      "reviewsCount": 76,
-      "badge": "Artisan Quality",
-      "coverImage": "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=800&q=80",
-      "images": [
-        "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=800&q=80"
-      ],
-      "description": "Premium Vardhman & Ganga 4-ply soft yarn skeins. Smooth twist, anti-pilling, excellent stitch definition for flowers, amigurumi, and sweaters. 50g each.",
-      "specs": {
-        "Weight": "DK 4-Ply",
-        "Weight per Skein": "50g x 4 = 200g Total",
-        "Recommended Hook": "3.0mm – 4.5mm"
-      }
-    },
-    {
-      "id": "prod-ergonomic-hooks-kit",
-      "title": "Rosewood & Ergonomic Grip Crochet Hook Kit",
-      "category": "Tools & Kits",
-      "price": 449,
-      "originalPrice": 599,
-      "stock": 30,
-      "rating": 5,
-      "reviewsCount": 42,
-      "badge": "Master Tool",
-      "coverImage": "https://images.unsplash.com/photo-1516762689617-e1cffcef479d?auto=format&fit=crop&w=800&q=80",
-      "images": [
-        "https://images.unsplash.com/photo-1516762689617-e1cffcef479d?auto=format&fit=crop&w=800&q=80"
-      ],
-      "description": "Comprehensive crochet toolkit containing 8 comfort-grip aluminium hooks (2.0mm to 6.0mm), 10 stitch markers, yarn needles, measuring tape, and roll-up pouch.",
-      "specs": {
-        "Sizes": "2.0mm, 2.5mm, 3.0mm, 3.5mm, 4.0mm, 4.5mm, 5.0mm, 6.0mm",
-        "Includes": "10 Locking Markers, 3 Tapestry Needles, Roll-up Pouch"
-      }
-    },
-    {
-      "id": "prod-custom-wedding-hampers",
-      "title": "Custom Bulk Wedding & Return Gift Hamper",
-      "category": "Custom & Wholesale",
-      "price": 1299,
-      "originalPrice": 1599,
-      "stock": 10,
-      "rating": 5,
-      "reviewsCount": 18,
-      "badge": "Wholesale & Hampers",
-      "coverImage": "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=800&q=80",
-      "images": [
-        "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=800&q=80"
-      ],
-      "description": "Luxurious handcrafted gift hamper consisting of 1 eternal floral bouquet, 2 custom keychains, scented candle, and personalized calligraphy note in a reusable pinewood basket. Wholesale bulk inquiries welcome on WhatsApp.",
-      "specs": {
-        "Hamper Contents": "Bouquet + 2 Keychains + Candle + Gift Box",
-        "Bulk MOQ": "5+ sets qualify for 20% discount",
-        "WhatsApp Quote": "+91 8882967692"
-      }
-    }
-  ],
-  "productOrders": [
-    {
-      "id": "ORD-529679",
-      "customerName": "Clara Miller",
-      "customerEmail": "clara@test.com",
-      "customerPhone": "",
-      "shippingAddress": {},
-      "items": [
-        {
-          "id": "prod-honeybee-plush",
-          "title": "Handcrafted Honeybee Amigurumi Plush",
-          "price": 28,
-          "quantity": 1,
-          "image": ""
-        }
-      ],
-      "subtotal": 28,
-      "shipping": 5.99,
-      "discount": 0,
-      "total": 33.99,
-      "paymentMethod": "Credit Card",
-      "paymentStatus": "Paid",
-      "fulfillmentStatus": "Processing",
-      "trackingNumber": "PTL-663095-US",
-      "date": "2026-10-15"
-    },
-    {
-      "id": "ORD-8821",
-      "customerName": "Sophia Martinez",
-      "customerEmail": "sophia.m@gmail.com",
-      "customerPhone": "+1 555-019-2831",
-      "shippingAddress": {
-        "address": "742 Evergreen Terrace",
-        "city": "Springfield",
-        "state": "OR",
-        "zip": "97477",
-        "country": "United States"
-      },
-      "items": [
-        {
-          "id": "prod-honeybee-plush",
-          "title": "Handcrafted Honeybee Amigurumi Plush",
-          "price": 28,
-          "quantity": 2,
-          "image": "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=800&q=80"
-        }
-      ],
-      "subtotal": 56,
-      "shipping": 0,
-      "discount": 5.6,
-      "total": 50.4,
-      "paymentMethod": "Credit Card (Visa ending 4242)",
-      "paymentStatus": "Paid",
-      "fulfillmentStatus": "Shipped",
-      "trackingNumber": "PTL-998240-US",
-      "date": "2026-10-13"
-    }
-  ],
-  "customOrders": [
-    {
-      "id": "CUST-3351",
-      "customerName": "Emma Watson",
-      "customerEmail": "emma@test.com",
-      "customerPhone": "555-4422",
-      "itemType": "Amigurumi Plush",
-      "title": "Calico Cat with Bell Collar",
-      "yarnPreference": "Chenille Velvet",
-      "colorPalette": "Warm Honey & Terracotta",
-      "customMeasurements": "10 inches tall sitting",
-      "personalizationText": "Milo",
-      "referenceImage": "",
-      "specialNotes": "Fluffy tail and soft pink nose",
-      "targetDate": "",
-      "urgency": "Standard Crafting (2 weeks)",
-      "estimatedQuote": 50,
-      "depositPaid": 1,
-      "paymentMethod": "Card",
-      "paymentStatus": "Deposit Paid (50%)",
-      "status": "Under Review",
-      "artisanNotes": "Received custom request. Master artisan assigned to review pattern & yarn gauge.",
-      "createdAt": "2026-10-15"
-    },
-    {
-      "id": "CUST-701",
-      "customerName": "Chloe Davenport",
-      "customerEmail": "chloe.davenport@artsy.com",
-      "customerPhone": "+1 555-832-1944",
-      "itemType": "Custom Amigurumi (Pet Portrait)",
-      "title": "Golden Retriever Puppy Amigurumi",
-      "yarnPreference": "Chunky Chenille Velvet",
-      "colorPalette": "Golden Honey & Cream",
-      "customMeasurements": "Height: 9 inches, Sitting pose",
-      "personalizationText": "Embroidered collar tag with 'Milo' & bell",
-      "referenceImage": "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=800&q=80",
-      "specialNotes": "Floppy ears, white chest patch, extra soft stuffing for child gift.",
-      "targetDate": "2026-10-28",
-      "urgency": "Standard Crafting (2 weeks)",
-      "estimatedQuote": 65,
-      "depositPaid": 32.5,
-      "paymentStatus": "Deposit Paid (50%)",
-      "status": "In Production",
-      "artisanNotes": "Body foundation completed, currently crafting paws and embroidered name tag.",
-      "createdAt": "2026-10-14"
-    }
-  ],
-  "settings": {
-    "companyName": "Tishaya Petal & Loop",
-    "tagline": "Handmade • Unique • With Love ♡",
-    "contactPhone": "+91 8882967692",
-    "whatsappNumber": "918882967692",
-    "contactEmail": "anjalicrochetknit@gmail.com",
-    "address": "2039, 12th Avenue, Gaur City 2, Greater Noida West, Uttar Pradesh 201009",
-    "logo": "/logo.png",
-    "favicon": "/favicon.ico",
-    "currencySymbol": "₹",
-    "currencyCode": "INR",
-    "currencyPosition": "prefix",
-    "gstRate": 5,
-    "gstName": "GST (India)",
-    "enableGst": true,
-    "taxMode": "exclusive",
-    "defaultDiscount": 10,
-    "promoCode": "ANJALI10",
-    "promoBannerText": "🌸 Anjali Crochet Knit ♡ Bouquets from ₹499 & Keychains from ₹40 · WhatsApp: +91 8882967692 · Pan-India Delivery!",
-    "showPromoBanner": true,
-    "freeShippingThreshold": 499,
-    "supportHours": "Open Every Day: 10:00 AM – 9:00 PM IST"
-  },
   "heroSlides": [
     {
       "id": "slide-1",
@@ -1203,6 +1154,35 @@
       "btnSecondaryText": "Explore Handcrafted Shop",
       "btnSecondaryAction": "shop",
       "active": true
+    }
+  ],
+  "examSubmissions": [
+    {
+      "id": "SUB-101",
+      "studentName": "Clara Vance",
+      "score": 90,
+      "passed": true,
+      "credentialId": "PETAL-CERT-94A1",
+      "date": "2026-10-11",
+      "honors": "Master Artisan with Highest Distinction"
+    },
+    {
+      "id": "SUB-102",
+      "studentName": "Elena Rostova",
+      "score": 100,
+      "passed": true,
+      "credentialId": "PETAL-CERT-94A2",
+      "date": "2026-10-11",
+      "honors": "Master Artisan with Highest Distinction"
+    },
+    {
+      "id": "SUB-103",
+      "studentName": "Noah Bennett",
+      "score": 70,
+      "passed": false,
+      "credentialId": null,
+      "date": "2026-10-12",
+      "honors": "Below 80% (Needs Retake)"
     }
   ]
 }

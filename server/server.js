@@ -3,6 +3,23 @@ import cors from 'cors';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import dotenv from 'dotenv';
+import { isMySQLConnected } from './db.js';
+import { 
+  loadDataFromMySQL, 
+  syncSettingsToMySQL, 
+  syncProductToMySQL, 
+  deleteProductFromMySQL, 
+  syncProductOrderToMySQL, 
+  syncCustomOrderToMySQL, 
+  syncSlideToMySQL, 
+  deleteSlideFromMySQL, 
+  syncAllSlidesToMySQL, 
+  syncEnrollmentsToMySQL, 
+  syncExamSubmissionToMySQL 
+} from './mysql-service.js';
+
+dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -614,27 +631,66 @@ const INITIAL_DATA = {
   }
 };
 
-// Helper: load DB
-function loadDB() {
+// Runtime memory database synced with MySQL & persistent JSON
+let cachedDB = null;
+
+async function initDatabase() {
+  if (isMySQLConnected) {
+    try {
+      const mysqlData = await loadDataFromMySQL();
+      if (mysqlData && Object.keys(mysqlData).length > 0) {
+        cachedDB = {
+          ...INITIAL_DATA,
+          ...mysqlData
+        };
+        try {
+          fs.writeFileSync(DB_FILE, JSON.stringify(cachedDB, null, 2));
+        } catch (e) {}
+        console.log('🐬 [MySQL] Initial data successfully loaded from MySQL database `crochet_academy`');
+        return;
+      }
+    } catch (e) {
+      console.warn('⚠️ [MySQL] Error initializing from MySQL, using JSON fallback:', e.message);
+    }
+  }
+  cachedDB = loadFromJSONFile();
+}
+
+function loadFromJSONFile() {
   try {
     if (!fs.existsSync(DB_FILE)) {
       fs.writeFileSync(DB_FILE, JSON.stringify(INITIAL_DATA, null, 2));
-      return INITIAL_DATA;
+      return JSON.parse(JSON.stringify(INITIAL_DATA));
     }
     const raw = fs.readFileSync(DB_FILE, 'utf-8');
     return JSON.parse(raw);
   } catch (err) {
-    console.error("Error reading database:", err);
-    return INITIAL_DATA;
+    console.error("Error reading database file:", err);
+    return JSON.parse(JSON.stringify(INITIAL_DATA));
   }
 }
 
-// Helper: save DB
+// Helper: load DB
+function loadDB() {
+  if (!cachedDB) {
+    cachedDB = loadFromJSONFile();
+  }
+  return cachedDB;
+}
+
+// Helper: save DB (writes to memory, JSON file, and triggers background MySQL sync)
 function saveDB(data) {
+  cachedDB = data;
   try {
     fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2));
   } catch (err) {
-    console.error("Error writing database:", err);
+    console.error("Error writing database file:", err);
+  }
+  
+  if (isMySQLConnected) {
+    // Keep MySQL synchronized in background
+    if (data.settings) syncSettingsToMySQL(data.settings);
+    if (data.userEnrollments) syncEnrollmentsToMySQL(data.userEnrollments);
   }
 }
 
@@ -963,6 +1019,12 @@ app.post('/api/orders', (req, res) => {
 
   db.productOrders.unshift(newOrder);
   saveDB(db);
+  syncProductOrderToMySQL(newOrder);
+  // Also sync updated stock of items
+  items.forEach(item => {
+    const p = db.products.find(prod => prod.id === item.id);
+    if (p) syncProductToMySQL(p);
+  });
 
   res.json({
     success: true,
@@ -1043,6 +1105,7 @@ app.post('/api/custom-orders', (req, res) => {
 
   db.customOrders.unshift(newCustomOrder);
   saveDB(db);
+  syncCustomOrderToMySQL(newCustomOrder);
 
   res.json({
     success: true,
@@ -1635,6 +1698,7 @@ app.put('/api/admin/settings', (req, res) => {
 
   db.settings = updated;
   saveDB(db);
+  syncSettingsToMySQL(updated);
   res.json({ success: true, message: "Settings saved successfully!", data: updated });
 });
 
@@ -1658,6 +1722,7 @@ app.post('/api/admin/products', (req, res) => {
   };
   db.products.unshift(newProduct);
   saveDB(db);
+  syncProductToMySQL(newProduct);
   res.json({ success: true, message: "Product created successfully!", data: newProduct });
 });
 
@@ -1675,6 +1740,7 @@ app.put('/api/admin/products/:id', (req, res) => {
     stock: req.body.stock !== undefined ? Number(req.body.stock) : db.products[index].stock
   };
   saveDB(db);
+  syncProductToMySQL(db.products[index]);
   res.json({ success: true, message: "Product updated successfully!", data: db.products[index] });
 });
 
@@ -1687,6 +1753,7 @@ app.delete('/api/admin/products/:id', (req, res) => {
   }
   db.products.splice(index, 1);
   saveDB(db);
+  deleteProductFromMySQL(id);
   res.json({ success: true, message: "Product deleted successfully." });
 });
 
@@ -1716,6 +1783,7 @@ app.post('/api/admin/slides', (req, res) => {
   };
   db.heroSlides.push(newSlide);
   saveDB(db);
+  syncSlideToMySQL(newSlide, db.heroSlides.length - 1);
   res.json({ success: true, message: "Home slide added successfully!", data: newSlide });
 });
 
@@ -1731,6 +1799,7 @@ app.put('/api/admin/slides/:id', (req, res) => {
     ...req.body
   };
   saveDB(db);
+  syncSlideToMySQL(db.heroSlides[index], index);
   res.json({ success: true, message: "Slide updated successfully!", data: db.heroSlides[index] });
 });
 
@@ -1743,6 +1812,7 @@ app.delete('/api/admin/slides/:id', (req, res) => {
   }
   db.heroSlides.splice(index, 1);
   saveDB(db);
+  deleteSlideFromMySQL(id);
   res.json({ success: true, message: "Slide removed successfully." });
 });
 
@@ -1751,17 +1821,41 @@ app.put('/api/admin/slides', (req, res) => {
   if (Array.isArray(req.body.slides)) {
     db.heroSlides = req.body.slides;
     saveDB(db);
+    syncAllSlidesToMySQL(db.heroSlides);
     res.json({ success: true, message: "Slides reordered successfully!", data: db.heroSlides });
   } else {
     res.status(400).json({ success: false, message: "Invalid slides array." });
   }
 });
 
-// Health check
-app.get('/api/health', (req, res) => {
-  res.json({ status: "ok", timestamp: new Date().toISOString() });
+// Database Status endpoint
+app.get('/api/db-status', (req, res) => {
+  res.json({
+    success: true,
+    engine: isMySQLConnected ? 'MySQL 8.0 (Laragon)' : 'JSON Flat File',
+    database: isMySQLConnected ? (process.env.DB_NAME || 'crochet_academy') : 'database.json',
+    host: isMySQLConnected ? `${process.env.DB_HOST || 'localhost'}:${process.env.DB_PORT || 3306}` : 'Local Filesystem',
+    connected: isMySQLConnected,
+    tables: [
+      "settings", "admin_users", "categories", "courses", "packages",
+      "mcq_questions", "products", "product_orders", "custom_orders",
+      "orders", "hero_slides", "exam_submissions", "user_enrollments"
+    ]
+  });
 });
 
-app.listen(PORT, () => {
-  console.log(`🧶 Crochet Craft Academy API running on http://localhost:${PORT}`);
+// Health check
+app.get('/api/health', (req, res) => {
+  res.json({ 
+    status: "ok", 
+    timestamp: new Date().toISOString(),
+    database: isMySQLConnected ? "MySQL" : "JSON"
+  });
 });
+
+app.listen(PORT, async () => {
+  await initDatabase();
+  console.log(`🧶 Crochet Craft Academy API running on http://localhost:${PORT}`);
+  console.log(`🐬 Database engine: ${isMySQLConnected ? 'MySQL 8.0 (`crochet_academy`)' : 'database.json'}`);
+});
+

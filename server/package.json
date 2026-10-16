@@ -6,10 +6,13 @@
   "type": "module",
   "scripts": {
     "start": "node server.js",
-    "dev": "node --watch server.js"
+    "dev": "node --watch server.js",
+    "db:seed": "node seed-mysql.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.21.2"
+    "dotenv": "^18.0.8",
+    "express": "^4.21.2",
+    "mysql2": "^3.24.6"
   }
 }

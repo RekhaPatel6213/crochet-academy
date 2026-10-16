@@ -105,6 +105,7 @@ export default function AdminCRM({
     active: true
   };
   const [slideForm, setSlideForm] = useState(initialSlideForm);
+  const [dbInfo, setDbInfo] = useState(null);
 
   // Settings State (Company Name, Logo, Favicon, Contact Info, Currency, GST, Discounts)
   const defaultSettingsState = {
@@ -227,7 +228,7 @@ export default function AdminCRM({
   const fetchCRMData = async () => {
     setCrmLoading(true);
     try {
-      const [statsRes, ordersRes, subsRes, pkgRes, prodRes, prodOrdersRes, custOrdersRes, settingsRes, slidesRes] = await Promise.all([
+      const [statsRes, ordersRes, subsRes, pkgRes, prodRes, prodOrdersRes, custOrdersRes, settingsRes, slidesRes, dbStatusRes] = await Promise.all([
         fetch('/api/admin/crm/stats'),
         fetch('/api/admin/crm/orders'),
         fetch('/api/admin/crm/submissions'),
@@ -236,10 +237,11 @@ export default function AdminCRM({
         fetch('/api/admin/crm/product-orders'),
         fetch('/api/admin/crm/custom-orders'),
         fetch('/api/settings'),
-        fetch('/api/slides')
+        fetch('/api/slides'),
+        fetch('/api/db-status')
       ]);
 
-      const [statsData, ordersData, subsData, pkgData, prodData, prodOrdersData, custOrdersData, settingsData, slidesData] = await Promise.all([
+      const [statsData, ordersData, subsData, pkgData, prodData, prodOrdersData, custOrdersData, settingsData, slidesData, dbStatusData] = await Promise.all([
         statsRes.json(),
         ordersRes.json(),
         subsRes.json(),
@@ -248,7 +250,8 @@ export default function AdminCRM({
         prodOrdersRes.json(),
         custOrdersRes.json(),
         settingsRes.json(),
-        slidesRes.json()
+        slidesRes.json(),
+        dbStatusRes.json()
       ]);
 
       if (statsData.success) setStats(statsData.data);
@@ -260,6 +263,7 @@ export default function AdminCRM({
       if (custOrdersData.success) setCustomOrdersList(custOrdersData.data);
       if (settingsData.success && settingsData.data) setSettingsForm(settingsData.data);
       if (slidesData.success && slidesData.data) setSlidesList(slidesData.data);
+      if (dbStatusData.success) setDbInfo(dbStatusData);
     } catch (err) {
       console.error("Error fetching CRM records:", err);
     } finally {
@@ -1052,6 +1056,27 @@ export default function AdminCRM({
             </div>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+              {dbInfo && (
+                <span 
+                  title={`Host: ${dbInfo.host} | DB: ${dbInfo.database}`}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.35rem',
+                    backgroundColor: dbInfo.connected ? '#E8F5E9' : '#FFF3E0',
+                    color: dbInfo.connected ? '#2E7D32' : '#E65100',
+                    border: `1px solid ${dbInfo.connected ? '#C8E6C9' : '#FFE0B2'}`,
+                    borderRadius: '20px',
+                    padding: '0.25rem 0.65rem',
+                    fontSize: '0.72rem',
+                    fontWeight: 700
+                  }}
+                >
+                  <span style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: dbInfo.connected ? '#2E7D32' : '#E65100' }}></span>
+                  🐬 {dbInfo.engine} ({dbInfo.database})
+                </span>
+              )}
+
               <button
                 onClick={onClose}
                 className="btn btn-secondary"
