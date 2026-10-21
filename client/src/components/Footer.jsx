@@ -11,6 +11,21 @@ export default function Footer({ onOpenPackages, onOpenExam, settings }) {
   const address = settings?.address || "2039, 12th Avenue, Gaur City 2, Greater Noida West, Uttar Pradesh 201009";
   const supportHours = settings?.supportHours || "Open Every Day: 10:00 AM – 9:00 PM IST";
 
+  const getBrandParts = (name) => {
+    const raw = (name || 'Tishaya Petal & Loop').trim();
+    if (raw.toLowerCase().includes('tishaya')) {
+      const remaining = raw.replace(/tishaya/i, '').trim();
+      return { main: 'Tishaya', sub: remaining || 'Petal & Loop' };
+    }
+    const parts = raw.split(' ');
+    if (parts.length > 1) {
+      return { main: parts[0], sub: parts.slice(1).join(' ') };
+    }
+    return { main: raw, sub: 'Petal & Loop' };
+  };
+
+  const brandParts = getBrandParts(companyName);
+
   return (
     <footer className="site-footer">
       <div className="container">
@@ -28,13 +43,13 @@ export default function Footer({ onOpenPackages, onOpenExam, settings }) {
               />
               <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1 }}>
                 <span style={{ fontFamily: "'Great Vibes', cursive", fontSize: '2.3rem', color: '#FFFFFF', lineHeight: 0.9 }}>
-                  Anjali <span style={{ color: '#F8B4C4', fontSize: '0.6em' }}>♡</span>
+                  {brandParts.main} <span style={{ color: '#F8B4C4', fontSize: '0.6em' }}>♡</span>
                 </span>
                 <span style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: '1.25rem', fontWeight: 600, color: '#FFFFFF', marginLeft: '16px', lineHeight: 1.1 }}>
-                  Crochet Knit
+                  {brandParts.sub}
                 </span>
                 <span style={{ fontSize: '0.62rem', letterSpacing: '0.26em', textTransform: 'uppercase', color: '#D8CCC4', marginTop: '4px' }}>
-                  HANDMADE • UNIQUE • WITH LOVE
+                  {tagline || "HANDMADE • UNIQUE • WITH LOVE"}
                 </span>
               </div>
             </div>

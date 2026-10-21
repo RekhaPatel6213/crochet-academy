@@ -717,7 +717,7 @@
     "studentEmail": "php4@nividaweb.com"
   },
   "settings": {
-    "logo": "/anjali-crochet-knit-logo.webp",
+    "logo": "/logo.png",
     "address": "2039, 12th Avenue, Gaur City 2, Greater Noida West, Uttar Pradesh 201009",
     "favicon": "/favicon.ico",
     "gstName": "GST (India)",
@@ -726,7 +726,7 @@
     "taxMode": "exclusive",
     "enableGst": true,
     "promoCode": "ANJALI10",
-    "companyName": "Anjali Crochet Knit",
+    "companyName": "Tishaya Petal & Loop",
     "contactEmail": "anjalicrochetknit@gmail.com",
     "contactPhone": "+91 8882967692",
     "currencyCode": "INR",

@@ -36,6 +36,22 @@ export default function Navbar({
     action();
   };
 
+  // Format brand name into elegant pattern: Main name in script font + heart, sub in serif
+  const getBrandParts = (name) => {
+    const raw = (name || 'Tishaya Petal & Loop').trim();
+    if (raw.toLowerCase().includes('tishaya')) {
+      const remaining = raw.replace(/tishaya/i, '').trim();
+      return { main: 'Tishaya', sub: remaining || 'Petal & Loop' };
+    }
+    const parts = raw.split(' ');
+    if (parts.length > 1) {
+      return { main: parts[0], sub: parts.slice(1).join(' ') };
+    }
+    return { main: raw, sub: 'Petal & Loop' };
+  };
+
+  const brandParts = getBrandParts(settings?.companyName);
+
   return (
     <>
       {/* Top Announcement Bar */}
@@ -69,24 +85,24 @@ export default function Navbar({
       <header className="site-header">
         <div className="container nav-inner">
           
-          {/* Brand Logo & Name - Elegant Calligraphy & Official Logo */}
+          {/* Brand Logo & Name - Pattern: Big circular logo badge + script first name + serif sub + spaced motto */}
           <div 
             className="brand-wrapper"
             onClick={handleGoHome}
-            aria-label="Anjali Crochet Knit home"
+            aria-label={`${settings?.companyName || 'Tishaya Petal & Loop'} home`}
           >
             <img 
-              src={settings?.logo || "/anjali-crochet-knit-logo.webp"} 
-              alt={settings?.companyName || "Anjali Crochet Knit"} 
+              src={settings?.logo || "/logo.png"} 
+              alt={settings?.companyName || "Tishaya Petal & Loop"} 
               className="brand-logo-img" 
               onError={(e) => { e.target.src = "/logo.png"; }}
             />
             <div className="brand-text-block">
               <span className="brand-script-name">
-                Anjali <span className="brand-heart">♡</span>
+                {brandParts.main} <span className="brand-heart">♡</span>
               </span>
-              <span className="brand-sub-title">Crochet Knit</span>
-              <span className="brand-tag-motto">HANDMADE &nbsp;•&nbsp; UNIQUE &nbsp;•&nbsp; WITH LOVE</span>
+              <span className="brand-sub-title">{brandParts.sub}</span>
+              <span className="brand-tag-motto">{settings?.tagline || "HANDMADE • UNIQUE • WITH LOVE"}</span>
             </div>
           </div>
 
