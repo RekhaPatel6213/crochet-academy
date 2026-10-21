@@ -19,19 +19,22 @@ export default function Footer({ onOpenPackages, onOpenExam, settings }) {
           
           {/* Brand Column */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
               <img 
                 src={logo} 
                 alt={companyName} 
-                style={{ width: '48px', height: '48px', borderRadius: '50%', objectFit: 'cover', border: '2px solid rgba(255,255,255,0.2)' }} 
+                style={{ width: '56px', height: '56px', borderRadius: '50%', objectFit: 'cover', border: '2px solid rgba(255,255,255,0.25)', boxShadow: '0 4px 12px rgba(0,0,0,0.2)' }} 
                 onError={(e) => { e.target.src = '/logo.png'; }}
               />
-              <div>
-                <span style={{ fontFamily: 'var(--font-serif)', fontSize: '1.4rem', fontWeight: 800, color: '#FFFFFF', display: 'block', lineHeight: 1.1 }}>
-                  {companyName}
+              <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1 }}>
+                <span style={{ fontFamily: "'Great Vibes', cursive", fontSize: '2.3rem', color: '#FFFFFF', lineHeight: 0.9 }}>
+                  Anjali <span style={{ color: '#F8B4C4', fontSize: '0.6em' }}>♡</span>
                 </span>
-                <span style={{ fontSize: '0.72rem', color: '#D8CCC4' }}>
-                  {tagline}
+                <span style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: '1.25rem', fontWeight: 600, color: '#FFFFFF', marginLeft: '16px', lineHeight: 1.1 }}>
+                  Crochet Knit
+                </span>
+                <span style={{ fontSize: '0.62rem', letterSpacing: '0.26em', textTransform: 'uppercase', color: '#D8CCC4', marginTop: '4px' }}>
+                  HANDMADE • UNIQUE • WITH LOVE
                 </span>
               </div>
             </div>

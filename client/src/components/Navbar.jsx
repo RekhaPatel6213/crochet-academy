@@ -69,25 +69,24 @@ export default function Navbar({
       <header className="site-header">
         <div className="container nav-inner">
           
-          {/* Brand Logo & Name - Strictly in ONE line */}
+          {/* Brand Logo & Name - Elegant Calligraphy & Official Logo */}
           <div 
             className="brand-wrapper"
             onClick={handleGoHome}
+            aria-label="Anjali Crochet Knit home"
           >
             <img 
-              src={settings?.logo || "/logo.png"} 
+              src={settings?.logo || "/anjali-crochet-knit-logo.webp"} 
               alt={settings?.companyName || "Anjali Crochet Knit"} 
               className="brand-logo-img" 
               onError={(e) => { e.target.src = "/logo.png"; }}
             />
-            <div style={{ minWidth: 0, display: 'flex', flexDirection: 'column' }}>
-              <div className="brand-title">
-                <span>{settings?.companyName || "Anjali Crochet Knit"}</span>
-                <span className="brand-tag">Gaur City 2</span>
-              </div>
-              <div className="brand-tagline">
-                {settings?.tagline || "Handmade • Unique • With Love ♡"}
-              </div>
+            <div className="brand-text-block">
+              <span className="brand-script-name">
+                Anjali <span className="brand-heart">♡</span>
+              </span>
+              <span className="brand-sub-title">Crochet Knit</span>
+              <span className="brand-tag-motto">HANDMADE &nbsp;•&nbsp; UNIQUE &nbsp;•&nbsp; WITH LOVE</span>
             </div>
           </div>
 
