@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { 
   Award, Sparkles, ShoppingBag, Flame, FolderPlus, 
-  MessageCircle, Menu, X, Phone, MapPin 
+  MessageCircle, Menu, X, Phone, MapPin, ChevronDown, Layers 
 } from 'lucide-react';
 
 export default function Navbar({ 
@@ -20,7 +20,19 @@ export default function Navbar({
   settings
 }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [moreOpen, setMoreOpen] = useState(false);
+  const moreRef = useRef(null);
   const hasCertificate = userStatus?.certificates && userStatus.certificates.length > 0;
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (moreRef.current && !moreRef.current.contains(e.target)) {
+        setMoreOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   const handleGoHome = () => {
     setMobileMenuOpen(false);
@@ -118,19 +130,29 @@ export default function Navbar({
             <button
               onClick={() => setActiveTab('shop')}
               className={`nav-link-item ${activeTab === 'shop' ? 'active' : ''}`}
-              style={{ fontWeight: activeTab === 'shop' ? 800 : 500 }}
+              style={{ fontWeight: activeTab === 'shop' ? 800 : 600, display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}
             >
-              <ShoppingBag size={15} color="var(--color-primary)" />
+              <ShoppingBag size={14} color="var(--color-primary)" />
               <span>Handcrafted Shop</span>
+              <span style={{ 
+                fontSize: '0.65rem', 
+                backgroundColor: 'rgba(200, 109, 81, 0.12)', 
+                color: 'var(--color-primary)', 
+                padding: '0.1rem 0.45rem', 
+                borderRadius: '12px', 
+                fontWeight: 800 
+              }}>
+                From ₹40
+              </span>
             </button>
 
             <button
               onClick={onOpenCustomOrder}
               className="nav-link-item"
-              style={{ color: '#9E7333', fontWeight: 700 }}
+              style={{ color: '#9E7333', fontWeight: 600 }}
               title="Create a personalized crochet commission"
             >
-              <Sparkles size={15} color="var(--color-honey)" />
+              <Sparkles size={14} color="var(--color-honey)" />
               <span>Custom Order</span>
             </button>
 
@@ -158,30 +180,68 @@ export default function Navbar({
               </button>
             )}
 
-            <button
-              onClick={() => onOpenPackages()}
-              className={`nav-link-item ${activeTab === 'packages' ? 'active' : ''}`}
+            {/* "More ▾" Dropdown Menu with Hover & Click Support */}
+            <div 
+              className={`nav-more-dropdown ${moreOpen ? 'is-open' : ''}`}
+              ref={moreRef}
             >
-              Packages
-            </button>
+              <button
+                type="button"
+                onClick={() => setMoreOpen(prev => !prev)}
+                className={`nav-link-item ${moreOpen || activeTab === 'packages' || activeTab === 'exam' ? 'active' : ''}`}
+                style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3rem', fontWeight: 600 }}
+                aria-expanded={moreOpen}
+              >
+                <span>More</span>
+                <ChevronDown size={14} className="more-caret" />
+              </button>
 
-            <button
-              onClick={() => onOpenExam()}
-              className={`nav-link-item ${activeTab === 'exam' ? 'active' : ''}`}
-            >
-              <Award size={15} color="var(--color-honey)" />
-              <span>Certification</span>
-            </button>
+              <div className="more-menu-panel">
+                <button
+                  type="button"
+                  onClick={() => { setMoreOpen(false); onOpenPackages(); }}
+                  className="more-menu-item"
+                >
+                  <div className="more-item-icon" style={{ backgroundColor: '#FFF4E5', color: '#D97706' }}>
+                    <Layers size={15} />
+                  </div>
+                  <div style={{ textAlign: 'left', minWidth: 0 }}>
+                    <div style={{ fontWeight: 700, fontSize: '0.82rem', color: 'var(--text-main)' }}>Crochet Packages</div>
+                    <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>Starter, Artisan & Master passes</div>
+                  </div>
+                </button>
 
-            <button
-              onClick={onOpenAdmin}
-              className="nav-link-item"
-              style={{ color: 'var(--color-primary)', fontWeight: 700 }}
-              title="Open Admin Studio"
-            >
-              <FolderPlus size={15} color="var(--color-primary)" />
-              <span>Admin Studio</span>
-            </button>
+                <button
+                  type="button"
+                  onClick={() => { setMoreOpen(false); onOpenExam(); }}
+                  className="more-menu-item"
+                >
+                  <div className="more-item-icon" style={{ backgroundColor: '#FEF3C7', color: '#B45309' }}>
+                    <Award size={15} />
+                  </div>
+                  <div style={{ textAlign: 'left', minWidth: 0 }}>
+                    <div style={{ fontWeight: 700, fontSize: '0.82rem', color: 'var(--text-main)' }}>MCQ Certification</div>
+                    <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>Take 80% passing assessment</div>
+                  </div>
+                </button>
+
+                <div style={{ height: '1px', backgroundColor: 'var(--border-subtle)', margin: '0.25rem 0' }} />
+
+                <button
+                  type="button"
+                  onClick={() => { setMoreOpen(false); onOpenAdmin(); }}
+                  className="more-menu-item"
+                >
+                  <div className="more-item-icon" style={{ backgroundColor: '#FDEAE4', color: 'var(--color-primary)' }}>
+                    <FolderPlus size={15} />
+                  </div>
+                  <div style={{ textAlign: 'left', minWidth: 0 }}>
+                    <div style={{ fontWeight: 700, fontSize: '0.82rem', color: 'var(--color-primary)' }}>Admin Studio CRM</div>
+                    <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>Catalogue, slider & store settings</div>
+                  </div>
+                </button>
+              </div>
+            </div>
           </nav>
 
           {/* Right Action Controls: WhatsApp, Cart, and Mobile Hamburger */}
