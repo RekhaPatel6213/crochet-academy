@@ -22,7 +22,39 @@ import {
   ChevronDown, ChevronUp, Gift, Clock, MapPin, ExternalLink, HelpCircle
 } from 'lucide-react';
 
+// URL Route parser for dedicated page navigation
+export const resolveRoute = (pathname = window.location.pathname, hash = window.location.hash) => {
+  const p = (pathname || '').toLowerCase();
+  const h = (hash || '').toLowerCase();
+
+  if (p.startsWith('/admin') || h.includes('admin')) {
+    return { tab: 'admin', categoryId: null };
+  }
+  if (p.startsWith('/shop') || h.includes('shop')) {
+    return { tab: 'shop', categoryId: null };
+  }
+  if (p.startsWith('/custom-order') || p.startsWith('/custom') || h.includes('custom-order')) {
+    return { tab: 'custom-order', categoryId: null };
+  }
+  if (p.startsWith('/packages') || p.startsWith('/pricing') || h.includes('packages')) {
+    return { tab: 'packages', categoryId: null };
+  }
+  if (p.startsWith('/certification') || p.startsWith('/exam') || h.includes('certification') || h.includes('exam')) {
+    return { tab: 'certification', categoryId: null };
+  }
+  if (p.startsWith('/category/')) {
+    const catId = (pathname || '').replace(/^\/category\//i, '').split('/')[0];
+    return { tab: 'category-detail', categoryId: catId };
+  }
+  if (h.startsWith('#category-')) {
+    const catId = hash.replace('#category-', '');
+    return { tab: 'category-detail', categoryId: catId };
+  }
+  return { tab: 'explore', categoryId: null };
+};
+
 export default function App() {
+  const initialRoute = resolveRoute();
   const [categories, setCategories] = useState([]);
   const [courses, setCourses] = useState([]);
   const [packages, setPackages] = useState([]);
@@ -35,7 +67,7 @@ export default function App() {
   });
 
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState('explore');
+  const [activeTab, setActiveTab] = useState(initialRoute.tab === 'admin' ? 'explore' : initialRoute.tab);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [levelFilter, setLevelFilter] = useState('All');
@@ -113,63 +145,84 @@ export default function App() {
   const [isPackagesOpen, setIsPackagesOpen] = useState(false);
   const [isExamOpen, setIsExamOpen] = useState(false);
   const [activeCertificate, setActiveCertificate] = useState(null);
-  const [isAdminOpen, setIsAdminOpen] = useState(false);
+  const [isAdminOpen, setIsAdminOpen] = useState(initialRoute.tab === 'admin');
+
+  // Central Navigation handler supporting HTML5 History API and instant page view updates
+  const navigate = (to, shouldPush = true) => {
+    if (shouldPush && (window.location.pathname !== to || window.location.hash)) {
+      window.history.pushState(null, '', to);
+    }
+    const route = resolveRoute(window.location.pathname, window.location.hash);
+    if (route.tab === 'admin') {
+      setIsAdminOpen(true);
+    } else {
+      setIsAdminOpen(false);
+      setActiveTab(route.tab);
+    }
+
+    if (route.tab === 'category-detail' && route.categoryId) {
+      setCategories(currentCats => {
+        const found = currentCats.find(c => c.id.toLowerCase() === route.categoryId.toLowerCase());
+        if (found) {
+          setActiveCategoryDetail(found);
+        }
+        return currentCats;
+      });
+    } else {
+      setActiveCategoryDetail(null);
+    }
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   useEffect(() => {
     fetchInitialData();
-    const isAdminPath = window.location.pathname.startsWith('/admin') || 
-                        window.location.hash.includes('admin') || 
-                        window.location.search.includes('admin');
-    if (isAdminPath) {
-      setIsAdminOpen(true);
-    }
 
     const handlePopState = () => {
-      const isPath = window.location.pathname.startsWith('/admin') || window.location.hash.includes('admin');
-      setIsAdminOpen(isPath);
-      if (window.location.hash.startsWith('#category-')) {
-        const catId = window.location.hash.replace('#category-', '');
+      const route = resolveRoute(window.location.pathname, window.location.hash);
+      if (route.tab === 'admin') {
+        setIsAdminOpen(true);
+      } else {
+        setIsAdminOpen(false);
+        setActiveTab(route.tab);
+      }
+
+      if (route.tab === 'category-detail' && route.categoryId) {
         setCategories(currentCats => {
-          const foundCat = currentCats.find(c => c.id === catId);
-          if (foundCat) {
-            setActiveCategoryDetail(foundCat);
-            setActiveTab('category-detail');
-          }
+          const found = currentCats.find(c => c.id.toLowerCase() === route.categoryId.toLowerCase());
+          if (found) setActiveCategoryDetail(found);
           return currentCats;
         });
       } else {
         setActiveCategoryDetail(null);
-        setActiveTab(prev => prev === 'category-detail' ? 'explore' : prev);
       }
     };
+
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
   const handleOpenAdmin = () => {
-    setIsAdminOpen(true);
-    window.history.pushState(null, '', '/admin');
+    navigate('/admin');
   };
 
   const handleCloseAdmin = () => {
-    setIsAdminOpen(false);
-    window.history.pushState(null, '', '/');
+    navigate('/');
   };
 
   const handleOpenCategoryDetail = (cat) => {
     setActiveCategoryDetail(cat);
     setActiveTab('category-detail');
-    window.history.pushState(null, '', `#category-${cat.id}`);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    navigate(`/category/${cat.id}`);
   };
 
   const handleBackToHome = () => {
-    setActiveTab('explore');
-    setActiveCategoryDetail(null);
-    if (window.location.hash.startsWith('#category-')) {
-      window.history.pushState(null, '', window.location.pathname);
-    }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    navigate('/');
+  };
+
+  const handleOpenCustomOrder = (initialData = {}) => {
+    setCustomOrderInitialData(initialData || {});
+    navigate('/custom-order');
   };
 
   useEffect(() => {
@@ -230,11 +283,6 @@ export default function App() {
     setCheckoutOrderData(calcData);
   };
 
-  const handleOpenCustomOrder = (initialData = {}) => {
-    setCustomOrderInitialData(initialData);
-    setIsCustomOrderOpen(true);
-  };
-
   const handleOrderSuccess = (newOrder) => {
     setCartItems([]);
     setAppliedPromo(null);
@@ -271,9 +319,9 @@ export default function App() {
 
       if (catData.success) {
         setCategories(catData.data);
-        if (window.location.hash.startsWith('#category-')) {
-          const catId = window.location.hash.replace('#category-', '');
-          const found = catData.data.find(c => c.id === catId);
+        const route = resolveRoute(window.location.pathname, window.location.hash);
+        if (route.tab === 'category-detail' && route.categoryId) {
+          const found = catData.data.find(c => c.id.toLowerCase() === route.categoryId.toLowerCase());
           if (found) {
             setActiveCategoryDetail(found);
             setActiveTab('category-detail');
@@ -350,25 +398,26 @@ export default function App() {
         activeCategoryDetail={activeCategoryDetail}
         onBackToHome={handleBackToHome}
         userStatus={userStatus}
-        onOpenPackages={() => setIsPackagesOpen(true)}
-        onOpenExam={() => setIsExamOpen(true)}
+        onOpenPackages={() => navigate('/packages')}
+        onOpenExam={() => navigate('/certification')}
         onOpenCertificate={(cert) => setActiveCertificate(cert)}
         onOpenAdmin={handleOpenAdmin}
         cartItemsCount={cartItems.reduce((sum, item) => sum + (Number(item.quantity) || 1), 0)}
         onOpenCart={() => setIsCartOpen(true)}
         onOpenCustomOrder={() => handleOpenCustomOrder({})}
         settings={settings}
+        onNavigate={navigate}
       />
 
-      {/* HOME PAGE DYNAMIC IMAGE SLIDER (Placed directly after header) */}
+      {/* HOME PAGE DYNAMIC IMAGE SLIDER (Placed directly after header only on home explore page) */}
       {activeTab === 'explore' && (
         <HomeImageSlider 
           slides={slides}
           products={products}
           onSelectProduct={(prod) => setActiveProductDetail(prod)}
-          onNavigateShop={() => setActiveTab('shop')}
+          onNavigateShop={() => navigate('/shop')}
           onOpenCustomOrder={handleOpenCustomOrder}
-          onOpenPackages={() => setIsPackagesOpen(true)}
+          onOpenPackages={() => navigate('/packages')}
           settings={settings}
         />
       )}
@@ -382,8 +431,8 @@ export default function App() {
             onBack={handleBackToHome}
             onSwitchCategory={handleOpenCategoryDetail}
             onSelectCourse={(course) => setActiveCourse(course)}
-            onOpenPackages={() => setIsPackagesOpen(true)}
-            onOpenExam={() => setIsExamOpen(true)}
+            onOpenPackages={() => navigate('/packages')}
+            onOpenExam={() => navigate('/certification')}
           />
         ) : activeTab === 'shop' ? (
           <ShopProducts 
@@ -392,6 +441,32 @@ export default function App() {
             onAddToCart={handleAddToCart}
             onOpenCustomOrder={handleOpenCustomOrder}
             settings={settings}
+          />
+        ) : activeTab === 'custom-order' ? (
+          <CustomOrderModal 
+            isOpen={true}
+            isPage={true}
+            onClose={handleBackToHome}
+            initialData={customOrderInitialData}
+            onCustomOrderSubmitted={(newCommission) => {
+              // Successfully submitted
+            }}
+            settings={settings}
+          />
+        ) : activeTab === 'packages' ? (
+          <PackagesModal 
+            packages={packages}
+            userStatus={userStatus}
+            onClose={handleBackToHome}
+            onEnrollSuccess={handleEnrollSuccess}
+            isPage={true}
+          />
+        ) : activeTab === 'certification' ? (
+          <CertificationExamModal 
+            onClose={handleBackToHome}
+            userStatus={userStatus}
+            onExamPassed={handleExamPassed}
+            isPage={true}
           />
         ) : (
           <>
@@ -419,14 +494,18 @@ export default function App() {
                     </p>
 
                     <div className="hero-cta-group">
-                      <button
-                        onClick={() => setActiveTab('shop')}
+                      <a
+                        href="/shop"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          navigate('/shop');
+                        }}
                         className="btn btn-primary"
-                        style={{ padding: '0.85rem 1.75rem', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+                        style={{ padding: '0.85rem 1.75rem', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none' }}
                       >
                         <ShoppingBag size={18} />
                         <span>Explore Handcrafted Shop</span>
-                      </button>
+                      </a>
 
                       <a
                         href={`https://wa.me/${settings?.whatsappNumber || '918882967692'}?text=Hello%20Anjali!%20I%20want%20to%20order%20from%20your%20crochet%20store.`}
@@ -778,22 +857,30 @@ export default function App() {
                 </p>
                 
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
-                  <button
-                    onClick={() => setIsPackagesOpen(true)}
+                  <a
+                    href="/packages"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigate('/packages');
+                    }}
                     className="btn btn-primary"
-                    style={{ padding: '0.85rem 1.75rem' }}
+                    style={{ padding: '0.85rem 1.75rem', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.45rem' }}
                   >
                     <Sparkles size={16} />
                     <span>Choose Membership Tier</span>
-                  </button>
-                  <button
-                    onClick={() => setIsExamOpen(true)}
+                  </a>
+                  <a
+                    href="/certification"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigate('/certification');
+                    }}
                     className="btn btn-secondary"
-                    style={{ padding: '0.85rem 1.75rem' }}
+                    style={{ padding: '0.85rem 1.75rem', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.45rem' }}
                   >
                     <Award size={16} color="var(--color-honey)" />
                     <span>Test Your Knowledge (80% MCQ)</span>
-                  </button>
+                  </a>
                 </div>
               </div>
 
@@ -810,7 +897,7 @@ export default function App() {
                 return (
                   <div
                     key={pkg.id}
-                    onClick={() => setIsPackagesOpen(true)}
+                    onClick={() => navigate('/packages')}
                     className={`package-card ${pkg.popular ? 'selected' : ''}`}
                     style={{ cursor: 'pointer', position: 'relative' }}
                   >
@@ -873,17 +960,18 @@ export default function App() {
                       </ul>
                     </div>
 
-                    <button
-                      type="button"
+                    <a
+                      href="/packages"
                       onClick={(e) => {
+                        e.preventDefault();
                         e.stopPropagation();
-                        setIsPackagesOpen(true);
+                        navigate('/packages');
                       }}
                       className={pkg.popular ? "btn btn-primary" : "btn btn-secondary"}
-                      style={{ width: '100%', marginTop: '1.25rem', padding: '0.65rem', fontSize: '0.85rem' }}
+                      style={{ width: '100%', marginTop: '1.25rem', padding: '0.65rem', fontSize: '0.85rem', textDecoration: 'none', display: 'block', textAlign: 'center' }}
                     >
                       {isFree ? "Start Free Now →" : "Enroll in " + pkg.name + " →"}
-                    </button>
+                    </a>
                   </div>
                 );
               })}
@@ -930,14 +1018,18 @@ export default function App() {
                 </div>
 
                 <div style={{ marginTop: '0.5rem' }}>
-                  <button
-                    onClick={() => setIsExamOpen(true)}
+                  <a
+                    href="/certification"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigate('/certification');
+                    }}
                     className="btn btn-sage"
-                    style={{ padding: '0.85rem 2rem', fontSize: '1rem' }}
+                    style={{ padding: '0.85rem 2rem', fontSize: '1rem', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}
                   >
                     <Award size={18} />
                     <span>Begin Certification Exam (80%) →</span>
-                  </button>
+                  </a>
                 </div>
               </div>
 
@@ -1214,9 +1306,10 @@ export default function App() {
 
       {/* FOOTER */}
       <Footer 
-        onOpenPackages={() => setIsPackagesOpen(true)}
-        onOpenExam={() => setIsExamOpen(true)}
+        onOpenPackages={() => navigate('/packages')}
+        onOpenExam={() => navigate('/certification')}
         settings={settings}
+        onNavigate={navigate}
       />
 
       {/* MODALS */}

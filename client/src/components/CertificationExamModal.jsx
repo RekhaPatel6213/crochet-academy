@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import confetti from 'canvas-confetti';
 import { 
-  X, Award, AlertCircle, RotateCcw, Sparkles, Printer
+  X, Award, AlertCircle, RotateCcw, Sparkles, Printer, ArrowLeft
 } from 'lucide-react';
 
 export default function CertificationExamModal({ 
   onClose, 
   userStatus, 
-  onExamPassed 
+  onExamPassed,
+  isPage = false
 }) {
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -107,44 +108,9 @@ export default function CertificationExamModal({
   const totalCount = questions.length;
   const answeredCount = Object.keys(answers).length;
 
-  return (
-    <div className="modal-overlay" onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}>
-      <div className="modal-content" style={{ maxWidth: '900px' }}>
-        
-        {/* Header */}
-        <div className="modal-header-bar">
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
-            <div style={{ width: '42px', height: '42px', borderRadius: '12px', backgroundColor: 'var(--color-honey-light)', color: '#9E7333', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <Award size={22} />
-            </div>
-            <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <span className="badge badge-honey" style={{ fontSize: '0.7rem' }}>
-                  Accredited Certification
-                </span>
-                <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-muted)' }}>
-                  80% Minimum Passing Score
-                </span>
-              </div>
-              <h2 style={{ fontSize: '1.45rem', margin: '0.15rem 0 0' }}>
-                Official Crochet Artisan MCQ Assessment
-              </h2>
-            </div>
-          </div>
-
-          <button
-            onClick={onClose}
-            className="btn btn-secondary"
-            style={{ padding: '0.5rem', borderRadius: '50%' }}
-          >
-            <X size={18} />
-          </button>
-        </div>
-
-        {/* Body */}
-        <div style={{ padding: '1.75rem' }}>
-          
-          {loading ? (
+  const renderExamBody = () => (
+    <div>
+      {loading ? (
             <div style={{ textAlign: 'center', padding: '4rem 1rem' }}>
               <p style={{ fontSize: '1.1rem', fontWeight: 600 }}>
                 Loading Examination Questions...
@@ -431,7 +397,98 @@ export default function CertificationExamModal({
 
             </div>
           )}
+    </div>
+  );
 
+  // If rendered as a standalone dedicated page (/certification or /exam)
+  if (isPage) {
+    return (
+      <div className="container" style={{ maxWidth: '960px', margin: '0 auto', padding: '2rem 1rem 5rem' }}>
+        {/* Breadcrumb Navigation */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '0.75rem' }}>
+          <button
+            onClick={onClose}
+            className="btn btn-secondary"
+            style={{ display: 'inline-flex', alignItems: 'center', gap: '0.45rem', fontSize: '0.85rem', padding: '0.5rem 1rem' }}
+          >
+            <ArrowLeft size={16} />
+            <span>Back to Home</span>
+          </button>
+
+          <div style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>
+            <a href="/" onClick={(e) => { e.preventDefault(); onClose(); }} style={{ color: 'var(--color-primary)', textDecoration: 'none', fontWeight: 600 }}>Home</a>
+            <span style={{ margin: '0 0.5rem' }}>/</span>
+            <span style={{ fontWeight: 700, color: 'var(--text-main)' }}>MCQ Certification Exam</span>
+          </div>
+        </div>
+
+        {/* Page Card */}
+        <div style={{ backgroundColor: '#FFFFFF', borderRadius: '24px', border: '1px solid var(--border-subtle)', boxShadow: '0 10px 30px rgba(0,0,0,0.05)', overflow: 'hidden' }}>
+          <div style={{ padding: '1.75rem 2rem', borderBottom: '1px solid var(--border-subtle)', background: 'linear-gradient(135deg, #FAF7F2 0%, #FFFFFF 100%)', display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
+            <div style={{ width: '46px', height: '46px', borderRadius: '12px', backgroundColor: 'var(--color-honey-light)', color: '#9E7333', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <Award size={26} />
+            </div>
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.2rem' }}>
+                <span className="badge badge-honey" style={{ fontSize: '0.7rem' }}>
+                  Accredited Certification
+                </span>
+                <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-muted)' }}>
+                  80% Minimum Passing Score
+                </span>
+              </div>
+              <h1 style={{ fontSize: '1.65rem', margin: 0, fontFamily: 'var(--font-serif)', color: 'var(--text-main)' }}>
+                Official Crochet Artisan MCQ Assessment
+              </h1>
+            </div>
+          </div>
+
+          <div style={{ padding: '2rem' }}>
+            {renderExamBody()}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Modal mode
+  return (
+    <div className="modal-overlay" onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}>
+      <div className="modal-content" style={{ maxWidth: '900px' }}>
+        
+        {/* Header */}
+        <div className="modal-header-bar">
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
+            <div style={{ width: '42px', height: '42px', borderRadius: '12px', backgroundColor: 'var(--color-honey-light)', color: '#9E7333', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <Award size={22} />
+            </div>
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <span className="badge badge-honey" style={{ fontSize: '0.7rem' }}>
+                  Accredited Certification
+                </span>
+                <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-muted)' }}>
+                  80% Minimum Passing Score
+                </span>
+              </div>
+              <h2 style={{ fontSize: '1.45rem', margin: '0.15rem 0 0' }}>
+                Official Crochet Artisan MCQ Assessment
+              </h2>
+            </div>
+          </div>
+
+          <button
+            onClick={onClose}
+            className="btn btn-secondary"
+            style={{ padding: '0.5rem', borderRadius: '50%' }}
+          >
+            <X size={18} />
+          </button>
+        </div>
+
+        {/* Body */}
+        <div style={{ padding: '1.75rem' }}>
+          {renderExamBody()}
         </div>
 
       </div>

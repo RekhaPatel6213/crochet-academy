@@ -17,7 +17,8 @@ export default function Navbar({
   cartItemsCount = 0,
   onOpenCart,
   onOpenCustomOrder,
-  settings
+  settings,
+  onNavigate
 }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [moreOpen, setMoreOpen] = useState(false);
@@ -34,13 +35,31 @@ export default function Navbar({
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const handleGoHome = () => {
+  const handleNav = (path) => {
     setMobileMenuOpen(false);
-    if (onBackToHome) {
-      onBackToHome();
+    setMoreOpen(false);
+    if (onNavigate) {
+      onNavigate(path);
     } else {
-      setActiveTab('explore');
+      if (path === '/') {
+        if (onBackToHome) onBackToHome();
+        else setActiveTab('explore');
+      } else if (path === '/shop') {
+        setActiveTab('shop');
+      } else if (path === '/custom-order') {
+        if (onOpenCustomOrder) onOpenCustomOrder();
+      } else if (path === '/packages') {
+        if (onOpenPackages) onOpenPackages();
+      } else if (path === '/certification') {
+        if (onOpenExam) onOpenExam();
+      } else if (path === '/admin') {
+        if (onOpenAdmin) onOpenAdmin();
+      }
     }
+  };
+
+  const handleGoHome = () => {
+    handleNav('/');
   };
 
   const handleNavigate = (action) => {
@@ -98,10 +117,13 @@ export default function Navbar({
         <div className="container nav-inner">
           
           {/* Brand Logo & Name - Pattern: Big circular logo badge + script first name + serif sub + spaced motto */}
-          <div 
+          {/* Brand Logo & Name - Pattern: Big circular logo badge + script first name + serif sub + spaced motto */}
+          <a 
+            href="/"
             className="brand-wrapper"
-            onClick={handleGoHome}
+            onClick={(e) => { e.preventDefault(); handleNav('/'); }}
             aria-label={`${settings?.companyName || 'Tishaya Petal & Loop'} home`}
+            style={{ textDecoration: 'none' }}
           >
             <img 
               src={settings?.logo || "/logo.png"} 
@@ -116,19 +138,21 @@ export default function Navbar({
               <span className="brand-sub-title">{brandParts.sub}</span>
               <span className="brand-tag-motto">{settings?.tagline || "HANDMADE • UNIQUE • WITH LOVE"}</span>
             </div>
-          </div>
+          </a>
 
           {/* Desktop Center Navigation Links */}
           <nav className="nav-links-center">
-            <button
-              onClick={handleGoHome}
+            <a
+              href="/"
+              onClick={(e) => { e.preventDefault(); handleNav('/'); }}
               className={`nav-link-item ${activeTab === 'explore' ? 'active' : ''}`}
             >
               Categories & Classes
-            </button>
+            </a>
 
-            <button
-              onClick={() => setActiveTab('shop')}
+            <a
+              href="/shop"
+              onClick={(e) => { e.preventDefault(); handleNav('/shop'); }}
               className={`nav-link-item ${activeTab === 'shop' ? 'active' : ''}`}
               style={{ fontWeight: activeTab === 'shop' ? 800 : 600, display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}
             >
@@ -144,21 +168,23 @@ export default function Navbar({
               }}>
                 From ₹40
               </span>
-            </button>
+            </a>
 
-            <button
-              onClick={onOpenCustomOrder}
-              className="nav-link-item"
+            <a
+              href="/custom-order"
+              onClick={(e) => { e.preventDefault(); handleNav('/custom-order'); }}
+              className={`nav-link-item ${activeTab === 'custom-order' ? 'active' : ''}`}
               style={{ color: '#9E7333', fontWeight: 600 }}
               title="Create a personalized crochet commission"
             >
               <Sparkles size={14} color="var(--color-honey)" />
               <span>Custom Order</span>
-            </button>
+            </a>
 
             {activeTab === 'category-detail' && activeCategoryDetail && (
-              <button
-                onClick={() => setActiveTab('category-detail')}
+              <a
+                href={`/category/${activeCategoryDetail.id}`}
+                onClick={(e) => { e.preventDefault(); handleNav(`/category/${activeCategoryDetail.id}`); }}
                 className="nav-link-item active"
                 style={{ 
                   color: activeCategoryDetail.accent || 'var(--color-primary)', 
@@ -177,7 +203,7 @@ export default function Navbar({
                   }} 
                 />
                 <span>{activeCategoryDetail.title}</span>
-              </button>
+              </a>
             )}
 
             {/* "More ▾" Dropdown Menu with Hover & Click Support */}
@@ -188,7 +214,7 @@ export default function Navbar({
               <button
                 type="button"
                 onClick={() => setMoreOpen(prev => !prev)}
-                className={`nav-link-item ${moreOpen || activeTab === 'packages' || activeTab === 'exam' ? 'active' : ''}`}
+                className={`nav-link-item ${moreOpen || activeTab === 'packages' || activeTab === 'certification' ? 'active' : ''}`}
                 style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3rem', fontWeight: 600 }}
                 aria-expanded={moreOpen}
               >
@@ -197,10 +223,11 @@ export default function Navbar({
               </button>
 
               <div className="more-menu-panel">
-                <button
-                  type="button"
-                  onClick={() => { setMoreOpen(false); onOpenPackages(); }}
-                  className="more-menu-item"
+                <a
+                  href="/packages"
+                  onClick={(e) => { e.preventDefault(); handleNav('/packages'); }}
+                  className={`more-menu-item ${activeTab === 'packages' ? 'active' : ''}`}
+                  style={{ textDecoration: 'none' }}
                 >
                   <div className="more-item-icon" style={{ backgroundColor: '#FFF4E5', color: '#D97706' }}>
                     <Layers size={15} />
@@ -209,12 +236,13 @@ export default function Navbar({
                     <div style={{ fontWeight: 700, fontSize: '0.82rem', color: 'var(--text-main)' }}>Crochet Packages</div>
                     <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>Starter, Artisan & Master passes</div>
                   </div>
-                </button>
+                </a>
 
-                <button
-                  type="button"
-                  onClick={() => { setMoreOpen(false); onOpenExam(); }}
-                  className="more-menu-item"
+                <a
+                  href="/certification"
+                  onClick={(e) => { e.preventDefault(); handleNav('/certification'); }}
+                  className={`more-menu-item ${activeTab === 'certification' ? 'active' : ''}`}
+                  style={{ textDecoration: 'none' }}
                 >
                   <div className="more-item-icon" style={{ backgroundColor: '#FEF3C7', color: '#B45309' }}>
                     <Award size={15} />
@@ -223,14 +251,15 @@ export default function Navbar({
                     <div style={{ fontWeight: 700, fontSize: '0.82rem', color: 'var(--text-main)' }}>MCQ Certification</div>
                     <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>Take 80% passing assessment</div>
                   </div>
-                </button>
+                </a>
 
                 <div style={{ height: '1px', backgroundColor: 'var(--border-subtle)', margin: '0.25rem 0' }} />
 
-                <button
-                  type="button"
-                  onClick={() => { setMoreOpen(false); onOpenAdmin(); }}
-                  className="more-menu-item"
+                <a
+                  href="/admin"
+                  onClick={(e) => { e.preventDefault(); handleNav('/admin'); }}
+                  className={`more-menu-item ${activeTab === 'admin' ? 'active' : ''}`}
+                  style={{ textDecoration: 'none' }}
                 >
                   <div className="more-item-icon" style={{ backgroundColor: '#FDEAE4', color: 'var(--color-primary)' }}>
                     <FolderPlus size={15} />
@@ -239,7 +268,7 @@ export default function Navbar({
                     <div style={{ fontWeight: 700, fontSize: '0.82rem', color: 'var(--color-primary)' }}>Admin Studio CRM</div>
                     <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>Catalogue, slider & store settings</div>
                   </div>
-                </button>
+                </a>
               </div>
             </div>
           </nav>
@@ -313,17 +342,20 @@ export default function Navbar({
         {mobileMenuOpen && (
           <div className="mobile-nav-drawer">
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-              <button
-                onClick={() => handleNavigate(handleGoHome)}
+              <a
+                href="/"
+                onClick={(e) => { e.preventDefault(); handleNav('/'); }}
                 className={`mobile-nav-item ${activeTab === 'explore' ? 'active' : ''}`}
+                style={{ textDecoration: 'none' }}
               >
                 Categories & Classes
-              </button>
+              </a>
 
-              <button
-                onClick={() => handleNavigate(() => setActiveTab('shop'))}
+              <a
+                href="/shop"
+                onClick={(e) => { e.preventDefault(); handleNav('/shop'); }}
                 className={`mobile-nav-item ${activeTab === 'shop' ? 'active' : ''}`}
-                style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+                style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', textDecoration: 'none' }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                   <ShoppingBag size={16} color="var(--color-primary)" />
@@ -332,40 +364,47 @@ export default function Navbar({
                 <span style={{ fontSize: '0.7rem', backgroundColor: 'var(--color-primary-light)', color: 'var(--color-primary)', padding: '2px 8px', borderRadius: '999px', fontWeight: 800 }}>
                   From ₹40
                 </span>
-              </button>
+              </a>
 
-              <button
-                onClick={() => handleNavigate(onOpenCustomOrder)}
-                className="mobile-nav-item"
-                style={{ color: '#9E7333', fontWeight: 700 }}
+              <a
+                href="/custom-order"
+                onClick={(e) => { e.preventDefault(); handleNav('/custom-order'); }}
+                className={`mobile-nav-item ${activeTab === 'custom-order' ? 'active' : ''}`}
+                style={{ color: '#9E7333', fontWeight: 700, textDecoration: 'none' }}
               >
                 <Sparkles size={16} color="var(--color-honey)" />
                 <span>Custom Commission Order</span>
-              </button>
+              </a>
 
-              <button
-                onClick={() => handleNavigate(onOpenPackages)}
-                className="mobile-nav-item"
+              <a
+                href="/packages"
+                onClick={(e) => { e.preventDefault(); handleNav('/packages'); }}
+                className={`mobile-nav-item ${activeTab === 'packages' ? 'active' : ''}`}
+                style={{ textDecoration: 'none' }}
               >
+                <Layers size={16} color="#D97706" />
                 <span>Crochet Packages & Classes</span>
-              </button>
+              </a>
 
-              <button
-                onClick={() => handleNavigate(onOpenExam)}
-                className="mobile-nav-item"
+              <a
+                href="/certification"
+                onClick={(e) => { e.preventDefault(); handleNav('/certification'); }}
+                className={`mobile-nav-item ${activeTab === 'certification' ? 'active' : ''}`}
+                style={{ textDecoration: 'none' }}
               >
                 <Award size={16} color="var(--color-honey)" />
                 <span>Take 80% MCQ Assessment</span>
-              </button>
+              </a>
 
-              <button
-                onClick={() => handleNavigate(onOpenAdmin)}
-                className="mobile-nav-item"
-                style={{ color: 'var(--color-primary)', fontWeight: 700 }}
+              <a
+                href="/admin"
+                onClick={(e) => { e.preventDefault(); handleNav('/admin'); }}
+                className={`mobile-nav-item ${activeTab === 'admin' ? 'active' : ''}`}
+                style={{ color: 'var(--color-primary)', fontWeight: 700, textDecoration: 'none' }}
               >
                 <FolderPlus size={16} color="var(--color-primary)" />
                 <span>Admin Studio CRM</span>
-              </button>
+              </a>
 
               {/* Direct WhatsApp Callout in Mobile Menu */}
               <a

@@ -49,9 +49,11 @@ export default function CategoryGrid({
           const isSelected = selectedCategory === cat.id;
 
           return (
-            <div
+            <a
               key={cat.id}
-              onClick={() => {
+              href={`/category/${cat.id}`}
+              onClick={(e) => {
+                e.preventDefault();
                 if (onOpenCategoryDetail) {
                   onOpenCategoryDetail(cat);
                 } else if (onSelectCategory) {
@@ -59,7 +61,7 @@ export default function CategoryGrid({
                 }
               }}
               className={`category-card ${isSelected ? 'selected' : ''}`}
-              style={{ cursor: 'pointer' }}
+              style={{ cursor: 'pointer', textDecoration: 'none', color: 'inherit' }}
               title={`Click to open full ${cat.title} detail page`}
             >
               <div>
@@ -107,7 +109,7 @@ export default function CategoryGrid({
                   View Detail Page →
                 </span>
               </div>
-            </div>
+            </a>
           );
         })}
       </div>

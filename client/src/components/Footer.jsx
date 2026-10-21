@@ -1,7 +1,7 @@
 import React from 'react';
 import { Award, Heart, Phone, Mail, MapPin, Clock, MessageCircle } from 'lucide-react';
 
-export default function Footer({ onOpenPackages, onOpenExam, settings }) {
+export default function Footer({ onOpenPackages, onOpenExam, settings, onNavigate }) {
   const companyName = settings?.companyName || "Anjali Crochet Knit";
   const tagline = settings?.tagline || "Handmade • Unique • With Love ♡";
   const logo = settings?.logo || "/logo.png";
@@ -117,21 +117,31 @@ export default function Footer({ onOpenPackages, onOpenExam, settings }) {
               Pass our 10-Question MCQ test with 80% or higher to earn an official accredited credential.
             </p>
             <div>
-              <button
-                onClick={onOpenExam}
-                style={{ background: 'none', border: 'none', color: 'var(--color-honey)', fontWeight: 700, fontSize: '0.82rem', cursor: 'pointer', padding: 0 }}
+              <a
+                href="/certification"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (onNavigate) onNavigate('/certification');
+                  else if (onOpenExam) onOpenExam();
+                }}
+                style={{ color: 'var(--color-honey)', fontWeight: 700, fontSize: '0.82rem', textDecoration: 'none', display: 'inline-block' }}
               >
                 Take Assessment (80%) →
-              </button>
+              </a>
             </div>
             <div>
-              <button
-                onClick={onOpenPackages}
+              <a
+                href="/packages"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (onNavigate) onNavigate('/packages');
+                  else if (onOpenPackages) onOpenPackages();
+                }}
                 className="btn btn-primary"
-                style={{ padding: '0.45rem 1rem', fontSize: '0.78rem' }}
+                style={{ padding: '0.45rem 1rem', fontSize: '0.78rem', textDecoration: 'none', display: 'inline-block' }}
               >
                 View Packages & Enroll
-              </button>
+              </a>
             </div>
           </div>
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { 
   X, Sparkles, Check, Heart, Palette, Layers, Calendar, 
-  Upload, Image as ImageIcon, ShieldCheck, CheckCircle2, ArrowRight, Clock, HelpCircle
+  Upload, Image as ImageIcon, ShieldCheck, CheckCircle2, ArrowRight, Clock, HelpCircle, ArrowLeft
 } from 'lucide-react';
 
 const ITEM_TYPES = [
@@ -32,7 +32,8 @@ export default function CustomOrderModal({
   onClose, 
   initialData = {}, 
   onCustomOrderSubmitted,
-  settings
+  settings,
+  isPage = false
 }) {
   const currency = settings?.currencySymbol || '$';
   const [step, setStep] = useState(1);
@@ -59,7 +60,7 @@ export default function CustomOrderModal({
   const [confirmedCommission, setConfirmedCommission] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
 
-  if (!isOpen) return null;
+  if (!isOpen && !isPage) return null;
 
   // Calculate live estimate
   const selectedType = ITEM_TYPES.find(t => t.id === formData.itemType) || ITEM_TYPES[0];
@@ -138,56 +139,9 @@ export default function CustomOrderModal({
     }
   };
 
-  return (
-    <div 
-      className="modal-overlay" 
-      onClick={(e) => { if (e.target === e.currentTarget && !isSubmitting) onClose(); }}
-      style={{ zIndex: 1350, padding: '1rem', overflowY: 'auto' }}
-    >
-      <div 
-        className="modal-content" 
-        style={{ 
-          maxWidth: '860px', 
-          width: '100%',
-          maxHeight: '90vh',
-          display: 'flex',
-          flexDirection: 'column',
-          backgroundColor: '#FFFFFF', 
-          borderRadius: '24px', 
-          overflow: 'hidden',
-          boxShadow: '0 25px 60px rgba(0,0,0,0.2)',
-          border: '1px solid var(--border-subtle)'
-        }}
-      >
-        {/* Top Header */}
-        <div style={{ padding: '1.25rem 2rem', borderBottom: '1px solid var(--border-subtle)', backgroundColor: '#FAF7F2', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-            <div style={{ width: '36px', height: '36px', borderRadius: '50%', backgroundColor: 'var(--color-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#FFFFFF' }}>
-              <Sparkles size={18} />
-            </div>
-            <div>
-              <h3 style={{ fontSize: '1.25rem', margin: 0, fontFamily: 'var(--font-serif)' }}>
-                {confirmedCommission ? "Custom Commission Confirmed" : "Custom Crochet Commission Studio"}
-              </h3>
-              <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-                Handcrafted exactly to your dream specifications
-              </span>
-            </div>
-          </div>
-
-          {!isSubmitting && (
-            <button
-              onClick={onClose}
-              className="btn btn-secondary"
-              style={{ padding: '0.45rem', borderRadius: '50%' }}
-              aria-label="Close custom order modal"
-            >
-              <X size={18} />
-            </button>
-          )}
-        </div>
-
-        {/* CONFIRMATION SCREEN */}
+  const renderBodyContent = () => (
+    <>
+      {/* CONFIRMATION SCREEN */}
         {confirmedCommission ? (
           <div style={{ padding: '3.5rem 2rem', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1.25rem' }}>
             <div style={{ width: '80px', height: '80px', borderRadius: '50%', backgroundColor: 'var(--color-sage-light)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--color-sage)' }}>
@@ -732,7 +686,108 @@ export default function CustomOrderModal({
             </div>
           </form>
         )}
+    </>
+  );
 
+  // If rendered as a standalone dedicated page (/custom-order)
+  if (isPage) {
+    return (
+      <div className="container" style={{ maxWidth: '960px', margin: '0 auto', padding: '2rem 1rem 5rem' }}>
+        {/* Breadcrumb Navigation */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '0.75rem' }}>
+          <button
+            onClick={onClose}
+            className="btn btn-secondary"
+            style={{ display: 'inline-flex', alignItems: 'center', gap: '0.45rem', fontSize: '0.85rem', padding: '0.5rem 1rem' }}
+          >
+            <ArrowLeft size={16} />
+            <span>Back to Home</span>
+          </button>
+
+          <div style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>
+            <a href="/" onClick={(e) => { e.preventDefault(); onClose(); }} style={{ color: 'var(--color-primary)', textDecoration: 'none', fontWeight: 600 }}>Home</a>
+            <span style={{ margin: '0 0.5rem' }}>/</span>
+            <span style={{ fontWeight: 700, color: 'var(--text-main)' }}>Custom Commission Order</span>
+          </div>
+        </div>
+
+        {/* Page Card */}
+        <div style={{ backgroundColor: '#FFFFFF', borderRadius: '24px', border: '1px solid var(--border-subtle)', boxShadow: '0 10px 30px rgba(0,0,0,0.05)', overflow: 'hidden' }}>
+          <div style={{ padding: '1.75rem 2rem', borderBottom: '1px solid var(--border-subtle)', background: 'linear-gradient(135deg, #FAF7F2 0%, #FFFFFF 100%)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+              <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: 'var(--color-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#FFFFFF' }}>
+                <Sparkles size={20} />
+              </div>
+              <div>
+                <h1 style={{ fontSize: '1.65rem', margin: 0, fontFamily: 'var(--font-serif)', color: 'var(--text-main)' }}>
+                  {confirmedCommission ? "Custom Commission Confirmed" : "Custom Crochet Commission Studio"}
+                </h1>
+                <p style={{ margin: '0.2rem 0 0', fontSize: '0.82rem', color: 'var(--text-muted)' }}>
+                  Handcrafted exactly to your dream specifications with 100% hypoallergenic yarn
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            {renderBodyContent()}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Modal mode
+  return (
+    <div 
+      className="modal-overlay" 
+      onClick={(e) => { if (e.target === e.currentTarget && !isSubmitting) onClose(); }}
+      style={{ zIndex: 1350, padding: '1rem', overflowY: 'auto' }}
+    >
+      <div 
+        className="modal-content" 
+        style={{ 
+          maxWidth: '860px', 
+          width: '100%',
+          maxHeight: '90vh',
+          display: 'flex',
+          flexDirection: 'column',
+          backgroundColor: '#FFFFFF', 
+          borderRadius: '24px', 
+          overflow: 'hidden',
+          boxShadow: '0 25px 60px rgba(0,0,0,0.2)',
+          border: '1px solid var(--border-subtle)'
+        }}
+      >
+        {/* Top Header */}
+        <div style={{ padding: '1.25rem 2rem', borderBottom: '1px solid var(--border-subtle)', backgroundColor: '#FAF7F2', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+            <div style={{ width: '36px', height: '36px', borderRadius: '50%', backgroundColor: 'var(--color-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#FFFFFF' }}>
+              <Sparkles size={18} />
+            </div>
+            <div>
+              <h3 style={{ fontSize: '1.25rem', margin: 0, fontFamily: 'var(--font-serif)' }}>
+                {confirmedCommission ? "Custom Commission Confirmed" : "Custom Crochet Commission Studio"}
+              </h3>
+              <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+                Handcrafted exactly to your dream specifications
+              </span>
+            </div>
+          </div>
+
+          {!isSubmitting && (
+            <button
+              onClick={onClose}
+              className="btn btn-secondary"
+              style={{ padding: '0.45rem', borderRadius: '50%' }}
+              aria-label="Close custom order modal"
+            >
+              <X size={18} />
+            </button>
+          )}
+        </div>
+
+        {renderBodyContent()}
       </div>
     </div>
   );
