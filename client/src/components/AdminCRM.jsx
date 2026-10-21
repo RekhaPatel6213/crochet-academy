@@ -111,8 +111,8 @@ export default function AdminCRM({
   const defaultSettingsState = {
     companyName: 'Anjali Crochet Knit',
     tagline: 'Handmade • Unique • With Love ♡',
-    contactPhone: '+91 8882967692',
-    whatsappNumber: '918882967692',
+    contactPhone: '+91 9099962395',
+    whatsappNumber: '919099962395',
     contactEmail: 'anjalicrochetknit@gmail.com',
     address: '2039, 12th Avenue, Gaur City 2, Greater Noida West, Uttar Pradesh 201009',
     logo: '/logo.png',
@@ -126,7 +126,7 @@ export default function AdminCRM({
     taxMode: 'exclusive',
     defaultDiscount: 10,
     promoCode: 'ANJALI10',
-    promoBannerText: '🌸 Anjali Crochet Knit ♡ Bouquets from ₹499 & Keychains from ₹40 · WhatsApp: +91 8882967692 · Pan-India Delivery!',
+    promoBannerText: '🌸 Anjali Crochet Knit ♡ Bouquets from ₹499 & Keychains from ₹40 · WhatsApp: +91 9099962395 · Pan-India Delivery!',
     showPromoBanner: true,
     freeShippingThreshold: 499,
     supportHours: 'Open Every Day: 10:00 AM – 9:00 PM IST'
@@ -873,8 +873,8 @@ export default function AdminCRM({
     const defaults = {
       companyName: "Anjali Crochet Knit",
       tagline: "Handmade • Unique • With Love ♡",
-      contactPhone: "+91 8882967692",
-      whatsappNumber: "918882967692",
+      contactPhone: "+91 9099962395",
+      whatsappNumber: "919099962395",
       contactEmail: "anjalicrochetknit@gmail.com",
       address: "2039, 12th Avenue, Gaur City 2, Greater Noida West, Uttar Pradesh 201009",
       logo: "/logo.png",
@@ -888,7 +888,7 @@ export default function AdminCRM({
       taxMode: "exclusive",
       defaultDiscount: 10,
       promoCode: "ANJALI10",
-      promoBannerText: "🌸 Anjali Crochet Knit ♡ Bouquets from ₹499 & Keychains from ₹40 · WhatsApp: +91 8882967692 · Pan-India Delivery!",
+      promoBannerText: "🌸 Anjali Crochet Knit ♡ Bouquets from ₹499 & Keychains from ₹40 · WhatsApp: +91 9099962395 · Pan-India Delivery!",
       showPromoBanner: true,
       freeShippingThreshold: 499,
       supportHours: "Open Every Day: 10:00 AM – 9:00 PM IST"

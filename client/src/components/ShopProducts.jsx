@@ -26,7 +26,7 @@ export default function ShopProducts({
   settings
 }) {
   const currency = settings?.currencySymbol || '₹';
-  const whatsappNum = settings?.whatsappNumber || '918882967692';
+  const whatsappNum = settings?.whatsappNumber || '919099962395';
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState('featured');

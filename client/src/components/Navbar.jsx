@@ -278,7 +278,7 @@ export default function Navbar({
             
             {/* WhatsApp Direct Chat Button */}
             <a
-              href={`https://wa.me/${settings?.whatsappNumber || '918882967692'}?text=Hello%20Anjali%20Crochet%20Knit!%20I%20have%20an%20order%20inquiry.`}
+              href={`https://wa.me/${settings?.whatsappNumber || '919099962395'}?text=Hello%20Anjali%20Crochet%20Knit!%20I%20have%20an%20order%20inquiry.`}
               target="_blank"
               rel="noopener noreferrer"
               className="nav-wa-btn"
@@ -408,7 +408,7 @@ export default function Navbar({
 
               {/* Direct WhatsApp Callout in Mobile Menu */}
               <a
-                href={`https://wa.me/${settings?.whatsappNumber || '918882967692'}?text=Hello%20Anjali%20Crochet%20Knit!%20I%20have%20an%20order%20inquiry.`}
+                href={`https://wa.me/${settings?.whatsappNumber || '919099962395'}?text=Hello%20Anjali%20Crochet%20Knit!%20I%20have%20an%20order%20inquiry.`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mobile-nav-item"
@@ -431,7 +431,7 @@ export default function Navbar({
               <div style={{ borderTop: '1px solid var(--border-subtle)', marginTop: '0.75rem', paddingTop: '0.75rem', fontSize: '0.78rem', color: 'var(--text-muted)', display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                   <Phone size={13} color="var(--color-primary)" />
-                  <span>{settings?.contactPhone || "+91 8882967692"}</span>
+                  <span>{settings?.contactPhone || "+91 9099962395"}</span>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                   <MapPin size={13} color="var(--color-primary)" />

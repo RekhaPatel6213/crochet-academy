@@ -153,7 +153,7 @@ export default function HomeImageSlider({
     }
 
     if (actionType === 'whatsapp') {
-      const waNum = settings?.whatsappNumber || '918882967692';
+      const waNum = settings?.whatsappNumber || '919099962395';
       const text = encodeURIComponent(`Hello Anjali! I saw "${slide.title}" on your website slider and want to order.`);
       window.open(`https://wa.me/${waNum}?text=${text}`, '_blank');
       return;
@@ -173,7 +173,7 @@ export default function HomeImageSlider({
     const action = slide.btnSecondaryAction || 'whatsapp';
 
     if (action === 'whatsapp') {
-      const waNum = settings?.whatsappNumber || '918882967692';
+      const waNum = settings?.whatsappNumber || '919099962395';
       const text = encodeURIComponent(`Hello Anjali! I have an inquiry about "${slide.title}".`);
       window.open(`https://wa.me/${waNum}?text=${text}`, '_blank');
       return;

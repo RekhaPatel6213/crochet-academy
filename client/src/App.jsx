@@ -77,8 +77,8 @@ export default function App() {
   const [settings, setSettings] = useState({
     companyName: 'Anjali Crochet Knit',
     tagline: 'Handmade • Unique • With Love ♡',
-    contactPhone: '+91 8882967692',
-    whatsappNumber: '918882967692',
+    contactPhone: '+91 9099962395',
+    whatsappNumber: '919099962395',
     contactEmail: 'anjalicrochetknit@gmail.com',
     address: '2039, 12th Avenue, Gaur City 2, Greater Noida West, Uttar Pradesh 201009',
     logo: '/logo.png',
@@ -92,7 +92,7 @@ export default function App() {
     taxMode: 'exclusive',
     defaultDiscount: 10,
     promoCode: 'ANJALI10',
-    promoBannerText: '🌸 Anjali Crochet Knit ♡ Bouquets from ₹499 & Keychains from ₹40 · WhatsApp: +91 8882967692 · Pan-India Delivery!',
+    promoBannerText: '🌸 Anjali Crochet Knit ♡ Bouquets from ₹499 & Keychains from ₹40 · WhatsApp: +91 9099962395 · Pan-India Delivery!',
     showPromoBanner: true,
     freeShippingThreshold: 499,
     supportHours: 'Open Every Day: 10:00 AM – 9:00 PM IST'
@@ -508,7 +508,7 @@ export default function App() {
                       </a>
 
                       <a
-                        href={`https://wa.me/${settings?.whatsappNumber || '918882967692'}?text=Hello%20Anjali!%20I%20want%20to%20order%20from%20your%20crochet%20store.`}
+                        href={`https://wa.me/${settings?.whatsappNumber || '919099962395'}?text=Hello%20Anjali!%20I%20want%20to%20order%20from%20your%20crochet%20store.`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="btn"
@@ -1085,7 +1085,7 @@ export default function App() {
 
             <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', zIndex: 2 }}>
               <a
-                href={`https://wa.me/${settings?.whatsappNumber || '918882967692'}?text=${encodeURIComponent('Hello Anjali! I would like to enquire about bulk / wholesale gift orders for an upcoming event.')}`}
+                href={`https://wa.me/${settings?.whatsappNumber || '919099962395'}?text=${encodeURIComponent('Hello Anjali! I would like to enquire about bulk / wholesale gift orders for an upcoming event.')}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
@@ -1233,7 +1233,7 @@ export default function App() {
               {[
                 {
                   q: "How can I place an order with Anjali Crochet Knit?",
-                  a: "You can easily place an order right here through our online store cart with instant order confirmation, or directly message us on WhatsApp (+91 8882967692) with your selected items."
+                  a: "You can easily place an order right here through our online store cart with instant order confirmation, or directly message us on WhatsApp (+91 9099962395) with your selected items."
                 },
                 {
                   q: "Can I customize the color, flower arrangement, or size of a bouquet?",
@@ -1401,7 +1401,7 @@ export default function App() {
 
       {/* Floating WhatsApp Action Button (Matching anjalicrochet.store) */}
       <a
-        href={`https://wa.me/${settings?.whatsappNumber || '918882967692'}?text=Hello%20Anjali%20Crochet%20Knit!%20I%20have%20an%20order%20inquiry.`}
+        href={`https://wa.me/${settings?.whatsappNumber || '919099962395'}?text=Hello%20Anjali%20Crochet%20Knit!%20I%20have%20an%20order%20inquiry.`}
         target="_blank"
         rel="noopener noreferrer"
         className="floating-wa-btn"
@@ -1425,7 +1425,7 @@ export default function App() {
           cursor: 'pointer',
           transition: 'transform 0.2s ease, box-shadow 0.2s ease'
         }}
-        title="Chat directly with Anjali on WhatsApp (+91 8882967692)"
+        title="Chat directly with Anjali on WhatsApp (+91 9099962395)"
       >
         <MessageCircle size={20} />
         <span>Chat on WhatsApp</span>

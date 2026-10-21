@@ -12,7 +12,7 @@ export default function ProductDetailModal({
   settings
 }) {
   const currency = settings?.currencySymbol || '₹';
-  const whatsappNum = settings?.whatsappNumber || '918882967692';
+  const whatsappNum = settings?.whatsappNumber || '919099962395';
   const [selectedImageIdx, setSelectedImageIdx] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [addedAnimation, setAddedAnimation] = useState(false);

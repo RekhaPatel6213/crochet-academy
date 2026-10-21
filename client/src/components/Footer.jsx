@@ -5,8 +5,8 @@ export default function Footer({ onOpenPackages, onOpenExam, settings, onNavigat
   const companyName = settings?.companyName || "Anjali Crochet Knit";
   const tagline = settings?.tagline || "Handmade • Unique • With Love ♡";
   const logo = settings?.logo || "/logo.png";
-  const contactPhone = settings?.contactPhone || "+91 8882967692";
-  const whatsappNum = settings?.whatsappNumber || "918882967692";
+  const contactPhone = settings?.contactPhone || "+91 9099962395";
+  const whatsappNum = settings?.whatsappNumber || "919099962395";
   const contactEmail = settings?.contactEmail || "anjalicrochetknit@gmail.com";
   const address = settings?.address || "2039, 12th Avenue, Gaur City 2, Greater Noida West, Uttar Pradesh 201009";
   const supportHours = settings?.supportHours || "Open Every Day: 10:00 AM – 9:00 PM IST";
