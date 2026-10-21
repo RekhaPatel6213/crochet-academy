@@ -75,7 +75,7 @@ export default function App() {
 
   // Store & Brand Settings (Company Name, Logo, Favicon, Currency, GST, Discounts, Contact)
   const [settings, setSettings] = useState({
-    companyName: 'Anjali Crochet Knit',
+    companyName: 'Tishaya Petal & Loop',
     tagline: 'Handmade • Unique • With Love ♡',
     contactPhone: '+91 9099962395',
     whatsappNumber: '919099962395',
@@ -92,7 +92,7 @@ export default function App() {
     taxMode: 'exclusive',
     defaultDiscount: 10,
     promoCode: 'ANJALI10',
-    promoBannerText: '🌸 Anjali Crochet Knit ♡ Bouquets from ₹499 & Keychains from ₹40 · WhatsApp: +91 9099962395 · Pan-India Delivery!',
+    promoBannerText: '🌸 Tishaya Petal & Loop ♡ Bouquets from ₹499 & Keychains from ₹40 · WhatsApp: +91 9099962395 · Pan-India Delivery!',
     showPromoBanner: true,
     freeShippingThreshold: 499,
     supportHours: 'Open Every Day: 10:00 AM – 9:00 PM IST'
@@ -480,7 +480,7 @@ export default function App() {
                     <div>
                       <span className="badge badge-terracotta" style={{ marginBottom: '1rem', display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}>
                         <Sparkles size={14} />
-                        Anjali Crochet Knit ♡ Handmade with Love • Gaur City 2, Gr. Noida West
+                        Tishaya Petal & Loop ♡ Handmade with Love • Gaur City 2, Gr. Noida West
                       </span>
                     </div>
 
@@ -1115,14 +1115,14 @@ export default function App() {
             </div>
           </div>
 
-          {/* WHY CHOOSE ANJALI CROCHET KNIT */}
+          {/* WHY CHOOSE TISHAYA PETAL & LOOP */}
           <div style={{ marginTop: '5rem' }}>
             <div style={{ textAlign: 'center', maxWidth: '640px', margin: '0 auto 3rem' }}>
               <span className="badge badge-sage" style={{ marginBottom: '0.5rem' }}>
                 Our Promise & Craftsmanship
               </span>
               <h2 style={{ fontSize: '2.3rem', margin: '0 0 0.5rem', fontFamily: 'var(--font-serif)' }}>
-                Why Choose Anjali Crochet Knit?
+                Why Choose Tishaya Petal & Loop?
               </h2>
               <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', margin: 0 }}>
                 From our studio in Gaur City 2, Greater Noida West to homes across India, here is what makes our handcrafted creations special.
@@ -1232,7 +1232,7 @@ export default function App() {
             <div style={{ maxWidth: '780px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
               {[
                 {
-                  q: "How can I place an order with Anjali Crochet Knit?",
+                  q: "How can I place an order with Tishaya Petal & Loop?",
                   a: "You can easily place an order right here through our online store cart with instant order confirmation, or directly message us on WhatsApp (+91 9099962395) with your selected items."
                 },
                 {
@@ -1401,7 +1401,7 @@ export default function App() {
 
       {/* Floating WhatsApp Action Button (Matching anjalicrochet.store) */}
       <a
-        href={`https://wa.me/${settings?.whatsappNumber || '919099962395'}?text=Hello%20Anjali%20Crochet%20Knit!%20I%20have%20an%20order%20inquiry.`}
+        href={`https://wa.me/${settings?.whatsappNumber || '919099962395'}?text=Hello%20Tishaya%20Petal%20%26%20Loop!%20I%20have%20an%20order%20inquiry.`}
         target="_blank"
         rel="noopener noreferrer"
         className="floating-wa-btn"

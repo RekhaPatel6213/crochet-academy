@@ -278,7 +278,7 @@ export default function Navbar({
             
             {/* WhatsApp Direct Chat Button */}
             <a
-              href={`https://wa.me/${settings?.whatsappNumber || '919099962395'}?text=Hello%20Anjali%20Crochet%20Knit!%20I%20have%20an%20order%20inquiry.`}
+              href={`https://wa.me/${settings?.whatsappNumber || '919099962395'}?text=Hello%20Tishaya%20Petal%20%26%20Loop!%20I%20have%20an%20order%20inquiry.`}
               target="_blank"
               rel="noopener noreferrer"
               className="nav-wa-btn"
@@ -408,7 +408,7 @@ export default function Navbar({
 
               {/* Direct WhatsApp Callout in Mobile Menu */}
               <a
-                href={`https://wa.me/${settings?.whatsappNumber || '919099962395'}?text=Hello%20Anjali%20Crochet%20Knit!%20I%20have%20an%20order%20inquiry.`}
+                href={`https://wa.me/${settings?.whatsappNumber || '919099962395'}?text=Hello%20Tishaya%20Petal%20%26%20Loop!%20I%20have%20an%20order%20inquiry.`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mobile-nav-item"

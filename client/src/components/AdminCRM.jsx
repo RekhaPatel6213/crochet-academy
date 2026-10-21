@@ -109,7 +109,7 @@ export default function AdminCRM({
 
   // Settings State (Company Name, Logo, Favicon, Contact Info, Currency, GST, Discounts)
   const defaultSettingsState = {
-    companyName: 'Anjali Crochet Knit',
+    companyName: 'Tishaya Petal & Loop',
     tagline: 'Handmade • Unique • With Love ♡',
     contactPhone: '+91 9099962395',
     whatsappNumber: '919099962395',
@@ -126,7 +126,7 @@ export default function AdminCRM({
     taxMode: 'exclusive',
     defaultDiscount: 10,
     promoCode: 'ANJALI10',
-    promoBannerText: '🌸 Anjali Crochet Knit ♡ Bouquets from ₹499 & Keychains from ₹40 · WhatsApp: +91 9099962395 · Pan-India Delivery!',
+    promoBannerText: '🌸 Tishaya Petal & Loop ♡ Bouquets from ₹499 & Keychains from ₹40 · WhatsApp: +91 9099962395 · Pan-India Delivery!',
     showPromoBanner: true,
     freeShippingThreshold: 499,
     supportHours: 'Open Every Day: 10:00 AM – 9:00 PM IST'
@@ -871,7 +871,7 @@ export default function AdminCRM({
   const handleResetSettings = async () => {
     if (!window.confirm("Reset all store, currency, GST, and branding settings to factory defaults?")) return;
     const defaults = {
-      companyName: "Anjali Crochet Knit",
+      companyName: "Tishaya Petal & Loop",
       tagline: "Handmade • Unique • With Love ♡",
       contactPhone: "+91 9099962395",
       whatsappNumber: "919099962395",
@@ -888,7 +888,7 @@ export default function AdminCRM({
       taxMode: "exclusive",
       defaultDiscount: 10,
       promoCode: "ANJALI10",
-      promoBannerText: "🌸 Anjali Crochet Knit ♡ Bouquets from ₹499 & Keychains from ₹40 · WhatsApp: +91 9099962395 · Pan-India Delivery!",
+      promoBannerText: "🌸 Tishaya Petal & Loop ♡ Bouquets from ₹499 & Keychains from ₹40 · WhatsApp: +91 9099962395 · Pan-India Delivery!",
       showPromoBanner: true,
       freeShippingThreshold: 499,
       supportHours: "Open Every Day: 10:00 AM – 9:00 PM IST"

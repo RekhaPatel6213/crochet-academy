@@ -2,7 +2,7 @@ import React from 'react';
 import { Award, Heart, Phone, Mail, MapPin, Clock, MessageCircle } from 'lucide-react';
 
 export default function Footer({ onOpenPackages, onOpenExam, settings, onNavigate }) {
-  const companyName = settings?.companyName || "Anjali Crochet Knit";
+  const companyName = settings?.companyName || "Tishaya Petal & Loop";
   const tagline = settings?.tagline || "Handmade • Unique • With Love ♡";
   const logo = settings?.logo || "/logo.png";
   const contactPhone = settings?.contactPhone || "+91 9099962395";
@@ -64,7 +64,7 @@ export default function Footer({ onOpenPackages, onOpenExam, settings, onNavigat
                 <span>Call: {contactPhone}</span>
               </div>
               <a 
-                href={`https://wa.me/${whatsappNum}?text=Hello%20Anjali%20Crochet%20Knit!%20I%20have%20an%20order%20inquiry.`}
+                href={`https://wa.me/${whatsappNum}?text=Hello%20Tishaya%20Petal%20%26%20Loop!%20I%20have%20an%20order%20inquiry.`}
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', color: '#25D366', textDecoration: 'none', fontWeight: 600 }}
