@@ -9,7 +9,8 @@ export default function FAQPage({
   onBack, 
   settings, 
   onNavigate, 
-  onOpenCustomOrder 
+  onOpenCustomOrder,
+  faqs = []
 }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -21,89 +22,122 @@ export default function FAQPage({
   const address = settings?.address || '2039, 12th Avenue, Gaur City 2, Greater Noida West, Uttar Pradesh 201009';
   const supportHours = settings?.supportHours || 'Open Every Day: 10:00 AM – 9:00 PM IST';
 
-  const faqCategories = [
-    { id: 'All', label: 'All Questions', icon: '✨' },
-    { id: 'Orders', label: 'Ordering & Products', icon: '🌸' },
-    { id: 'Custom', label: 'Custom Commissions', icon: '🎨' },
-    { id: 'Classes', label: 'Classes & Mentorship', icon: '🧶' },
-    { id: 'Shipping', label: 'Shipping & Delivery', icon: '🚚' },
-    { id: 'Studio', label: 'Studio & Storefront', icon: '📍' }
-  ];
+  const categoryMeta = {
+    'Orders': { label: 'Ordering & Products', icon: '🌸' },
+    'Custom': { label: 'Custom Commissions', icon: '🎨' },
+    'Classes': { label: 'Classes & Mentorship', icon: '🧶' },
+    'Shipping': { label: 'Shipping & Delivery', icon: '🚚' },
+    'Studio': { label: 'Studio & Storefront', icon: '📍' },
+    'Care': { label: 'Care & Materials', icon: '🧼' },
+    'Payments': { label: 'Payments & Pricing', icon: '💳' }
+  };
 
-  const allFaqs = [
+  const fallbackFaqs = [
     {
-      id: 1,
+      id: 'faq-1',
       category: 'Orders',
       q: `How can I place an order with ${companyName}?`,
       a: `You can easily place an order right here through our website by browsing our Handcrafted Shop and adding items to your cart with instant order placement, or directly message us on WhatsApp (${contactPhone}) with screenshots or names of your selected creations.`
     },
     {
-      id: 2,
+      id: 'faq-2',
       category: 'Custom',
       q: 'Can I customize the color, flower arrangement, or size of a bouquet?',
       a: "Yes, absolutely! We specialize in bespoke commissions. You can click on 'Custom Order' in our navigation bar or message us on WhatsApp with your favorite color palette, desired flower species (roses, sunflowers, tulips, daisies, lilies), ribbon text, or reference photos. We will craft it to your exact preferences."
     },
     {
-      id: 3,
+      id: 'faq-3',
       category: 'Shipping',
       q: 'How long does delivery take across India, and how are fragile bouquets packed?',
       a: 'Orders are dispatched within 24–48 hours from our Greater Noida West studio. Standard tracked shipping reaches Delhi NCR in 1–2 days, major metro cities (Mumbai, Bengaluru, Kolkata, Chennai, Hyderabad, Pune) in 2–4 business days, and other regions in 4–6 business days. Each delicate bouquet and amigurumi plush is safely nestled in crush-resistant aesthetic gift boxing with bubble wrap protection.'
     },
     {
-      id: 4,
+      id: 'faq-4',
       category: 'Classes',
       q: 'Do you offer crochet classes in Greater Noida West and online?',
       a: 'Yes! We run comprehensive online interactive video masterclasses with verified certification, as well as hands-on weekend studio sessions at Gaur City 2, Greater Noida West. Our courses cater to all experience levels — from absolute beginner stitch basics (slip knots, single crochet, magic ring) to complex 3D amigurumi plushies, wearables, and multi-colored granny square blankets.'
     },
     {
-      id: 5,
+      id: 'faq-5',
       category: 'Studio',
       q: 'Where is your physical studio located and what are your visiting hours?',
       a: `Our creative studio and workshop is located at ${address}. We are open for student classes, gift pick-ups, and studio visits every day from 10:00 AM to 9:00 PM IST. If visiting in person, drop us a quick WhatsApp ping before coming so we can prepare your items!`
     },
     {
-      id: 6,
+      id: 'faq-6',
       category: 'Orders',
       q: 'What kind of yarn and materials do you use for your flowers and plushies?',
       a: 'We use exclusively premium 100% baby-safe, hypoallergenic combed milk cotton, acrylic, and chenille velvet yarns. They are lint-free, soft to the touch, washable, colorfast, and long-lasting — meaning your crochet bouquets will never wilt, fade, or trigger allergies like fresh flowers.'
     },
     {
-      id: 7,
+      id: 'faq-7',
       category: 'Orders',
       q: 'Do you accept bulk, corporate, or return-gift orders for weddings and events?',
       a: 'Yes! We frequently craft bulk handcrafted favours, wedding return gifts, graduation sunflower keychains, bridesmaids bouquets, and corporate festive hampers (Diwali, New Year, Women’s Day). Bulk pricing discounts are available for quantities of 15+ pieces. Please reach out via WhatsApp at least 7–10 days in advance for large quantities.'
     },
     {
-      id: 8,
+      id: 'faq-8',
       category: 'Custom',
       q: 'Can you recreate a bouquet or toy from an Instagram or Pinterest picture?',
       a: "Yes! Simply share the image with us via WhatsApp. Founder & lead artisan Anjali Kumari will analyze the stitch pattern, calculate the yarn requirements, confirm timeline & pricing, and keep you updated with progress photos while crocheting your custom creation."
     },
     {
-      id: 9,
+      id: 'faq-9',
       category: 'Classes',
       q: 'How does the Artisan Certification Exam work?',
       a: 'Our Certification Assessment is a 10-question multiple choice (MCQ) exam covering stitch anatomy, tension control, abbreviations (US vs UK terminology), magic rings, and project finishing. Scoring 80% or higher awards you an official verified PDF certificate with your credential ID that can be downloaded and displayed.'
     },
     {
-      id: 10,
+      id: 'faq-10',
       category: 'Shipping',
       q: 'What are the shipping charges? Is Free Delivery available?',
       a: 'We offer FREE Pan-India doorstep delivery on all orders above ₹499! For orders below ₹499, a nominal flat courier fee of ₹60 is applied at checkout.'
     },
     {
-      id: 11,
+      id: 'faq-11',
       category: 'Orders',
       q: 'How do I care for and clean my handcrafted crochet items?',
       a: 'Crochet flower bouquets simply need occasional gentle dusting with a soft brush or cool hairdryer on low setting. For keychains and plushies, hand wash in lukewarm water using mild baby detergent, gently squeeze (do not wring), and dry flat in shade. Avoid hot water, bleach, or tumble drying.'
     },
     {
-      id: 12,
+      id: 'faq-12',
       category: 'Studio',
       q: 'What payment modes are accepted?',
       a: 'We accept UPI (Google Pay, PhonePe, Paytm), BHIM, Net Banking, credit/debit cards, and Cash on Delivery / Pay on Pickup at our Greater Noida West studio.'
     }
   ];
+
+  // Dynamic active FAQs from props or fallback
+  const allFaqs = useMemo(() => {
+    const list = Array.isArray(faqs) && faqs.length > 0 ? faqs : fallbackFaqs;
+    return list
+      .filter(f => f.active !== false)
+      .map((f, idx) => ({
+        id: f.id || `faq-${idx}`,
+        category: f.category || 'Orders',
+        q: f.question || f.q || 'Question',
+        a: f.answer || f.a || 'Answer'
+      }));
+  }, [faqs, companyName, contactPhone, address]);
+
+  // Derive dynamic category pills from active FAQs
+  const faqCategories = useMemo(() => {
+    const cats = new Set();
+    allFaqs.forEach(f => {
+      if (f.category) cats.add(f.category);
+    });
+
+    const list = [{ id: 'All', label: 'All Questions', icon: '✨' }];
+    cats.forEach(c => {
+      const meta = categoryMeta[c] || { label: c, icon: '🧶' };
+      list.push({
+        id: c,
+        label: meta.label,
+        icon: meta.icon
+      });
+    });
+    return list;
+  }, [allFaqs]);
 
   const filteredFaqs = useMemo(() => {
     return allFaqs.filter(faq => {

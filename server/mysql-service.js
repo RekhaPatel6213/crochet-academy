@@ -199,6 +199,21 @@ export async function loadDataFromMySQL() {
       };
     }
 
+    // 14. FAQs
+    try {
+      const [faqRows] = await pool.query('SELECT * FROM faqs ORDER BY sort_order ASC, id ASC');
+      db.faqs = faqRows.map(r => ({
+        id: r.id,
+        category: r.category,
+        question: r.question,
+        answer: r.answer,
+        sortOrder: Number(r.sort_order) || 0,
+        active: Boolean(r.active)
+      }));
+    } catch (e) {
+      db.faqs = [];
+    }
+
     return db;
   } catch (err) {
     console.error('❌ [MySQL] Error loading data from MySQL:', err);
@@ -410,3 +425,52 @@ export async function syncExamSubmissionToMySQL(sub) {
     console.error('❌ [MySQL] Failed to save exam submission:', e.message);
   }
 }
+
+export async function syncFaqToMySQL(faq, sortOrder = 0) {
+  if (!isMySQLConnected || !pool) return;
+  try {
+    await pool.execute(
+      `INSERT INTO faqs (id, category, question, answer, sort_order, active)
+       VALUES (?, ?, ?, ?, ?, ?)
+       ON DUPLICATE KEY UPDATE 
+         category=VALUES(category), 
+         question=VALUES(question), 
+         answer=VALUES(answer), 
+         sort_order=VALUES(sort_order), 
+         active=VALUES(active)`,
+      [
+        faq.id,
+        faq.category || 'Orders',
+        faq.question || '',
+        faq.answer || '',
+        faq.sortOrder !== undefined ? faq.sortOrder : sortOrder,
+        faq.active !== undefined ? Boolean(faq.active) : true
+      ]
+    );
+  } catch (e) {
+    console.error('❌ [MySQL] Failed to save FAQ:', e.message);
+  }
+}
+
+export async function deleteFaqFromMySQL(id) {
+  if (!isMySQLConnected || !pool) return;
+  try {
+    await pool.execute(`DELETE FROM faqs WHERE id = ?`, [id]);
+  } catch (e) {
+    console.error('❌ [MySQL] Failed to delete FAQ:', e.message);
+  }
+}
+
+export async function syncAllFaqsToMySQL(faqs) {
+  if (!isMySQLConnected || !pool || !Array.isArray(faqs)) return;
+  try {
+    await pool.execute(`DELETE FROM faqs`);
+    let order = 1;
+    for (const f of faqs) {
+      await syncFaqToMySQL(f, order++);
+    }
+  } catch (e) {
+    console.error('❌ [MySQL] Failed to sync all FAQs:', e.message);
+  }
+}
+

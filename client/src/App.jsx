@@ -64,6 +64,7 @@ export default function App() {
   const [packages, setPackages] = useState([]);
   const [products, setProducts] = useState([]);
   const [slides, setSlides] = useState([]);
+  const [faqs, setFaqs] = useState([]);
   const [userStatus, setUserStatus] = useState({
     activePackages: ['pkg-starter'],
     completedSteps: {},
@@ -301,24 +302,26 @@ export default function App() {
   const fetchInitialData = async () => {
     try {
       setLoading(true);
-      const [catRes, courseRes, pkgRes, userRes, prodRes, settingsRes, slidesRes] = await Promise.all([
+      const [catRes, courseRes, pkgRes, userRes, prodRes, settingsRes, slidesRes, faqRes] = await Promise.all([
         fetch('/api/categories'),
         fetch('/api/courses'),
         fetch('/api/packages'),
         fetch('/api/user/status'),
         fetch('/api/products'),
         fetch('/api/settings'),
-        fetch('/api/slides')
+        fetch('/api/slides'),
+        fetch('/api/faqs?all=true')
       ]);
 
-      const [catData, courseData, pkgData, userData, prodData, settingsData, slidesData] = await Promise.all([
+      const [catData, courseData, pkgData, userData, prodData, settingsData, slidesData, faqData] = await Promise.all([
         catRes.json(),
         courseRes.json(),
         pkgRes.json(),
         userRes.json(),
         prodRes.json(),
         settingsRes.json(),
-        slidesRes.json()
+        slidesRes.json(),
+        faqRes.json()
       ]);
 
       if (catData.success) {
@@ -338,6 +341,7 @@ export default function App() {
       if (prodData.success) setProducts(prodData.data);
       if (settingsData.success && settingsData.data) setSettings(settingsData.data);
       if (slidesData.success && slidesData.data) setSlides(slidesData.data);
+      if (faqData.success && faqData.data) setFaqs(faqData.data);
     } catch (err) {
       console.error("Error loading academy data:", err);
     } finally {
@@ -478,6 +482,7 @@ export default function App() {
             settings={settings}
             onNavigate={navigate}
             onOpenCustomOrder={handleOpenCustomOrder}
+            faqs={faqs}
           />
         ) : (
           <>
@@ -1256,6 +1261,8 @@ export default function App() {
           products={products}
           slides={slides}
           onUpdateSlides={(newSlides) => setSlides(newSlides)}
+          faqs={faqs}
+          onUpdateFaqs={(newFaqs) => setFaqs(newFaqs)}
           onClose={handleCloseAdmin}
           onRefreshData={fetchInitialData}
           settings={settings}

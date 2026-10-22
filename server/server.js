@@ -16,7 +16,10 @@ import {
   deleteSlideFromMySQL, 
   syncAllSlidesToMySQL, 
   syncEnrollmentsToMySQL, 
-  syncExamSubmissionToMySQL 
+  syncExamSubmissionToMySQL,
+  syncFaqToMySQL,
+  deleteFaqFromMySQL,
+  syncAllFaqsToMySQL
 } from './mysql-service.js';
 
 dotenv.config();
@@ -1828,6 +1831,80 @@ app.put('/api/admin/slides', (req, res) => {
   }
 });
 
+// A8. Dynamic FAQs API (Manage FAQs & Support Knowledge Base)
+app.get('/api/faqs', (req, res) => {
+  const db = loadDB();
+  const includeInactive = req.query.all === 'true';
+  let faqs = db.faqs || [];
+  if (!includeInactive) {
+    faqs = faqs.filter(f => f.active !== false);
+  }
+  faqs.sort((a, b) => (Number(a.sortOrder) || 0) - (Number(b.sortOrder) || 0));
+  res.json({ success: true, data: faqs });
+});
+
+app.post('/api/admin/faqs', (req, res) => {
+  const db = loadDB();
+  if (!db.faqs) db.faqs = [];
+  const newFaq = {
+    id: `faq-${Date.now()}`,
+    category: req.body.category || 'Orders',
+    question: req.body.question || 'Untitled Question',
+    answer: req.body.answer || '',
+    sortOrder: req.body.sortOrder !== undefined ? Number(req.body.sortOrder) : db.faqs.length + 1,
+    active: req.body.active !== undefined ? Boolean(req.body.active) : true
+  };
+  db.faqs.push(newFaq);
+  saveDB(db);
+  syncFaqToMySQL(newFaq, newFaq.sortOrder);
+  res.json({ success: true, message: "FAQ added successfully!", data: newFaq });
+});
+
+app.put('/api/admin/faqs/:id', (req, res) => {
+  const { id } = req.params;
+  const db = loadDB();
+  const index = (db.faqs || []).findIndex(f => f.id === id);
+  if (index === -1) {
+    return res.status(404).json({ success: false, message: "FAQ not found." });
+  }
+  db.faqs[index] = {
+    ...db.faqs[index],
+    category: req.body.category !== undefined ? req.body.category : db.faqs[index].category,
+    question: req.body.question !== undefined ? req.body.question : db.faqs[index].question,
+    answer: req.body.answer !== undefined ? req.body.answer : db.faqs[index].answer,
+    sortOrder: req.body.sortOrder !== undefined ? Number(req.body.sortOrder) : db.faqs[index].sortOrder,
+    active: req.body.active !== undefined ? Boolean(req.body.active) : db.faqs[index].active
+  };
+  saveDB(db);
+  syncFaqToMySQL(db.faqs[index], db.faqs[index].sortOrder);
+  res.json({ success: true, message: "FAQ updated successfully!", data: db.faqs[index] });
+});
+
+app.delete('/api/admin/faqs/:id', (req, res) => {
+  const { id } = req.params;
+  const db = loadDB();
+  const index = (db.faqs || []).findIndex(f => f.id === id);
+  if (index === -1) {
+    return res.status(404).json({ success: false, message: "FAQ not found." });
+  }
+  db.faqs.splice(index, 1);
+  saveDB(db);
+  deleteFaqFromMySQL(id);
+  res.json({ success: true, message: "FAQ deleted successfully." });
+});
+
+app.put('/api/admin/faqs-reorder', (req, res) => {
+  const db = loadDB();
+  if (Array.isArray(req.body.faqs)) {
+    db.faqs = req.body.faqs;
+    saveDB(db);
+    syncAllFaqsToMySQL(db.faqs);
+    res.json({ success: true, message: "FAQs reordered successfully!", data: db.faqs });
+  } else {
+    res.status(400).json({ success: false, message: "Invalid FAQs array." });
+  }
+});
+
 // Database Status endpoint
 app.get('/api/db-status', (req, res) => {
   res.json({
@@ -1839,7 +1916,7 @@ app.get('/api/db-status', (req, res) => {
     tables: [
       "settings", "admin_users", "categories", "courses", "packages",
       "mcq_questions", "products", "product_orders", "custom_orders",
-      "orders", "hero_slides", "exam_submissions", "user_enrollments"
+      "orders", "hero_slides", "exam_submissions", "user_enrollments", "faqs"
     ]
   });
 });

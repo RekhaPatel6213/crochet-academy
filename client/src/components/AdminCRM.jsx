@@ -7,7 +7,7 @@ import {
   Edit3, Bold, Italic, Underline, List, Heading, 
   Quote, Code, Play, X, Check, RefreshCw, LayoutGrid, LayoutList,
   Package, ShoppingBag, Truck, Tag, SlidersHorizontal, Settings,
-  Phone, Mail, MapPin, Percent, Coins, Globe
+  Phone, Mail, MapPin, Percent, Coins, Globe, HelpCircle
 } from 'lucide-react';
 
 export default function AdminCRM({ 
@@ -17,6 +17,8 @@ export default function AdminCRM({
   products: initialProducts = [],
   slides: initialSlides = [],
   onUpdateSlides = null,
+  faqs: initialFaqs = [],
+  onUpdateFaqs = null,
   onClose, 
   onRefreshData,
   settings: initialSettings = null,
@@ -106,6 +108,22 @@ export default function AdminCRM({
   };
   const [slideForm, setSlideForm] = useState(initialSlideForm);
   const [dbInfo, setDbInfo] = useState(null);
+
+  // FAQ Management State
+  const [faqsList, setFaqsList] = useState(initialFaqs || []);
+  const [faqSearch, setFaqSearch] = useState('');
+  const [faqCategoryFilter, setFaqCategoryFilter] = useState('All');
+  const [isAddingFaq, setIsAddingFaq] = useState(false);
+  const [editingFaqId, setEditingFaqId] = useState(null);
+  const [isSavingFaq, setIsSavingFaq] = useState(false);
+  const initialFaqForm = {
+    category: 'Orders',
+    question: '',
+    answer: '',
+    active: true,
+    sortOrder: 0
+  };
+  const [faqForm, setFaqForm] = useState(initialFaqForm);
 
   // Settings State (Company Name, Logo, Favicon, Contact Info, Currency, GST, Discounts)
   const defaultSettingsState = {
@@ -228,7 +246,7 @@ export default function AdminCRM({
   const fetchCRMData = async () => {
     setCrmLoading(true);
     try {
-      const [statsRes, ordersRes, subsRes, pkgRes, prodRes, prodOrdersRes, custOrdersRes, settingsRes, slidesRes, dbStatusRes] = await Promise.all([
+      const [statsRes, ordersRes, subsRes, pkgRes, prodRes, prodOrdersRes, custOrdersRes, settingsRes, slidesRes, faqsRes, dbStatusRes] = await Promise.all([
         fetch('/api/admin/crm/stats'),
         fetch('/api/admin/crm/orders'),
         fetch('/api/admin/crm/submissions'),
@@ -238,10 +256,11 @@ export default function AdminCRM({
         fetch('/api/admin/crm/custom-orders'),
         fetch('/api/settings'),
         fetch('/api/slides'),
+        fetch('/api/faqs?all=true'),
         fetch('/api/db-status')
       ]);
 
-      const [statsData, ordersData, subsData, pkgData, prodData, prodOrdersData, custOrdersData, settingsData, slidesData, dbStatusData] = await Promise.all([
+      const [statsData, ordersData, subsData, pkgData, prodData, prodOrdersData, custOrdersData, settingsData, slidesData, faqsData, dbStatusData] = await Promise.all([
         statsRes.json(),
         ordersRes.json(),
         subsRes.json(),
@@ -251,6 +270,7 @@ export default function AdminCRM({
         custOrdersRes.json(),
         settingsRes.json(),
         slidesRes.json(),
+        faqsRes.json(),
         dbStatusRes.json()
       ]);
 
@@ -263,6 +283,10 @@ export default function AdminCRM({
       if (custOrdersData.success) setCustomOrdersList(custOrdersData.data);
       if (settingsData.success && settingsData.data) setSettingsForm(settingsData.data);
       if (slidesData.success && slidesData.data) setSlidesList(slidesData.data);
+      if (faqsData.success && faqsData.data) {
+        setFaqsList(faqsData.data);
+        if (onUpdateFaqs) onUpdateFaqs(faqsData.data);
+      }
       if (dbStatusData.success) setDbInfo(dbStatusData);
     } catch (err) {
       console.error("Error fetching CRM records:", err);
@@ -358,6 +382,94 @@ export default function AdminCRM({
       }
     } catch (err) {
       console.error("Error toggling slide status", err);
+    }
+  };
+
+  // FAQ CRUD Handlers
+  const handleSaveFaq = async (e) => {
+    e.preventDefault();
+    setIsSavingFaq(true);
+    try {
+      const url = editingFaqId ? `/api/admin/faqs/${editingFaqId}` : '/api/admin/faqs';
+      const method = editingFaqId ? 'PUT' : 'POST';
+      const res = await fetch(url, {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(faqForm)
+      });
+      const data = await res.json();
+      if (data.success) {
+        setFeedback({ 
+          type: 'success', 
+          message: editingFaqId ? `FAQ question updated successfully!` : `New FAQ added successfully!` 
+        });
+        setIsAddingFaq(false);
+        setEditingFaqId(null);
+        setFaqForm(initialFaqForm);
+        // Refresh FAQ list
+        const refreshed = await (await fetch('/api/faqs?all=true')).json();
+        if (refreshed.success && refreshed.data) {
+          setFaqsList(refreshed.data);
+          if (onUpdateFaqs) onUpdateFaqs(refreshed.data);
+        }
+      } else {
+        alert(data.message || "Failed to save FAQ.");
+      }
+    } catch (err) {
+      alert("Error saving FAQ: " + err.message);
+    } finally {
+      setIsSavingFaq(false);
+    }
+  };
+
+  const handleEditFaq = (faq) => {
+    setEditingFaqId(faq.id);
+    setFaqForm({
+      category: faq.category || 'Orders',
+      question: faq.question || '',
+      answer: faq.answer || '',
+      active: faq.active !== false,
+      sortOrder: faq.sortOrder || 0
+    });
+    setIsAddingFaq(true);
+  };
+
+  const handleDeleteFaq = async (faqId, question) => {
+    if (!window.confirm(`Delete FAQ "${question.substring(0, 45)}..."?`)) return;
+    try {
+      const res = await fetch(`/api/admin/faqs/${faqId}`, { method: 'DELETE' });
+      const data = await res.json();
+      if (data.success) {
+        setFeedback({ type: 'success', message: `FAQ deleted successfully.` });
+        const refreshed = await (await fetch('/api/faqs?all=true')).json();
+        if (refreshed.success && refreshed.data) {
+          setFaqsList(refreshed.data);
+          if (onUpdateFaqs) onUpdateFaqs(refreshed.data);
+        }
+      } else {
+        alert(data.message || "Failed to delete FAQ.");
+      }
+    } catch (err) {
+      alert("Error deleting FAQ: " + err.message);
+    }
+  };
+
+  const handleToggleFaqActive = async (faq) => {
+    try {
+      const updatedFaq = { ...faq, active: !faq.active };
+      const res = await fetch(`/api/admin/faqs/${faq.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updatedFaq)
+      });
+      const data = await res.json();
+      if (data.success) {
+        const updatedList = faqsList.map(f => f.id === faq.id ? updatedFaq : f);
+        setFaqsList(updatedList);
+        if (onUpdateFaqs) onUpdateFaqs(updatedList);
+      }
+    } catch (err) {
+      console.error("Error toggling FAQ status", err);
     }
   };
 
@@ -1211,6 +1323,22 @@ export default function AdminCRM({
                 }}
               >
                 <Settings size={16} /> Store Settings
+              </button>
+
+              <button
+                onClick={() => setCrmTab('faqs')}
+                className={`tab-btn ${crmTab === 'faqs' ? 'active' : ''}`}
+                style={{ 
+                  width: '100%', 
+                  justifyContent: 'flex-start', 
+                  padding: '0.65rem 0.85rem', 
+                  fontSize: '0.85rem',
+                  backgroundColor: crmTab === 'faqs' ? 'var(--color-primary)' : 'transparent',
+                  color: crmTab === 'faqs' ? '#FFFFFF' : 'var(--text-main)',
+                  fontWeight: crmTab === 'faqs' ? 700 : 500
+                }}
+              >
+                <HelpCircle size={16} /> FAQs Manager ({faqsList.length})
               </button>
             </aside>
 
@@ -4477,6 +4605,505 @@ export default function AdminCRM({
                             >
                               <Check size={16} />
                               <span>{editingSlideId ? 'Save Slide Updates' : 'Publish to Slider'}</span>
+                            </button>
+                          </div>
+
+                        </form>
+                      </div>
+                    </div>
+                  )}
+
+                </div>
+              )}
+
+              {/* 11. FAQ MANAGEMENT MODULE */}
+              {crmTab === 'faqs' && (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+                  
+                  {/* Header Banner */}
+                  <div style={{ 
+                    display: 'flex', 
+                    justifyContent: 'space-between', 
+                    alignItems: 'center',
+                    flexWrap: 'wrap',
+                    gap: '1rem',
+                    background: 'linear-gradient(135deg, #FAF7F2 0%, #FFFFFF 100%)',
+                    padding: '1.75rem',
+                    borderRadius: '20px',
+                    border: '1px solid var(--border-subtle)',
+                    boxShadow: '0 4px 16px rgba(0,0,0,0.03)'
+                  }}>
+                    <div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.4rem' }}>
+                        <span className="badge badge-terracotta" style={{ fontSize: '0.72rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                          <HelpCircle size={12} /> Dynamic Content
+                        </span>
+                        <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+                          • Stored in MySQL & JSON Database
+                        </span>
+                      </div>
+                      <h2 style={{ fontSize: '1.8rem', margin: 0, fontFamily: 'var(--font-serif)', color: 'var(--text-main)' }}>
+                        Frequently Asked Questions (FAQ)
+                      </h2>
+                      <p style={{ margin: '0.3rem 0 0', fontSize: '0.88rem', color: 'var(--text-muted)' }}>
+                        Manage customer questions, studio guidelines, shipping policies, and answers displayed on your live FAQ page.
+                      </p>
+                    </div>
+
+                    <div style={{ display: 'flex', gap: '0.75rem' }}>
+                      <a
+                        href="/faq"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="btn btn-secondary"
+                        style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', padding: '0.65rem 1.1rem', fontSize: '0.85rem' }}
+                      >
+                        <ExternalLink size={15} /> View Live FAQ Page
+                      </a>
+                      <button
+                        onClick={() => {
+                          setEditingFaqId(null);
+                          setFaqForm(initialFaqForm);
+                          setIsAddingFaq(true);
+                        }}
+                        className="btn btn-primary"
+                        style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', padding: '0.65rem 1.25rem', fontSize: '0.85rem' }}
+                      >
+                        <Plus size={16} /> Add New FAQ
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* FAQ Metrics Overview */}
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(210px, 1fr))', gap: '1rem' }}>
+                    <div style={{ backgroundColor: '#FFFFFF', padding: '1.25rem', borderRadius: '16px', border: '1px solid var(--border-subtle)', boxShadow: 'var(--shadow-sm)' }}>
+                      <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', fontWeight: 600, textTransform: 'uppercase', marginBottom: '0.35rem' }}>
+                        Total Questions
+                      </div>
+                      <div style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--text-main)' }}>
+                        {faqsList.length}
+                      </div>
+                      <div style={{ fontSize: '0.72rem', color: 'var(--text-subtle)', marginTop: '0.25rem' }}>
+                        In all categories
+                      </div>
+                    </div>
+
+                    <div style={{ backgroundColor: '#FFFFFF', padding: '1.25rem', borderRadius: '16px', border: '1px solid var(--border-subtle)', boxShadow: 'var(--shadow-sm)' }}>
+                      <div style={{ fontSize: '0.78rem', color: '#2E7D32', fontWeight: 600, textTransform: 'uppercase', marginBottom: '0.35rem' }}>
+                        Active & Published
+                      </div>
+                      <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#2E7D32' }}>
+                        {faqsList.filter(f => f.active !== false).length}
+                      </div>
+                      <div style={{ fontSize: '0.72rem', color: 'var(--text-subtle)', marginTop: '0.25rem' }}>
+                        Visible on /faq page
+                      </div>
+                    </div>
+
+                    <div style={{ backgroundColor: '#FFFFFF', padding: '1.25rem', borderRadius: '16px', border: '1px solid var(--border-subtle)', boxShadow: 'var(--shadow-sm)' }}>
+                      <div style={{ fontSize: '0.78rem', color: '#E65100', fontWeight: 600, textTransform: 'uppercase', marginBottom: '0.35rem' }}>
+                        Drafts & Hidden
+                      </div>
+                      <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#E65100' }}>
+                        {faqsList.filter(f => f.active === false).length}
+                      </div>
+                      <div style={{ fontSize: '0.72rem', color: 'var(--text-subtle)', marginTop: '0.25rem' }}>
+                        Hidden from visitors
+                      </div>
+                    </div>
+
+                    <div style={{ backgroundColor: '#FFFFFF', padding: '1.25rem', borderRadius: '16px', border: '1px solid var(--border-subtle)', boxShadow: 'var(--shadow-sm)' }}>
+                      <div style={{ fontSize: '0.78rem', color: 'var(--color-primary)', fontWeight: 600, textTransform: 'uppercase', marginBottom: '0.35rem' }}>
+                        Categories
+                      </div>
+                      <div style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--color-primary)' }}>
+                        {new Set(faqsList.map(f => f.category)).size}
+                      </div>
+                      <div style={{ fontSize: '0.72rem', color: 'var(--text-subtle)', marginTop: '0.25rem' }}>
+                        Topic filters on page
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Filters & Search Toolbar */}
+                  <div style={{ 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'space-between', 
+                    gap: '1rem', 
+                    flexWrap: 'wrap',
+                    backgroundColor: '#FFFFFF',
+                    padding: '1rem 1.25rem',
+                    borderRadius: '16px',
+                    border: '1px solid var(--border-subtle)'
+                  }}>
+                    {/* Category Filter Pills */}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', flexWrap: 'wrap' }}>
+                      <span style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--text-muted)', marginRight: '0.25rem' }}>
+                        Category:
+                      </span>
+                      {['All', ...Array.from(new Set(faqsList.map(f => f.category || 'Orders')))].map(cat => (
+                        <button
+                          key={cat}
+                          onClick={() => setFaqCategoryFilter(cat)}
+                          className={`btn ${faqCategoryFilter === cat ? 'btn-primary' : 'btn-secondary'}`}
+                          style={{
+                            padding: '0.35rem 0.85rem',
+                            fontSize: '0.78rem',
+                            borderRadius: '20px',
+                            fontWeight: faqCategoryFilter === cat ? 700 : 500
+                          }}
+                        >
+                          {cat} {cat !== 'All' ? `(${faqsList.filter(f => f.category === cat).length})` : `(${faqsList.length})`}
+                        </button>
+                      ))}
+                    </div>
+
+                    {/* Search Input */}
+                    <div style={{ position: 'relative', minWidth: '260px' }}>
+                      <Search 
+                        size={15} 
+                        style={{ position: 'absolute', left: '0.85rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} 
+                      />
+                      <input 
+                        type="text"
+                        placeholder="Search question or answer..."
+                        value={faqSearch}
+                        onChange={e => setFaqSearch(e.target.value)}
+                        style={{
+                          width: '100%',
+                          padding: '0.55rem 0.85rem 0.55rem 2.25rem',
+                          borderRadius: '10px',
+                          border: '1px solid var(--border-strong)',
+                          fontSize: '0.85rem',
+                          backgroundColor: '#FAF7F2'
+                        }}
+                      />
+                      {faqSearch && (
+                        <button
+                          onClick={() => setFaqSearch('')}
+                          style={{ position: 'absolute', right: '0.75rem', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-muted)', fontSize: '0.8rem' }}
+                        >
+                          ✕
+                        </button>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* FAQ Items Grid / List */}
+                  {faqsList.filter(f => {
+                    const matchCat = faqCategoryFilter === 'All' || f.category === faqCategoryFilter;
+                    const matchSearch = !faqSearch || 
+                      (f.question && f.question.toLowerCase().includes(faqSearch.toLowerCase())) ||
+                      (f.answer && f.answer.toLowerCase().includes(faqSearch.toLowerCase()));
+                    return matchCat && matchSearch;
+                  }).length === 0 ? (
+                    <div style={{ 
+                      backgroundColor: '#FFFFFF', 
+                      borderRadius: '18px', 
+                      padding: '3.5rem 2rem', 
+                      textAlign: 'center',
+                      border: '1px dashed var(--border-strong)'
+                    }}>
+                      <HelpCircle size={48} color="var(--color-primary)" style={{ opacity: 0.5, marginBottom: '1rem' }} />
+                      <h4 style={{ fontSize: '1.2rem', marginBottom: '0.4rem', fontFamily: 'var(--font-serif)' }}>No FAQ Questions Found</h4>
+                      <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem', maxWidth: '400px', margin: '0 auto 1.5rem' }}>
+                        {faqSearch ? `No questions matched "${faqSearch}". Try clearing your search.` : 'Start adding FAQs to help your customers with orders, shipping, and custom inquiries.'}
+                      </p>
+                      <button
+                        onClick={() => {
+                          setEditingFaqId(null);
+                          setFaqForm(initialFaqForm);
+                          setIsAddingFaq(true);
+                        }}
+                        className="btn btn-primary"
+                        style={{ padding: '0.65rem 1.4rem' }}
+                      >
+                        <Plus size={16} /> Add First FAQ
+                      </button>
+                    </div>
+                  ) : (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                      {faqsList
+                        .filter(f => {
+                          const matchCat = faqCategoryFilter === 'All' || f.category === faqCategoryFilter;
+                          const matchSearch = !faqSearch || 
+                            (f.question && f.question.toLowerCase().includes(faqSearch.toLowerCase())) ||
+                            (f.answer && f.answer.toLowerCase().includes(faqSearch.toLowerCase()));
+                          return matchCat && matchSearch;
+                        })
+                        .map((faq, index) => {
+                          const isActive = faq.active !== false;
+                          return (
+                            <div
+                              key={faq.id || index}
+                              style={{
+                                backgroundColor: '#FFFFFF',
+                                borderRadius: '16px',
+                                border: '1px solid var(--border-subtle)',
+                                padding: '1.35rem 1.5rem',
+                                boxShadow: '0 2px 8px rgba(0,0,0,0.02)',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                gap: '0.85rem',
+                                opacity: isActive ? 1 : 0.72,
+                                transition: 'all 0.2s ease'
+                              }}
+                            >
+                              {/* Top Meta Bar */}
+                              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                  <span 
+                                    className="badge" 
+                                    style={{ 
+                                      backgroundColor: '#FAF7F2', 
+                                      color: 'var(--color-primary)', 
+                                      border: '1px solid var(--border-subtle)',
+                                      fontWeight: 700,
+                                      fontSize: '0.72rem',
+                                      padding: '0.2rem 0.65rem'
+                                    }}
+                                  >
+                                    📁 {faq.category || 'General'}
+                                  </span>
+
+                                  <span 
+                                    style={{
+                                      display: 'inline-flex',
+                                      alignItems: 'center',
+                                      gap: '0.35rem',
+                                      padding: '0.2rem 0.65rem',
+                                      borderRadius: '12px',
+                                      fontSize: '0.72rem',
+                                      fontWeight: 700,
+                                      backgroundColor: isActive ? 'rgba(76, 175, 80, 0.12)' : 'rgba(158, 158, 158, 0.15)',
+                                      color: isActive ? '#2E7D32' : '#616161'
+                                    }}
+                                  >
+                                    <span style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: isActive ? '#4CAF50' : '#9E9E9E' }} />
+                                    {isActive ? 'Live Active' : 'Hidden Draft'}
+                                  </span>
+
+                                  <span style={{ fontSize: '0.72rem', color: 'var(--text-subtle)' }}>
+                                    Order #{faq.sortOrder ?? index + 1}
+                                  </span>
+                                </div>
+
+                                {/* Actions */}
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
+                                  <button
+                                    onClick={() => handleToggleFaqActive(faq)}
+                                    className="btn btn-secondary"
+                                    style={{ 
+                                      padding: '0.35rem 0.75rem', 
+                                      fontSize: '0.75rem',
+                                      color: isActive ? 'var(--text-muted)' : '#2E7D32'
+                                    }}
+                                    title={isActive ? 'Hide from public FAQ' : 'Publish to live FAQ'}
+                                  >
+                                    {isActive ? 'Hide' : 'Publish'}
+                                  </button>
+
+                                  <button
+                                    onClick={() => handleEditFaq(faq)}
+                                    className="btn btn-secondary"
+                                    style={{ padding: '0.35rem 0.75rem', fontSize: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.3rem' }}
+                                  >
+                                    <Edit3 size={13} /> Edit
+                                  </button>
+
+                                  <button
+                                    onClick={() => handleDeleteFaq(faq.id, faq.question)}
+                                    className="btn btn-secondary"
+                                    style={{ padding: '0.35rem 0.65rem', fontSize: '0.75rem', color: '#D32F2F', borderColor: '#FFCDD2' }}
+                                    title="Delete FAQ Question"
+                                  >
+                                    <Trash2 size={13} />
+                                  </button>
+                                </div>
+                              </div>
+
+                              {/* Question */}
+                              <div style={{ fontSize: '1.05rem', fontWeight: 700, color: 'var(--text-main)', fontFamily: 'var(--font-serif)' }}>
+                                {faq.question}
+                              </div>
+
+                              {/* Answer */}
+                              <div style={{ fontSize: '0.88rem', color: 'var(--text-muted)', lineHeight: 1.6, whiteSpace: 'pre-line', backgroundColor: '#FAF7F2', padding: '0.85rem 1rem', borderRadius: '10px' }}>
+                                {faq.answer}
+                              </div>
+                            </div>
+                          );
+                        })}
+                    </div>
+                  )}
+
+                  {/* ADD / EDIT FAQ MODAL */}
+                  {isAddingFaq && (
+                    <div 
+                      style={{
+                        position: 'fixed',
+                        inset: 0,
+                        zIndex: 1200,
+                        backgroundColor: 'rgba(26, 24, 23, 0.75)',
+                        backdropFilter: 'blur(5px)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        padding: '1.5rem'
+                      }}
+                      onClick={() => setIsAddingFaq(false)}
+                    >
+                      <div 
+                        style={{
+                          backgroundColor: '#FFFFFF',
+                          borderRadius: '24px',
+                          width: '100%',
+                          maxWidth: '680px',
+                          maxHeight: '90vh',
+                          overflowY: 'auto',
+                          boxShadow: 'var(--shadow-lg)',
+                          border: '1px solid var(--border-subtle)',
+                          display: 'flex',
+                          flexDirection: 'column'
+                        }}
+                        onClick={e => e.stopPropagation()}
+                      >
+                        {/* Modal Header */}
+                        <div style={{ padding: '1.25rem 1.75rem', borderBottom: '1px solid var(--border-subtle)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#FAF7F2', borderRadius: '23px 23px 0 0' }}>
+                          <div>
+                            <span className="badge badge-terracotta" style={{ fontSize: '0.68rem', marginBottom: '0.2rem' }}>
+                              {editingFaqId ? 'Update FAQ' : 'New Question'}
+                            </span>
+                            <h3 style={{ fontSize: '1.3rem', margin: 0, fontFamily: 'var(--font-serif)' }}>
+                              {editingFaqId ? 'Edit FAQ Question' : 'Add New FAQ Question'}
+                            </h3>
+                          </div>
+                          <button
+                            onClick={() => setIsAddingFaq(false)}
+                            style={{ background: 'none', border: 'none', fontSize: '1.4rem', cursor: 'pointer', color: 'var(--text-muted)' }}
+                          >
+                            ✕
+                          </button>
+                        </div>
+
+                        {/* Modal Form */}
+                        <form onSubmit={handleSaveFaq} style={{ padding: '1.75rem', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+                          
+                          {/* Category and Sort Order */}
+                          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                            <div>
+                              <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, marginBottom: '0.35rem' }}>
+                                Category Topic *
+                              </label>
+                              <div style={{ display: 'flex', gap: '0.5rem' }}>
+                                <select 
+                                  value={['Orders', 'Custom', 'Classes', 'Shipping', 'Studio'].includes(faqForm.category) ? faqForm.category : 'Other'}
+                                  onChange={e => {
+                                    if (e.target.value !== 'Other') {
+                                      setFaqForm({ ...faqForm, category: e.target.value });
+                                    }
+                                  }}
+                                  style={{ padding: '0.65rem', borderRadius: '10px', border: '1px solid var(--border-strong)', fontSize: '0.88rem', flex: 1 }}
+                                >
+                                  <option value="Orders">🛍️ Orders & Purchasing</option>
+                                  <option value="Custom">✨ Custom Commissions</option>
+                                  <option value="Classes">🎓 Crochet Academy Classes</option>
+                                  <option value="Shipping">📦 Shipping & Pan-India Delivery</option>
+                                  <option value="Studio">🌸 Studio Care & Materials</option>
+                                  <option value="Other">✏️ Custom Category</option>
+                                </select>
+                              </div>
+                              {(!['Orders', 'Custom', 'Classes', 'Shipping', 'Studio'].includes(faqForm.category) || faqForm.category === 'Other') && (
+                                <input 
+                                  type="text"
+                                  placeholder="Type custom category name..."
+                                  value={faqForm.category === 'Other' ? '' : faqForm.category}
+                                  onChange={e => setFaqForm({ ...faqForm, category: e.target.value })}
+                                  style={{ width: '100%', marginTop: '0.5rem', padding: '0.6rem', borderRadius: '10px', border: '1px solid var(--border-strong)', fontSize: '0.85rem' }}
+                                />
+                              )}
+                            </div>
+
+                            <div>
+                              <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, marginBottom: '0.35rem' }}>
+                                Display Order (Sort Sequence)
+                              </label>
+                              <input 
+                                type="number"
+                                min="0"
+                                value={faqForm.sortOrder}
+                                onChange={e => setFaqForm({ ...faqForm, sortOrder: parseInt(e.target.value) || 0 })}
+                                style={{ width: '100%', padding: '0.65rem', borderRadius: '10px', border: '1px solid var(--border-strong)', fontSize: '0.88rem' }}
+                              />
+                              <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginTop: '0.25rem' }}>
+                                Lower numbers appear first on the page.
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Question */}
+                          <div>
+                            <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, marginBottom: '0.35rem' }}>
+                              Customer Question *
+                            </label>
+                            <input 
+                              type="text"
+                              required
+                              value={faqForm.question}
+                              onChange={e => setFaqForm({ ...faqForm, question: e.target.value })}
+                              placeholder="e.g. How long does a custom crochet commission take to craft?"
+                              style={{ width: '100%', padding: '0.75rem', borderRadius: '10px', border: '1px solid var(--border-strong)', fontSize: '0.9rem' }}
+                            />
+                          </div>
+
+                          {/* Answer */}
+                          <div>
+                            <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, marginBottom: '0.35rem' }}>
+                              Answer & Guidance *
+                            </label>
+                            <textarea 
+                              rows={5}
+                              required
+                              value={faqForm.answer}
+                              onChange={e => setFaqForm({ ...faqForm, answer: e.target.value })}
+                              placeholder="Provide a clear, detailed, and warm answer for your customers..."
+                              style={{ width: '100%', padding: '0.75rem', borderRadius: '10px', border: '1px solid var(--border-strong)', fontSize: '0.88rem', lineHeight: 1.5, resize: 'vertical' }}
+                            />
+                          </div>
+
+                          {/* Active Visibility Checkbox */}
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginTop: '0.25rem' }}>
+                            <input 
+                              type="checkbox"
+                              id="faq-active-checkbox"
+                              checked={faqForm.active}
+                              onChange={e => setFaqForm({ ...faqForm, active: e.target.checked })}
+                              style={{ width: '18px', height: '18px', accentColor: 'var(--color-primary)' }}
+                            />
+                            <label htmlFor="faq-active-checkbox" style={{ fontSize: '0.85rem', fontWeight: 600, cursor: 'pointer' }}>
+                              Show this question on live /faq page immediately
+                            </label>
+                          </div>
+
+                          {/* Submit Actions */}
+                          <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.75rem', marginTop: '1rem', borderTop: '1px solid var(--border-subtle)', paddingTop: '1.25rem' }}>
+                            <button
+                              type="button"
+                              onClick={() => setIsAddingFaq(false)}
+                              className="btn btn-secondary"
+                              style={{ padding: '0.65rem 1.25rem' }}
+                            >
+                              Cancel
+                            </button>
+                            <button
+                              type="submit"
+                              disabled={isSavingFaq}
+                              className="btn btn-primary"
+                              style={{ padding: '0.65rem 1.6rem', display: 'flex', alignItems: 'center', gap: '0.5rem', opacity: isSavingFaq ? 0.7 : 1 }}
+                            >
+                              <Check size={16} />
+                              <span>{isSavingFaq ? 'Saving...' : (editingFaqId ? 'Update FAQ' : 'Publish FAQ')}</span>
                             </button>
                           </div>
 
