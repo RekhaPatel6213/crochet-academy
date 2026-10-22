@@ -154,7 +154,7 @@ export default function HomeImageSlider({
 
     if (actionType === 'whatsapp') {
       const waNum = settings?.whatsappNumber || '919099962395';
-      const text = encodeURIComponent(`Hello Anjali! I saw "${slide.title}" on your website slider and want to order.`);
+      const text = encodeURIComponent(`Hello Tishaya! I saw "${slide.title}" on your website slider and want to order.`);
       window.open(`https://wa.me/${waNum}?text=${text}`, '_blank');
       return;
     }
@@ -174,7 +174,7 @@ export default function HomeImageSlider({
 
     if (action === 'whatsapp') {
       const waNum = settings?.whatsappNumber || '919099962395';
-      const text = encodeURIComponent(`Hello Anjali! I have an inquiry about "${slide.title}".`);
+      const text = encodeURIComponent(`Hello Tishaya! I have an inquiry about "${slide.title}".`);
       window.open(`https://wa.me/${waNum}?text=${text}`, '_blank');
       return;
     }

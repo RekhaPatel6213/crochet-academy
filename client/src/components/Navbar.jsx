@@ -299,7 +299,7 @@ export default function Navbar({
               target="_blank"
               rel="noopener noreferrer"
               className="nav-wa-btn"
-              title="Chat directly with Anjali on WhatsApp"
+              title="Chat directly with Tishaya on WhatsApp"
             >
               <MessageCircle size={15} />
               <span className="nav-btn-text">WhatsApp</span>
@@ -451,7 +451,7 @@ export default function Navbar({
                 }}
               >
                 <MessageCircle size={18} />
-                <span>Chat with Anjali on WhatsApp</span>
+                <span>Chat with Tishaya on WhatsApp</span>
               </a>
 
               {/* Contact Information in Mobile Menu */}

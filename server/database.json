@@ -555,7 +555,7 @@
         "Unlimited Master MCQ Certification Exam Retakes",
         "Instant Digital Verified Certificate with Verification ID",
         "Print-ready high-resolution gold seal certificate",
-        "Direct Instructor 1-on-1 mentorship from Anjali Kumari",
+        "Direct Instructor 1-on-1 mentorship from Tishaya",
         "Exclusive wholesale yarn discount (15% off at our yarn shop)"
       ],
       "includesCertification": true
@@ -563,7 +563,7 @@
     {
       "id": "pkg-starter",
       "name": "Online Foundation Batch",
-      "tagline": "Learn Crochet from Anjali (Beginner Essentials)",
+      "tagline": "Learn Crochet from Tishaya (Beginner Essentials)",
       "price": 999,
       "billing": "per month",
       "popular": false,
@@ -574,7 +574,7 @@
         "5 Step-by-Step Project Masterclasses (Bouquets & Keychains)",
         "HD Video Tutorials with Timestamped Steps",
         "Downloadable Stitch Guides & Pattern Sheets",
-        "Direct WhatsApp doubt support with Anjali Kumari"
+        "Direct WhatsApp doubt support with Tishaya"
       ],
       "includesCertification": false
     }
@@ -1246,7 +1246,7 @@
       "id": "faq-8",
       "category": "Custom",
       "question": "Can you recreate a bouquet or toy from an Instagram or Pinterest picture?",
-      "answer": "Yes! Simply share the image with us via WhatsApp. Founder & lead artisan Anjali Kumari will analyze the stitch pattern, calculate the yarn requirements, confirm timeline & pricing, and keep you updated with progress photos while crocheting your custom creation.",
+      "answer": "Yes! Simply share the image with us via WhatsApp. Founder & lead artisan Tishaya will analyze the stitch pattern, calculate the yarn requirements, confirm timeline & pricing, and keep you updated with progress photos while crocheting your custom creation.",
       "sortOrder": 8,
       "active": true
     },

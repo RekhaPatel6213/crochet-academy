@@ -393,7 +393,7 @@ export default function ShopProducts({
                     </button>
 
                     <a
-                      href={`https://wa.me/${whatsappNum}?text=${encodeURIComponent(`Hello Anjali! I want to order the "${product.title}" (${currency}${product.price}) from your crochet store. Please confirm availability.`)}`}
+                      href={`https://wa.me/${whatsappNum}?text=${encodeURIComponent(`Hello Tishaya! I want to order the "${product.title}" (${currency}${product.price}) from your crochet store. Please confirm availability.`)}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={(e) => e.stopPropagation()}

@@ -506,7 +506,7 @@ export default function App() {
                     </h1>
 
                     <p className="hero-lead">
-                      Discover eternal blooming bouquets from <strong>₹499</strong>, cute keychains from <strong>₹40</strong>, cuddly amigurumi toys, and custom gift hampers crafted with 100% hypoallergenic yarn. Learn crochet with Anjali Kumari or order directly on WhatsApp with Pan-India doorstep delivery!
+                      Discover eternal blooming bouquets from <strong>₹499</strong>, cute keychains from <strong>₹40</strong>, cuddly amigurumi toys, and custom gift hampers crafted with 100% hypoallergenic yarn. Learn crochet with Tishaya or order directly on WhatsApp with Pan-India doorstep delivery!
                     </p>
 
                     <div className="hero-cta-group">
@@ -524,7 +524,7 @@ export default function App() {
                       </a>
 
                       <a
-                        href={`https://wa.me/${settings?.whatsappNumber || '919099962395'}?text=Hello%20Anjali!%20I%20want%20to%20order%20from%20your%20crochet%20store.`}
+                        href={`https://wa.me/${settings?.whatsappNumber || '919099962395'}?text=Hello%20Tishaya!%20I%20want%20to%20order%20from%20your%20crochet%20store.`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="btn"
@@ -962,7 +962,7 @@ export default function App() {
 
             <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', zIndex: 2 }}>
               <a
-                href={`https://wa.me/${settings?.whatsappNumber || '919099962395'}?text=${encodeURIComponent('Hello Anjali! I would like to enquire about bulk / wholesale gift orders for an upcoming event.')}`}
+                href={`https://wa.me/${settings?.whatsappNumber || '919099962395'}?text=${encodeURIComponent('Hello Tishaya! I would like to enquire about bulk / wholesale gift orders for an upcoming event.')}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
@@ -1012,7 +1012,7 @@ export default function App() {
                 { icon: '🧶', title: 'Premium Yarn', desc: 'We only use soft, non-toxic, hypoallergenic, baby-safe milk cotton and acrylic yarns.' },
                 { icon: '🎨', title: 'Custom Made to Order', desc: 'Pick your favorite colors, custom lengths, names, and customized gift wraps.' },
                 { icon: '🚚', title: 'Pan-India Delivery', desc: 'Carefully cushioned and safely dispatched to every pin code across India with tracking.' },
-                { icon: '⭐', title: 'Direct WhatsApp Care', desc: 'Personal attention on WhatsApp directly from founder Anjali Kumari for every single order.' }
+                { icon: '⭐', title: 'Direct WhatsApp Care', desc: 'Personal attention on WhatsApp directly from founder Tishaya for every single order.' }
               ].map((pill, i) => (
                 <div key={i} style={{ backgroundColor: '#FFFFFF', borderRadius: '18px', padding: '1.75rem 1.25rem', border: '1px solid var(--border-subtle)', boxShadow: 'var(--shadow-sm)', textAlign: 'center' }}>
                   <div style={{ fontSize: '2.2rem', marginBottom: '0.75rem' }}>{pill.icon}</div>
@@ -1048,13 +1048,13 @@ export default function App() {
                 {
                   name: 'Rahul Verma',
                   location: 'Sector 62, Noida',
-                  review: 'Ordered 40 customized sunflower keychains for our college farewell. Anjali delivered everything on time with cute individual packaging. Super reliable!',
+                  review: 'Ordered 40 customized sunflower keychains for our college farewell. Tishaya delivered everything on time with cute individual packaging. Super reliable!',
                   tag: 'Bulk Farewell Order'
                 },
                 {
                   name: 'Neha Gupta',
                   location: 'Delhi',
-                  review: 'Joined Anjali’s beginner crochet classes on weekends. She is so patient and broke down every stitch with ease. Now I can crochet granny square bags easily!',
+                  review: 'Joined Tishaya’s beginner crochet classes on weekends. She is so patient and broke down every stitch with ease. Now I can crochet granny square bags easily!',
                   tag: 'Crochet Student'
                 },
                 {
@@ -1219,7 +1219,7 @@ export default function App() {
           cursor: 'pointer',
           transition: 'transform 0.2s ease, box-shadow 0.2s ease'
         }}
-        title="Chat directly with Anjali on WhatsApp (+91 9099962395)"
+        title="Chat directly with Tishaya on WhatsApp (+91 9099962395)"
       >
         <MessageCircle size={20} />
         <span>Chat on WhatsApp</span>

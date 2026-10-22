@@ -79,7 +79,7 @@ export default function FAQPage({
       id: 'faq-8',
       category: 'Custom',
       q: 'Can you recreate a bouquet or toy from an Instagram or Pinterest picture?',
-      a: "Yes! Simply share the image with us via WhatsApp. Founder & lead artisan Anjali Kumari will analyze the stitch pattern, calculate the yarn requirements, confirm timeline & pricing, and keep you updated with progress photos while crocheting your custom creation."
+      a: "Yes! Simply share the image with us via WhatsApp. Founder & lead artisan Tishaya will analyze the stitch pattern, calculate the yarn requirements, confirm timeline & pricing, and keep you updated with progress photos while crocheting your custom creation."
     },
     {
       id: 'faq-9',

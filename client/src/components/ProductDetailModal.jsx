@@ -290,7 +290,7 @@ export default function ProductDetailModal({
 
               {/* Order Directly on WhatsApp CTA */}
               <a
-                href={`https://wa.me/${whatsappNum}?text=${encodeURIComponent(`Hello Anjali! I want to order the "${product.title}" (Quantity: ${quantity}, Total: ${currency}${product.price * quantity}) from your online store. Please share delivery details.`)}`}
+                href={`https://wa.me/${whatsappNum}?text=${encodeURIComponent(`Hello Tishaya! I want to order the "${product.title}" (Quantity: ${quantity}, Total: ${currency}${product.price * quantity}) from your online store. Please share delivery details.`)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
