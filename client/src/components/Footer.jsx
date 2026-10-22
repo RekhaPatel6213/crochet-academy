@@ -143,6 +143,18 @@ export default function Footer({ onOpenPackages, onOpenExam, settings, onNavigat
                 View Packages & Enroll
               </a>
             </div>
+            <div style={{ marginTop: '0.35rem' }}>
+              <a
+                href="/faq"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (onNavigate) onNavigate('/faq');
+                }}
+                style={{ color: 'var(--color-honey)', fontWeight: 600, fontSize: '0.82rem', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}
+              >
+                <span>Help & Frequently Asked Questions →</span>
+              </a>
+            </div>
           </div>
 
           {/* Stitch Cheat Sheet */}

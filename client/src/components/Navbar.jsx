@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { 
   Award, Sparkles, ShoppingBag, Flame, FolderPlus, 
-  MessageCircle, Menu, X, Phone, MapPin, ChevronDown, Layers 
+  MessageCircle, Menu, X, Phone, MapPin, ChevronDown, Layers, HelpCircle 
 } from 'lucide-react';
 
 export default function Navbar({ 
@@ -52,6 +52,8 @@ export default function Navbar({
         if (onOpenPackages) onOpenPackages();
       } else if (path === '/certification') {
         if (onOpenExam) onOpenExam();
+      } else if (path === '/faq') {
+        setActiveTab('faq');
       } else if (path === '/admin') {
         if (onOpenAdmin) onOpenAdmin();
       }
@@ -214,7 +216,7 @@ export default function Navbar({
               <button
                 type="button"
                 onClick={() => setMoreOpen(prev => !prev)}
-                className={`nav-link-item ${moreOpen || activeTab === 'packages' || activeTab === 'certification' ? 'active' : ''}`}
+                className={`nav-link-item ${moreOpen || activeTab === 'packages' || activeTab === 'certification' || activeTab === 'faq' ? 'active' : ''}`}
                 style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3rem', fontWeight: 600 }}
                 aria-expanded={moreOpen}
               >
@@ -250,6 +252,21 @@ export default function Navbar({
                   <div style={{ textAlign: 'left', minWidth: 0 }}>
                     <div style={{ fontWeight: 700, fontSize: '0.82rem', color: 'var(--text-main)' }}>MCQ Certification</div>
                     <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>Take 80% passing assessment</div>
+                  </div>
+                </a>
+
+                <a
+                  href="/faq"
+                  onClick={(e) => { e.preventDefault(); handleNav('/faq'); }}
+                  className={`more-menu-item ${activeTab === 'faq' ? 'active' : ''}`}
+                  style={{ textDecoration: 'none' }}
+                >
+                  <div className="more-item-icon" style={{ backgroundColor: '#E0F2FE', color: '#0284C7' }}>
+                    <HelpCircle size={15} />
+                  </div>
+                  <div style={{ textAlign: 'left', minWidth: 0 }}>
+                    <div style={{ fontWeight: 700, fontSize: '0.82rem', color: 'var(--text-main)' }}>FAQ & Help Hub</div>
+                    <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>Orders, shipping, care & classes</div>
                   </div>
                 </a>
 
@@ -394,6 +411,16 @@ export default function Navbar({
               >
                 <Award size={16} color="var(--color-honey)" />
                 <span>Take 80% MCQ Assessment</span>
+              </a>
+
+              <a
+                href="/faq"
+                onClick={(e) => { e.preventDefault(); handleNav('/faq'); }}
+                className={`mobile-nav-item ${activeTab === 'faq' ? 'active' : ''}`}
+                style={{ textDecoration: 'none' }}
+              >
+                <HelpCircle size={16} color="#0284C7" />
+                <span>Frequently Asked Questions</span>
               </a>
 
               <a

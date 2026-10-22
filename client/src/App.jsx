@@ -15,6 +15,7 @@ import CustomOrderModal from './components/CustomOrderModal';
 import AdminCRM from './components/AdminCRM';
 import Footer from './components/Footer';
 import HomeImageSlider from './components/HomeImageSlider';
+import FAQPage from './components/FAQPage';
 import { 
   Search, Sparkles, Award, CheckCircle2, 
   Play, Check, BookOpen, ShoppingBag,
@@ -41,6 +42,9 @@ export const resolveRoute = (pathname = window.location.pathname, hash = window.
   }
   if (p.startsWith('/certification') || p.startsWith('/exam') || h.includes('certification') || h.includes('exam')) {
     return { tab: 'certification', categoryId: null };
+  }
+  if (p.startsWith('/faq') || h.includes('faq')) {
+    return { tab: 'faq', categoryId: null };
   }
   if (p.startsWith('/category/')) {
     const catId = (pathname || '').replace(/^\/category\//i, '').split('/')[0];
@@ -467,6 +471,13 @@ export default function App() {
             userStatus={userStatus}
             onExamPassed={handleExamPassed}
             isPage={true}
+          />
+        ) : activeTab === 'faq' ? (
+          <FAQPage 
+            onBack={handleBackToHome}
+            settings={settings}
+            onNavigate={navigate}
+            onOpenCustomOrder={handleOpenCustomOrder}
           />
         ) : (
           <>
@@ -1073,89 +1084,6 @@ export default function App() {
                   </div>
                 </div>
               ))}
-            </div>
-          </div>
-
-          {/* FREQUENTLY ASKED QUESTIONS (FAQ ACCORDION) */}
-          <div style={{ marginTop: '5rem', marginBottom: '2rem' }}>
-            <div style={{ textAlign: 'center', maxWidth: '640px', margin: '0 auto 2.5rem' }}>
-              <span className="badge badge-terracotta" style={{ marginBottom: '0.5rem' }}>
-                Got Questions?
-              </span>
-              <h2 style={{ fontSize: '2.3rem', margin: '0 0 0.5rem', fontFamily: 'var(--font-serif)' }}>
-                Frequently Asked Questions
-              </h2>
-              <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', margin: 0 }}>
-                Everything you need to know about our products, custom orders, classes, and Pan-India shipping.
-              </p>
-            </div>
-
-            <div style={{ maxWidth: '780px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
-              {[
-                {
-                  q: "How can I place an order with Tishaya Petal & Loop?",
-                  a: "You can easily place an order right here through our online store cart with instant order confirmation, or directly message us on WhatsApp (+91 9099962395) with your selected items."
-                },
-                {
-                  q: "Can I customize the color, flower arrangement, or size of a bouquet?",
-                  a: "Yes, absolutely! We love custom commissions. Click on 'Custom Order' or WhatsApp us your color preferences, special ribbon text, or reference pictures. We will tailor it to your exact vision."
-                },
-                {
-                  q: "How long does delivery take across India?",
-                  a: "Orders are dispatched within 24–48 hours from Greater Noida West. Standard delivery reaches most metro cities in 2–4 business days and other regions in 4–6 business days with tracking."
-                },
-                {
-                  q: "Do you offer crochet classes in Greater Noida West and online?",
-                  a: "Yes! We run online foundation batches as well as hands-on weekend studio sessions at Gaur City 2, Greater Noida West starting from ₹1,000/month. We teach all levels from absolute beginner to master amigurumi."
-                },
-                {
-                  q: "Where is your physical studio located and what are your timings?",
-                  a: "Our studio is located at 2039, 12th Avenue, Gaur City 2, Greater Noida West, Uttar Pradesh 201009. We are open every day from 10:00 AM to 9:00 PM IST."
-                }
-              ].map((item, idx) => {
-                const isOpen = openFaq === idx;
-                return (
-                  <div
-                    key={idx}
-                    style={{
-                      backgroundColor: '#FFFFFF',
-                      borderRadius: '16px',
-                      border: '1px solid var(--border-subtle)',
-                      boxShadow: 'var(--shadow-sm)',
-                      overflow: 'hidden',
-                      transition: 'border-color 0.2s ease'
-                    }}
-                  >
-                    <button
-                      type="button"
-                      onClick={() => setOpenFaq(isOpen ? null : idx)}
-                      style={{
-                        width: '100%',
-                        padding: '1.25rem 1.5rem',
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        background: 'none',
-                        border: 'none',
-                        cursor: 'pointer',
-                        textAlign: 'left',
-                        fontFamily: 'var(--font-serif)',
-                        fontSize: '1.05rem',
-                        fontWeight: 700,
-                        color: isOpen ? 'var(--color-primary)' : 'var(--text-main)'
-                      }}
-                    >
-                      <span>{item.q}</span>
-                      {isOpen ? <ChevronUp size={18} color="var(--color-primary)" /> : <ChevronDown size={18} color="var(--text-muted)" />}
-                    </button>
-                    {isOpen && (
-                      <div style={{ padding: '0 1.5rem 1.25rem', fontSize: '0.9rem', color: 'var(--text-muted)', lineHeight: 1.6, borderTop: '1px solid var(--border-subtle)' }}>
-                        <p style={{ margin: '0.85rem 0 0' }}>{item.a}</p>
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
             </div>
           </div>
 
