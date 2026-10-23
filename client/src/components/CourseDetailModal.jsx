@@ -38,7 +38,7 @@ export default function CourseDetailModal({
             <img 
               src="/logo.png" 
               alt="Petal & Loop" 
-              style={{ width: '42px', height: '42px', borderRadius: '50%', objectFit: 'cover', border: '2px solid rgba(238, 109, 136, 0.25)' }} 
+              style={{ width: '42px', height: '42px', borderRadius: '50%', objectFit: 'cover', border: '2px solid rgba(96, 169, 223, 0.3)' }} 
             />
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>

@@ -90,7 +90,7 @@ export default function Navbar({
       {/* Top Announcement Bar */}
       {settings?.showPromoBanner && settings?.promoBannerText && (
         <div style={{
-          background: 'linear-gradient(90deg, #E65C7B 0%, #EE6D88 60%, #60A9DF 100%)',
+          background: 'linear-gradient(90deg, #4895CE 0%, #60A9DF 60%, #EE6D88 100%)',
           color: '#FFFFFF',
           fontSize: '0.78rem',
           fontWeight: 600,
@@ -105,7 +105,7 @@ export default function Navbar({
           overflow: 'hidden',
           whiteSpace: 'nowrap',
           textOverflow: 'ellipsis',
-          boxShadow: '0 1px 4px rgba(238, 109, 136, 0.2)'
+          boxShadow: '0 1px 4px rgba(96, 169, 223, 0.25)'
         }}>
           <span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>{settings.promoBannerText}</span>
           {settings.contactPhone && (
@@ -172,7 +172,7 @@ export default function Navbar({
               <span>Handcrafted Shop</span>
               <span style={{ 
                 fontSize: '0.65rem', 
-                backgroundColor: 'rgba(238, 109, 136, 0.12)', 
+                backgroundColor: 'rgba(96, 169, 223, 0.15)', 
                 color: 'var(--color-primary)', 
                 padding: '0.1rem 0.45rem', 
                 borderRadius: '12px', 

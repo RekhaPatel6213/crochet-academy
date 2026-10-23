@@ -249,7 +249,7 @@ export default function FAQPage({
                   width: '100%',
                   padding: '1rem 3rem 1rem 3rem',
                   fontSize: '0.95rem',
-                  border: '2px solid rgba(238, 109, 136, 0.25)',
+                  border: '2px solid rgba(96, 169, 223, 0.35)',
                   borderRadius: '999px',
                   outline: 'none',
                   backgroundColor: '#FFFFFF',
@@ -258,7 +258,7 @@ export default function FAQPage({
                   transition: 'border-color 0.2s ease, box-shadow 0.2s ease'
                 }}
                 onFocus={(e) => e.target.style.borderColor = 'var(--color-primary)'}
-                onBlur={(e) => e.target.style.borderColor = 'rgba(238, 109, 136, 0.25)'}
+                onBlur={(e) => e.target.style.borderColor = 'rgba(96, 169, 223, 0.35)'}
               />
               {searchQuery && (
                 <button
@@ -321,7 +321,7 @@ export default function FAQPage({
                     display: 'inline-flex',
                     alignItems: 'center',
                     gap: '0.4rem',
-                    boxShadow: isSelected ? '0 4px 12px rgba(238, 109, 136, 0.25)' : 'none',
+                    boxShadow: isSelected ? '0 4px 12px rgba(96, 169, 223, 0.3)' : 'none',
                     transition: 'all 0.2s ease'
                   }}
                 >
@@ -443,7 +443,7 @@ export default function FAQPage({
                   style={{
                     backgroundColor: '#FFFFFF',
                     borderRadius: '18px',
-                    border: isOpen ? '1px solid rgba(238, 109, 136, 0.4)' : '1px solid var(--border-subtle)',
+                    border: isOpen ? '1px solid rgba(96, 169, 223, 0.45)' : '1px solid var(--border-subtle)',
                     boxShadow: isOpen ? '0 6px 20px rgba(0,0,0,0.04)' : 'var(--shadow-sm)',
                     overflow: 'hidden',
                     transition: 'all 0.2s ease'
@@ -476,7 +476,7 @@ export default function FAQPage({
                         color: 'var(--color-primary)', 
                         fontSize: '0.9rem', 
                         fontWeight: 800,
-                        backgroundColor: 'rgba(238, 109, 136, 0.12)', 
+                        backgroundColor: 'rgba(96, 169, 223, 0.15)', 
                         padding: '2px 8px', 
                         borderRadius: '6px',
                         marginTop: '2px'
@@ -490,7 +490,7 @@ export default function FAQPage({
                       width: '32px',
                       height: '32px',
                       borderRadius: '50%',
-                      backgroundColor: isOpen ? 'rgba(238, 109, 136, 0.12)' : 'var(--bg-canvas, #FDFBF7)',
+                      backgroundColor: isOpen ? 'rgba(96, 169, 223, 0.15)' : 'var(--bg-canvas, #FDFBF7)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center'
