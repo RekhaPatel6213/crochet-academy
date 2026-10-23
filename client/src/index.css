@@ -588,8 +588,8 @@ a {
 /* HERO SECTION */
 .hero-section {
   padding: 3.5rem 0 4rem;
-  background: linear-gradient(180deg, #F5EFE6 0%, #FAF7F2 100%);
-  border-bottom: 1px solid var(--border-subtle);
+  background: linear-gradient(180deg, #E6F1F9 0%, #F0F6FB 55%, #FAF7F2 100%);
+  border-bottom: 1px solid rgba(96, 169, 223, 0.22);
 }
 
 .hero-grid {
@@ -611,7 +611,7 @@ a {
   color: var(--text-main);
 }
 .hero-title-accent {
-  color: var(--color-primary);
+  color: var(--color-loop-blue);
   font-style: italic;
 }
 

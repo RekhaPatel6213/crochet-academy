@@ -494,7 +494,7 @@ export default function App() {
                   {/* Left Hero Content */}
                   <div className="hero-content">
                     <div>
-                      <span className="badge badge-terracotta" style={{ marginBottom: '1rem', display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}>
+                      <span className="badge badge-loop" style={{ marginBottom: '1rem', display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}>
                         <Sparkles size={14} />
                         Tishaya Petal & Loop ♡ Handmade with Love • Gaur City 2, Gr. Noida West
                       </span>
@@ -548,10 +548,10 @@ export default function App() {
 
                       <button
                         onClick={() => setIsPackagesOpen(true)}
-                        className="btn btn-secondary"
+                        className="btn btn-loop"
                         style={{ padding: '0.85rem 1.5rem', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
                       >
-                        <Award size={18} color="var(--color-honey)" />
+                        <Award size={18} color="#FFFFFF" />
                         <span>Crochet Classes & Cert</span>
                       </button>
                     </div>
@@ -636,7 +636,7 @@ export default function App() {
                 </div>
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
-                  <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: 'rgba(107, 142, 123, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.4rem' }}>
+                  <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: 'rgba(96, 169, 223, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.4rem' }}>
                     👩‍🏫
                   </div>
                   <div>
