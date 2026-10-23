@@ -88,8 +88,8 @@ export default function CertificationExamModal({
       });
     }
 
-    fire(0.25, { spread: 26, startVelocity: 55, colors: ['#C86D51', '#D99B43', '#6B8E7B'] });
-    fire(0.2, { spread: 60, colors: ['#C86D51', '#D99B43', '#FFFFFF'] });
+    fire(0.25, { spread: 26, startVelocity: 55, colors: ['#EE6D88', '#60A9DF', '#72A179'] });
+    fire(0.2, { spread: 60, colors: ['#EE6D88', '#60A9DF', '#FFFFFF'] });
     fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
     fire(0.1, { spread: 120, startVelocity: 25, decay: 0.92, colors: ['#D99B43', '#EBF2EE'] });
   };

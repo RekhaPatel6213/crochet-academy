@@ -20,11 +20,11 @@ const YARN_OPTIONS = [
 ];
 
 const PALETTE_PRESETS = [
-  { id: 'Warm Honey & Terracotta', colors: ['#C86D51', '#D99B43', '#FAF7F2'] },
-  { id: 'Meadow Sage & Olive', colors: ['#6B8E7B', '#4A7C59', '#FAF7F2'] },
-  { id: 'Pastel Blossom', colors: ['#E8A598', '#CBB8D9', '#FFF5F0'] },
-  { id: 'Midnight Twilight', colors: ['#2C3E50', '#8B6F8E', '#EAE6E1'] },
-  { id: 'Custom Palette', colors: ['#D99B43', '#6B8E7B', '#C86D51'] }
+  { id: 'Tishaya Signature (Petal & Loop)', colors: ['#EE6D88', '#60A9DF', '#FAF6F0'] },
+  { id: 'Meadow Sage & Blossom', colors: ['#72A179', '#EE6D88', '#FAF6F0'] },
+  { id: 'Warm Honey & Petal Rose', colors: ['#E29B4A', '#EE6D88', '#FAF6F0'] },
+  { id: 'Midnight Twilight', colors: ['#2C3E50', '#99789E', '#EAE6E1'] },
+  { id: 'Custom Palette', colors: ['#EE6D88', '#60A9DF', '#72A179'] }
 ];
 
 export default function CustomOrderModal({ 

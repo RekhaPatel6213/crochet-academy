@@ -98,7 +98,7 @@ export default function AdminCRM({
     description: '',
     image: 'https://images.unsplash.com/photo-1590736969955-71cc94801759?auto=format&fit=crop&w=1600&q=80',
     badge: '🌸 Bestseller',
-    badgeColor: '#C86D51',
+    badgeColor: '#EE6D88',
     btnText: 'View Product',
     btnActionType: 'product',
     btnActionTarget: '',
@@ -202,7 +202,7 @@ export default function AdminCRM({
     subtitle: '',
     description: '<p>Master <strong>essential crochet skills</strong> with high-definition video tutorials and illustrated stitch charts.</p><ul><li>Zero-gap tension control</li><li>Step-by-step foundation technique</li><li>Boutique artisan finishing</li></ul>',
     badge: 'New',
-    accent: '#C86D51',
+    accent: '#EE6D88',
     iconName: 'Sparkles',
     difficulty: 'All Levels',
     coverImage: 'https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=800&q=80',
@@ -228,7 +228,7 @@ export default function AdminCRM({
     price: 39,
     billing: 'one-time payment',
     popular: false,
-    color: '#C86D51',
+    color: '#EE6D88',
     badge: 'Artisan Pick',
     featuresText: "Unlimited access to all video masterclasses\nDetailed PDF pattern downloads & stitch counts\nStep-by-step progress tracking\nOfficial 80% MCQ certification attempt with verified credential",
     includesCertification: true
@@ -1043,7 +1043,7 @@ export default function AdminCRM({
       
       {/* 1. LOGIN SCREEN IF NOT AUTHENTICATED */}
       {!adminUser ? (
-        <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1.5rem', background: 'radial-gradient(rgba(200, 109, 81, 0.08) 1px, transparent 1px)', backgroundSize: '24px 24px' }}>
+        <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1.5rem', background: 'radial-gradient(rgba(238, 109, 136, 0.08) 1px, transparent 1px)', backgroundSize: '24px 24px' }}>
           <div style={{ backgroundColor: '#FFFFFF', borderRadius: '24px', padding: '2.5rem', width: '100%', maxWidth: '440px', boxShadow: 'var(--shadow-lg)', border: '1px solid var(--border-subtle)' }}>
             
             <div style={{ textAlign: 'center', marginBottom: '1.75rem' }}>
@@ -1923,7 +1923,7 @@ export default function AdminCRM({
                                   borderRadius: '10px', 
                                   padding: '0.4rem', 
                                   border: isPrimary ? '2px solid var(--color-primary)' : '1px solid var(--border-subtle)',
-                                  boxShadow: isPrimary ? '0 0 0 2px rgba(200, 109, 81, 0.2)' : 'none'
+                                  boxShadow: isPrimary ? '0 0 0 2px rgba(238, 109, 136, 0.2)' : 'none'
                                 }}
                               >
                                 <img 
@@ -2283,7 +2283,7 @@ export default function AdminCRM({
                                 {/* 3. Theme & Badge */}
                                 <td style={{ padding: '0.75rem 0.65rem', verticalAlign: 'middle' }}>
                                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.25rem' }}>
-                                    <div style={{ width: '12px', height: '12px', borderRadius: '50%', backgroundColor: c.accent || '#C86D51' }} />
+                                    <div style={{ width: '12px', height: '12px', borderRadius: '50%', backgroundColor: c.accent || '#EE6D88' }} />
                                     <span style={{ fontSize: '0.72rem', fontFamily: 'monospace' }}>{c.accent}</span>
                                   </div>
                                   <span className="badge badge-terracotta" style={{ fontSize: '0.65rem' }}>
@@ -3523,7 +3523,7 @@ export default function AdminCRM({
                         onClick={handleSaveSettings}
                         disabled={isSavingSettings}
                         className="btn btn-primary"
-                        style={{ padding: '0.65rem 1.75rem', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '0.5rem', boxShadow: '0 4px 15px rgba(200, 109, 81, 0.35)' }}
+                        style={{ padding: '0.65rem 1.75rem', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '0.5rem', boxShadow: '0 4px 15px rgba(238, 109, 136, 0.35)' }}
                       >
                         {isSavingSettings ? <RefreshCw size={16} className="spinning" /> : <CheckCircle2 size={16} />}
                         <span>{isSavingSettings ? "Saving Settings..." : "Save Store Settings"}</span>
@@ -4450,11 +4450,12 @@ export default function AdminCRM({
                               </label>
                               <div style={{ display: 'flex', gap: '0.4rem', marginTop: '0.2rem' }}>
                                 {[
-                                  { name: 'Terracotta', color: '#C86D51' },
-                                  { name: 'Honey', color: '#D99B43' },
-                                  { name: 'Sage', color: '#6B8E7B' },
-                                  { name: 'Clay', color: '#8B6F8E' },
-                                  { name: 'Dark', color: '#2C2420' }
+                                  { name: 'Petal Pink', color: '#EE6D88' },
+                                  { name: 'Loop Blue', color: '#60A9DF' },
+                                  { name: 'Sage Green', color: '#72A179' },
+                                  { name: 'Honey Gold', color: '#E29B4A' },
+                                  { name: 'Clay Lilac', color: '#99789E' },
+                                  { name: 'Mocha Charcoal', color: '#2F2522' }
                                 ].map(theme => (
                                   <button
                                     key={theme.name}

@@ -63,7 +63,7 @@ export default function ShopProducts({
       {/* SHOP HERO BANNER */}
       <section 
         style={{ 
-          background: 'linear-gradient(135deg, rgba(200, 109, 81, 0.1) 0%, rgba(250, 247, 242, 0.95) 50%, #FAF7F2 100%)',
+          background: 'linear-gradient(135deg, rgba(238, 109, 136, 0.12) 0%, rgba(96, 169, 223, 0.08) 50%, #FAF6F0 100%)',
           borderBottom: '1px solid var(--border-subtle)',
           padding: '3rem 0 2.5rem'
         }}

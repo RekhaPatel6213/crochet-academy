@@ -20,7 +20,7 @@ export default function AdminPanelModal({
     subtitle: '',
     description: '',
     badge: 'New',
-    accent: '#C86D51',
+    accent: '#EE6D88',
     iconName: 'Sparkles',
     difficulty: 'All Levels',
     coverImage: 'https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=800&q=80'
@@ -121,7 +121,7 @@ export default function AdminPanelModal({
           subtitle: '',
           description: '',
           badge: 'New',
-          accent: '#C86D51',
+          accent: '#EE6D88',
           iconName: 'Sparkles',
           difficulty: 'All Levels',
           coverImage: 'https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=800&q=80'
@@ -300,7 +300,7 @@ export default function AdminPanelModal({
               fontWeight: 600,
               backgroundColor: feedback.type === 'success' ? 'var(--color-sage-light)' : 'var(--color-primary-light)',
               color: feedback.type === 'success' ? 'var(--color-sage)' : 'var(--color-primary)',
-              border: `1px solid ${feedback.type === 'success' ? 'rgba(107,142,123,0.3)' : 'rgba(200,109,81,0.3)'}`,
+              border: `1px solid ${feedback.type === 'success' ? 'rgba(114,161,121,0.3)' : 'rgba(238,109,136,0.3)'}`,
               display: 'flex',
               alignItems: 'center',
               gap: '0.5rem'

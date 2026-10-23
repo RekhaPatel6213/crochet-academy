@@ -347,7 +347,7 @@ export async function syncSlideToMySQL(s, sortOrder = 0) {
         s.description || '',
         s.image || '',
         s.badge || 'Featured',
-        s.badgeColor || '#C86D51',
+        s.badgeColor || '#EE6D88',
         s.btnText || 'View Product',
         s.btnActionType || 'product',
         s.btnActionTarget || '',

@@ -90,7 +90,7 @@ export default function Navbar({
       {/* Top Announcement Bar */}
       {settings?.showPromoBanner && settings?.promoBannerText && (
         <div style={{
-          backgroundColor: 'var(--color-primary)',
+          background: 'linear-gradient(90deg, #E65C7B 0%, #EE6D88 60%, #60A9DF 100%)',
           color: '#FFFFFF',
           fontSize: '0.78rem',
           fontWeight: 600,
@@ -104,7 +104,8 @@ export default function Navbar({
           zIndex: 101,
           overflow: 'hidden',
           whiteSpace: 'nowrap',
-          textOverflow: 'ellipsis'
+          textOverflow: 'ellipsis',
+          boxShadow: '0 1px 4px rgba(238, 109, 136, 0.2)'
         }}>
           <span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>{settings.promoBannerText}</span>
           {settings.contactPhone && (
@@ -118,7 +119,6 @@ export default function Navbar({
       <header className="site-header">
         <div className="container nav-inner">
           
-          {/* Brand Logo & Name - Pattern: Big circular logo badge + script first name + serif sub + spaced motto */}
           {/* Brand Logo & Name - Pattern: Big circular logo badge + script first name + serif sub + spaced motto */}
           <a 
             href="/"
@@ -137,7 +137,17 @@ export default function Navbar({
               <span className="brand-script-name">
                 {brandParts.main} <span className="brand-heart">♡</span>
               </span>
-              <span className="brand-sub-title">{brandParts.sub}</span>
+              <span className="brand-sub-title">
+                {brandParts.sub === 'Petal & Loop' ? (
+                  <>
+                    <span style={{ color: 'var(--color-primary)' }}>Petal</span>{' '}
+                    <span style={{ color: 'var(--color-loop-blue)', fontFamily: 'var(--font-serif)', fontStyle: 'italic', margin: '0 1px' }}>&</span>{' '}
+                    <span style={{ color: 'var(--color-primary)' }}>Loop</span>
+                  </>
+                ) : (
+                  brandParts.sub
+                )}
+              </span>
               <span className="brand-tag-motto">{settings?.tagline || "HANDMADE • UNIQUE • WITH LOVE"}</span>
             </div>
           </a>
@@ -162,7 +172,7 @@ export default function Navbar({
               <span>Handcrafted Shop</span>
               <span style={{ 
                 fontSize: '0.65rem', 
-                backgroundColor: 'rgba(200, 109, 81, 0.12)', 
+                backgroundColor: 'rgba(238, 109, 136, 0.12)', 
                 color: 'var(--color-primary)', 
                 padding: '0.1rem 0.45rem', 
                 borderRadius: '12px', 
