@@ -29,7 +29,7 @@ export default function HomeImageSlider({
           description: 'Never-wilting handmade red roses, calla lilies, and eucalyptus foliage hand-crocheted with 100% hypoallergenic milk cotton. Wrapped in artisanal Korean paper with satin ribbon.',
           image: 'https://images.unsplash.com/photo-1590736969955-71cc94801759?auto=format&fit=crop&w=1600&q=80',
           badge: '🌸 Bestseller Bouquet',
-          badgeColor: '#60A9DF',
+          badgeColor: '#EE6D88',
           btnText: 'View Forever Rose Bouquet (₹699)',
           btnActionType: 'product',
           btnActionTarget: 'prod-crochet-rose-bouquet',
@@ -356,7 +356,7 @@ export default function HomeImageSlider({
                   alignItems: 'center',
                   gap: '0.55rem',
                   backgroundColor: currentSlide.badgeColor || 'var(--color-primary)',
-                  boxShadow: '0 6px 20px rgba(96, 169, 223, 0.45)',
+                  boxShadow: '0 6px 20px rgba(238, 109, 136, 0.45)',
                   border: 'none',
                   cursor: 'pointer'
                 }}

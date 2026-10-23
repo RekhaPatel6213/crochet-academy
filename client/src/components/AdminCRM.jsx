@@ -1043,7 +1043,7 @@ export default function AdminCRM({
       
       {/* 1. LOGIN SCREEN IF NOT AUTHENTICATED */}
       {!adminUser ? (
-        <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1.5rem', background: 'radial-gradient(rgba(96, 169, 223, 0.08) 1px, transparent 1px)', backgroundSize: '24px 24px' }}>
+        <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1.5rem', background: 'radial-gradient(rgba(238, 109, 136, 0.08) 1px, transparent 1px)', backgroundSize: '24px 24px' }}>
           <div style={{ backgroundColor: '#FFFFFF', borderRadius: '24px', padding: '2.5rem', width: '100%', maxWidth: '440px', boxShadow: 'var(--shadow-lg)', border: '1px solid var(--border-subtle)' }}>
             
             <div style={{ textAlign: 'center', marginBottom: '1.75rem' }}>
@@ -1923,7 +1923,7 @@ export default function AdminCRM({
                                   borderRadius: '10px', 
                                   padding: '0.4rem', 
                                   border: isPrimary ? '2px solid var(--color-primary)' : '1px solid var(--border-subtle)',
-                                  boxShadow: isPrimary ? '0 0 0 2px rgba(96, 169, 223, 0.25)' : 'none'
+                                  boxShadow: isPrimary ? '0 0 0 2px rgba(238, 109, 136, 0.2)' : 'none'
                                 }}
                               >
                                 <img 
@@ -3523,7 +3523,7 @@ export default function AdminCRM({
                         onClick={handleSaveSettings}
                         disabled={isSavingSettings}
                         className="btn btn-primary"
-                        style={{ padding: '0.65rem 1.75rem', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '0.5rem', boxShadow: '0 4px 15px rgba(96, 169, 223, 0.35)' }}
+                        style={{ padding: '0.65rem 1.75rem', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '0.5rem', boxShadow: '0 4px 15px rgba(238, 109, 136, 0.35)' }}
                       >
                         {isSavingSettings ? <RefreshCw size={16} className="spinning" /> : <CheckCircle2 size={16} />}
                         <span>{isSavingSettings ? "Saving Settings..." : "Save Store Settings"}</span>

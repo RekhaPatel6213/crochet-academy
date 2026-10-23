@@ -169,11 +169,11 @@
   transition: all var(--transition-normal);
 }
 .package-card:hover {
-  border-color: rgba(96, 169, 223, 0.4);
+  border-color: rgba(238, 109, 136, 0.4);
 }
 .package-card.selected {
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 4px rgba(96, 169, 223, 0.18);
+  box-shadow: 0 0 0 4px rgba(238, 109, 136, 0.15);
 }
 
 .package-price-number {
@@ -198,13 +198,13 @@
   margin-bottom: 0.85rem;
 }
 .mcq-option-card:hover {
-  border-color: rgba(96, 169, 223, 0.35);
+  border-color: rgba(238, 109, 136, 0.35);
   background-color: #FFFFFF;
 }
 .mcq-option-card.selected {
   background-color: var(--color-primary-light);
   border-color: var(--color-primary);
-  box-shadow: 0 2px 8px rgba(96, 169, 223, 0.15);
+  box-shadow: 0 2px 8px rgba(238, 109, 136, 0.12);
 }
 
 .option-badge {

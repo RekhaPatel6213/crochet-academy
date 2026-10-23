@@ -626,7 +626,7 @@ export default function App() {
                 gap: '1.5rem'
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
-                  <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: 'rgba(96, 169, 223, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.4rem' }}>
+                  <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: 'rgba(238, 109, 136, 0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.4rem' }}>
                     🧶
                   </div>
                   <div>
@@ -1238,7 +1238,7 @@ export default function App() {
           color: '#FFFFFF',
           padding: '0.65rem 1.15rem',
           borderRadius: '999px',
-          boxShadow: '0 6px 20px rgba(96, 169, 223, 0.4)',
+          boxShadow: '0 6px 20px rgba(238, 109, 136, 0.4)',
           border: '2px solid #FFFFFF',
           display: 'flex',
           alignItems: 'center',
