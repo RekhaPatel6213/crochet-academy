@@ -1039,11 +1039,11 @@ export default function AdminCRM({
   );
 
   return (
-    <div style={{ position: 'fixed', inset: 0, zIndex: 1000, backgroundColor: '#FAF7F2', overflowY: 'auto', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ position: 'fixed', inset: 0, zIndex: 1000, backgroundColor: '#F4F9FD', overflowY: 'auto', display: 'flex', flexDirection: 'column' }}>
       
       {/* 1. LOGIN SCREEN IF NOT AUTHENTICATED */}
       {!adminUser ? (
-        <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1.5rem', background: 'radial-gradient(rgba(238, 109, 136, 0.08) 1px, transparent 1px)', backgroundSize: '24px 24px' }}>
+        <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1.5rem', background: 'radial-gradient(rgba(96, 169, 223, 0.08) 1px, transparent 1px)', backgroundSize: '24px 24px' }}>
           <div style={{ backgroundColor: '#FFFFFF', borderRadius: '24px', padding: '2.5rem', width: '100%', maxWidth: '440px', boxShadow: 'var(--shadow-lg)', border: '1px solid var(--border-subtle)' }}>
             
             <div style={{ textAlign: 'center', marginBottom: '1.75rem' }}>

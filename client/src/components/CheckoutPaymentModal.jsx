@@ -124,7 +124,7 @@ export default function CheckoutPaymentModal({
         }}
       >
         {/* Top Header */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1.25rem 2rem', borderBottom: '1px solid var(--border-subtle)', backgroundColor: '#FAF7F2' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1.25rem 2rem', borderBottom: '1px solid var(--border-subtle)', backgroundColor: '#F4F9FD' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
             <img src="/logo.png" alt="Petal & Loop" style={{ width: '32px', height: '32px', borderRadius: '50%' }} />
             <div>
@@ -169,7 +169,7 @@ export default function CheckoutPaymentModal({
             </div>
 
             {/* Receipt Summary Card */}
-            <div style={{ width: '100%', maxWidth: '520px', backgroundColor: '#FAF7F2', borderRadius: '18px', padding: '1.5rem', border: '1px solid var(--border-subtle)', textAlign: 'left', display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+            <div style={{ width: '100%', maxWidth: '520px', backgroundColor: '#F4F9FD', borderRadius: '18px', padding: '1.5rem', border: '1px solid var(--border-subtle)', textAlign: 'left', display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '0.75rem' }}>
                 <div>
                   <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 700 }}>Order Number</span>
@@ -361,7 +361,7 @@ export default function CheckoutPaymentModal({
                           padding: '0.65rem',
                           borderRadius: '10px',
                           border: formData.paymentMethod === method ? '2px solid var(--color-primary)' : '1px solid var(--border-subtle)',
-                          backgroundColor: formData.paymentMethod === method ? '#FAF7F2' : '#FFFFFF',
+                          backgroundColor: formData.paymentMethod === method ? '#F4F9FD' : '#FFFFFF',
                           fontSize: '0.78rem',
                           fontWeight: formData.paymentMethod === method ? 800 : 500,
                           cursor: 'pointer',
@@ -378,7 +378,7 @@ export default function CheckoutPaymentModal({
                   </div>
 
                   {formData.paymentMethod === 'Credit Card' && (
-                    <div style={{ backgroundColor: '#FAF7F2', padding: '1rem', borderRadius: '12px', border: '1px solid var(--border-subtle)', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                    <div style={{ backgroundColor: '#F4F9FD', padding: '1rem', borderRadius: '12px', border: '1px solid var(--border-subtle)', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-muted)' }}>Card Details</span>
                         <div style={{ display: 'flex', gap: '0.3rem', fontSize: '0.7rem', color: 'var(--text-muted)' }}>
@@ -420,13 +420,13 @@ export default function CheckoutPaymentModal({
                   )}
 
                   {formData.paymentMethod === 'PayPal' && (
-                    <div style={{ backgroundColor: '#FAF7F2', padding: '1rem', borderRadius: '12px', border: '1px solid var(--border-subtle)', fontSize: '0.82rem', color: 'var(--text-muted)', textAlign: 'center' }}>
+                    <div style={{ backgroundColor: '#F4F9FD', padding: '1rem', borderRadius: '12px', border: '1px solid var(--border-subtle)', fontSize: '0.82rem', color: 'var(--text-muted)', textAlign: 'center' }}>
                       You will complete the transaction securely via PayPal authorization upon clicking Place Order.
                     </div>
                   )}
 
                   {formData.paymentMethod === 'Cash on Delivery' && (
-                    <div style={{ backgroundColor: '#FAF7F2', padding: '1rem', borderRadius: '12px', border: '1px solid var(--border-subtle)', fontSize: '0.82rem', color: 'var(--text-muted)', textAlign: 'center' }}>
+                    <div style={{ backgroundColor: '#F4F9FD', padding: '1rem', borderRadius: '12px', border: '1px solid var(--border-subtle)', fontSize: '0.82rem', color: 'var(--text-muted)', textAlign: 'center' }}>
                       Pay in cash directly to the courier upon delivery of your handcrafted items.
                     </div>
                   )}
@@ -435,7 +435,7 @@ export default function CheckoutPaymentModal({
               </div>
 
               {/* RIGHT: Order Summary Card */}
-              <div style={{ backgroundColor: '#FAF7F2', borderRadius: '18px', padding: '1.5rem', border: '1px solid var(--border-subtle)', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              <div style={{ backgroundColor: '#F4F9FD', borderRadius: '18px', padding: '1.5rem', border: '1px solid var(--border-subtle)', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                 <h4 style={{ fontSize: '1.1rem', margin: 0, fontFamily: 'var(--font-serif)', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '0.75rem' }}>
                   Order Summary ({items.length} items)
                 </h4>

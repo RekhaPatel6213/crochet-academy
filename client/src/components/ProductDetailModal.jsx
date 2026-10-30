@@ -54,7 +54,7 @@ export default function ProductDetailModal({
         }}
       >
         {/* Top Header Bar */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem 1.5rem', borderBottom: '1px solid var(--border-subtle)', backgroundColor: '#FAF7F2' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem 1.5rem', borderBottom: '1px solid var(--border-subtle)', backgroundColor: '#F4F9FD' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <span className="badge badge-terracotta" style={{ fontSize: '0.72rem' }}>
               Handcrafted Product
@@ -87,7 +87,7 @@ export default function ProductDetailModal({
                 borderRadius: '16px', 
                 overflow: 'hidden', 
                 border: '1px solid var(--border-subtle)',
-                backgroundColor: '#FAF7F2'
+                backgroundColor: '#F4F9FD'
               }}
             >
               <img 
@@ -163,11 +163,11 @@ export default function ProductDetailModal({
 
             {/* Trust Badges */}
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem', marginTop: '0.5rem' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', fontSize: '0.75rem', color: 'var(--text-muted)', backgroundColor: '#FAF7F2', padding: '0.5rem 0.75rem', borderRadius: '10px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', fontSize: '0.75rem', color: 'var(--text-muted)', backgroundColor: '#F4F9FD', padding: '0.5rem 0.75rem', borderRadius: '10px' }}>
                 <ShieldCheck size={16} color="var(--color-sage)" />
                 <span>100% Handcrafted</span>
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', fontSize: '0.75rem', color: 'var(--text-muted)', backgroundColor: '#FAF7F2', padding: '0.5rem 0.75rem', borderRadius: '10px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', fontSize: '0.75rem', color: 'var(--text-muted)', backgroundColor: '#F4F9FD', padding: '0.5rem 0.75rem', borderRadius: '10px' }}>
                 <Truck size={16} color="var(--color-primary)" />
                 <span>Free Ship &gt; $50</span>
               </div>
@@ -227,7 +227,7 @@ export default function ProductDetailModal({
 
             {/* Specifications Box */}
             {product.specs && Object.keys(product.specs).length > 0 && (
-              <div style={{ backgroundColor: '#FAF7F2', borderRadius: '14px', padding: '1rem', border: '1px solid var(--border-subtle)' }}>
+              <div style={{ backgroundColor: '#F4F9FD', borderRadius: '14px', padding: '1rem', border: '1px solid var(--border-subtle)' }}>
                 <div style={{ fontSize: '0.78rem', fontWeight: 800, color: 'var(--text-main)', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
                   <Info size={14} color="var(--color-primary)" /> Artisan Specifications:
                 </div>
@@ -245,7 +245,7 @@ export default function ProductDetailModal({
             {/* Quantity Selector & Add to Cart Action */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', paddingTop: '0.5rem', borderTop: '1px solid var(--border-subtle)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                <div style={{ display: 'flex', alignItems: 'center', border: '1px solid var(--border-subtle)', borderRadius: '10px', overflow: 'hidden', backgroundColor: '#FAF7F2' }}>
+                <div style={{ display: 'flex', alignItems: 'center', border: '1px solid var(--border-subtle)', borderRadius: '10px', overflow: 'hidden', backgroundColor: '#F4F9FD' }}>
                   <button
                     type="button"
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}

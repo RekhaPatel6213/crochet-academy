@@ -80,7 +80,7 @@ export default function CartDrawer({
         }}
       >
         {/* TOP BAR */}
-        <div style={{ padding: '1.25rem 1.5rem', borderBottom: '1px solid var(--border-subtle)', backgroundColor: '#FAF7F2', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ padding: '1.25rem 1.5rem', borderBottom: '1px solid var(--border-subtle)', backgroundColor: '#F4F9FD', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
             <div style={{ width: '36px', height: '36px', borderRadius: '50%', backgroundColor: 'var(--color-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#FFFFFF' }}>
               <ShoppingBag size={18} />
@@ -106,7 +106,7 @@ export default function CartDrawer({
         </div>
 
         {/* FREE SHIPPING PROGRESS METER */}
-        <div style={{ padding: '0.75rem 1.5rem', backgroundColor: '#FFFDF9', borderBottom: '1px solid var(--border-subtle)' }}>
+        <div style={{ padding: '0.75rem 1.5rem', backgroundColor: '#F8FBFE', borderBottom: '1px solid var(--border-subtle)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', marginBottom: '0.35rem' }}>
             <span>
               {isFreeShipping ? (
@@ -134,7 +134,7 @@ export default function CartDrawer({
         <div style={{ flex: 1, overflowY: 'auto', padding: '1.25rem 1.5rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           {cartItems.length === 0 ? (
             <div style={{ textAlign: 'center', padding: '3.5rem 1rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
-              <div style={{ width: '64px', height: '64px', borderRadius: '50%', backgroundColor: '#FAF7F2', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)' }}>
+              <div style={{ width: '64px', height: '64px', borderRadius: '50%', backgroundColor: '#F4F9FD', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)' }}>
                 <ShoppingBag size={32} />
               </div>
               <h4 style={{ fontSize: '1.2rem', margin: 0, fontFamily: 'var(--font-serif)' }}>
@@ -159,7 +159,7 @@ export default function CartDrawer({
                   display: 'flex', 
                   gap: '1rem', 
                   padding: '0.85rem', 
-                  backgroundColor: '#FAF7F2', 
+                  backgroundColor: '#F4F9FD', 
                   borderRadius: '14px', 
                   border: '1px solid var(--border-subtle)' 
                 }}
@@ -265,7 +265,7 @@ export default function CartDrawer({
 
         {/* BOTTOM CHECKOUT FOOTER */}
         {cartItems.length > 0 && (
-          <div style={{ padding: '1.25rem 1.5rem', borderTop: '1px solid var(--border-subtle)', backgroundColor: '#FAF7F2', display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+          <div style={{ padding: '1.25rem 1.5rem', borderTop: '1px solid var(--border-subtle)', backgroundColor: '#F4F9FD', display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
             
             {/* Promo Code Input */}
             <form onSubmit={handleApplyPromo} style={{ display: 'flex', gap: '0.5rem' }}>

@@ -156,7 +156,7 @@ export default function CategoryDetailPage({
                       borderRadius: '999px',
                       fontSize: '0.78rem',
                       fontWeight: isActive ? 800 : 500,
-                      backgroundColor: isActive ? (cat.accent || 'var(--color-primary)') : '#FAF7F2',
+                      backgroundColor: isActive ? (cat.accent || 'var(--color-primary)') : '#F4F9FD',
                       color: isActive ? '#FFFFFF' : 'var(--text-main)',
                       border: isActive ? 'none' : '1px solid var(--border-subtle)',
                       cursor: 'pointer',
@@ -189,7 +189,7 @@ export default function CategoryDetailPage({
       {/* FULL-WIDTH HERO HEADER SECTION */}
       <section 
         style={{ 
-          background: `linear-gradient(135deg, ${category.accent}15 0%, rgba(250, 247, 242, 0.95) 60%, #FAF7F2 100%)`, 
+          background: `linear-gradient(135deg, ${category.accent}15 0%, rgba(244, 249, 253, 0.95) 60%, #F4F9FD 100%)`, 
           borderBottom: '1px solid var(--border-subtle)',
           padding: '3rem 0 2.5rem'
         }}
@@ -428,7 +428,7 @@ export default function CategoryDetailPage({
                   />
                 </div>
 
-                <div style={{ marginTop: '1rem', padding: '0.85rem 1rem', backgroundColor: '#FAF7F2', borderRadius: '12px', border: '1px solid var(--border-subtle)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <div style={{ marginTop: '1rem', padding: '0.85rem 1rem', backgroundColor: '#F4F9FD', borderRadius: '12px', border: '1px solid var(--border-subtle)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                   <div style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>
                     Watch the instructor-led studio demo covering foundational tension, hook positioning, and stitch count formulas.
                   </div>
@@ -482,7 +482,7 @@ export default function CategoryDetailPage({
                     borderRadius: '14px', 
                     overflow: 'hidden', 
                     border: '1px solid var(--border-subtle)',
-                    backgroundColor: '#FAF7F2'
+                    backgroundColor: '#F4F9FD'
                   }}
                 >
                   <img 
@@ -529,7 +529,7 @@ export default function CategoryDetailPage({
                   </div>
                 )}
 
-                <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', lineHeight: 1.4, backgroundColor: '#FAF7F2', padding: '0.75rem 1rem', borderRadius: '10px' }}>
+                <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', lineHeight: 1.4, backgroundColor: '#F4F9FD', padding: '0.75rem 1rem', borderRadius: '10px' }}>
                   High-definition photography capturing tension gauge, textured loop definition, and assembly joins.
                 </div>
               </div>
@@ -685,10 +685,10 @@ export default function CategoryDetailPage({
                         </p>
 
                         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-                          <span style={{ backgroundColor: '#FAF7F2', padding: '0.25rem 0.65rem', borderRadius: '6px', border: '1px solid var(--border-subtle)', fontWeight: 600 }}>
+                          <span style={{ backgroundColor: '#F4F9FD', padding: '0.25rem 0.65rem', borderRadius: '6px', border: '1px solid var(--border-subtle)', fontWeight: 600 }}>
                             {crs.steps?.length || 1} Illustrated Steps
                           </span>
-                          <span style={{ backgroundColor: '#FAF7F2', padding: '0.25rem 0.65rem', borderRadius: '6px', border: '1px solid var(--border-subtle)', fontWeight: 600 }}>
+                          <span style={{ backgroundColor: '#F4F9FD', padding: '0.25rem 0.65rem', borderRadius: '6px', border: '1px solid var(--border-subtle)', fontWeight: 600 }}>
                             Video + PDF
                           </span>
                         </div>
@@ -696,7 +696,7 @@ export default function CategoryDetailPage({
                     </div>
 
                     {/* Card Footer Button */}
-                    <div style={{ padding: '0.85rem 1.35rem', borderTop: '1px solid var(--border-subtle)', backgroundColor: '#FAF7F2', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <div style={{ padding: '0.85rem 1.35rem', borderTop: '1px solid var(--border-subtle)', backgroundColor: '#F4F9FD', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                       <span style={{ fontSize: '0.82rem', color: 'var(--color-sage)', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
                         <Play size={14} fill="var(--color-sage)" /> Start Step-by-Step Class
                       </span>

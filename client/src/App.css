@@ -227,7 +227,7 @@
 
 /* Certificate Ornate Frame */
 .certificate-frame {
-  background-color: #FFFDF9;
+  background-color: #F8FBFE;
   border: 8px solid rgba(217, 155, 67, 0.5);
   border-radius: var(--radius-xl);
   padding: 3rem 2.5rem;

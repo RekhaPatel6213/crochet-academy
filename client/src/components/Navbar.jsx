@@ -327,7 +327,7 @@ export default function Navbar({
                 alignItems: 'center',
                 gap: '0.45rem',
                 borderColor: cartItemsCount > 0 ? 'var(--color-primary)' : 'var(--border-subtle)',
-                backgroundColor: cartItemsCount > 0 ? '#FAF7F2' : '#FFFFFF'
+                backgroundColor: cartItemsCount > 0 ? '#F4F9FD' : '#FFFFFF'
               }}
               title="View Shopping Basket"
             >

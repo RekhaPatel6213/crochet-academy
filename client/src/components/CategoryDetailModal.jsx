@@ -66,7 +66,7 @@ export default function CategoryDetailModal({
             display: 'flex', 
             justifyContent: 'space-between', 
             alignItems: 'center', 
-            backgroundColor: '#FAF7F2' 
+            backgroundColor: '#F4F9FD' 
           }}
         >
           <button
@@ -101,7 +101,7 @@ export default function CategoryDetailModal({
         {/* HERO BANNER WITH THEME COLOR */}
         <div 
           style={{ 
-            background: `linear-gradient(135deg, ${category.accent}18 0%, rgba(250, 247, 242, 0.9) 100%)`, 
+            background: `linear-gradient(135deg, ${category.accent}18 0%, rgba(244, 249, 253, 0.9) 100%)`, 
             padding: '2.5rem 2rem 2rem', 
             borderBottom: '1px solid var(--border-subtle)',
             position: 'relative'
@@ -164,7 +164,7 @@ export default function CategoryDetailModal({
             
             {/* A. Embedded Video Studio */}
             {videoEmbedUrl && (
-              <div style={{ backgroundColor: '#FAF7F2', borderRadius: '18px', padding: '1.25rem', border: '1px solid var(--border-subtle)' }}>
+              <div style={{ backgroundColor: '#F4F9FD', borderRadius: '18px', padding: '1.25rem', border: '1px solid var(--border-subtle)' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
                   <h3 style={{ fontSize: '1.1rem', margin: 0, display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                     <Play size={18} fill="var(--color-primary)" color="var(--color-primary)" />
@@ -191,7 +191,7 @@ export default function CategoryDetailModal({
             )}
 
             {/* B. Multiple Images Visual Gallery */}
-            <div style={{ backgroundColor: '#FAF7F2', borderRadius: '18px', padding: '1.25rem', border: '1px solid var(--border-subtle)', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+            <div style={{ backgroundColor: '#F4F9FD', borderRadius: '18px', padding: '1.25rem', border: '1px solid var(--border-subtle)', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <h3 style={{ fontSize: '1.1rem', margin: 0, display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                   <ImageIcon size={18} color={category.accent || 'var(--color-primary)'} />
@@ -329,7 +329,7 @@ export default function CategoryDetailModal({
                       </div>
                     </div>
 
-                    <div style={{ padding: '0.75rem 1.25rem', borderTop: '1px solid var(--border-subtle)', backgroundColor: '#FAF7F2', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <div style={{ padding: '0.75rem 1.25rem', borderTop: '1px solid var(--border-subtle)', backgroundColor: '#F4F9FD', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                       <span style={{ fontSize: '0.75rem', color: 'var(--color-sage)', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
                         <Play size={13} fill="var(--color-sage)" /> Start Class
                       </span>
@@ -339,7 +339,7 @@ export default function CategoryDetailModal({
                 ))}
               </div>
             ) : (
-              <div style={{ backgroundColor: '#FAF7F2', borderRadius: '16px', padding: '2.5rem', textAlign: 'center', border: '1px solid var(--border-subtle)' }}>
+              <div style={{ backgroundColor: '#F4F9FD', borderRadius: '16px', padding: '2.5rem', textAlign: 'center', border: '1px solid var(--border-subtle)' }}>
                 <p style={{ fontSize: '1rem', color: 'var(--text-muted)', margin: 0 }}>
                   Masterclasses for {category.title} are currently being recorded in the artisan studio. Check back soon!
                 </p>

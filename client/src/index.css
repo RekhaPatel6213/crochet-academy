@@ -25,10 +25,10 @@
   --color-clay: #99789E;        /* Soft dusty lilac */
   --color-clay-light: #F4EFF5;
   
-  --bg-canvas: #FAF6F0;         /* Soft warm ivory cream from logo badge interior */
+  --bg-canvas: #F4F9FD;         /* Crisp pastel loop sky blue canvas */
   --bg-card: #FFFFFF;
-  --bg-card-subtle: #F6F0E6;
-  --bg-card-warm: #FFFDF9;
+  --bg-card-subtle: #EDF5FC;
+  --bg-card-warm: #F8FBFE;
   
   --text-main: #2F2522;         /* Warm mocha charcoal from logo tagline */
   --text-muted: #6B5F59;
@@ -71,7 +71,7 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-image: radial-gradient(rgba(238, 109, 136, 0.05) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(96, 169, 223, 0.08) 1px, transparent 1px);
   background-size: 24px 24px;
   min-height: 100vh;
   overflow-x: hidden;
@@ -293,7 +293,7 @@ a {
   position: sticky;
   top: 0;
   z-index: 50;
-  background-color: rgba(250, 247, 242, 0.95);
+  background-color: rgba(244, 249, 253, 0.95);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border-subtle);
   width: 100%;
@@ -588,7 +588,7 @@ a {
 /* HERO SECTION */
 .hero-section {
   padding: 3.5rem 0 4rem;
-  background: linear-gradient(180deg, #E6F1F9 0%, #F0F6FB 55%, #FAF7F2 100%);
+  background: linear-gradient(180deg, #E6F1F9 0%, #EEF6FC 55%, #F4F9FD 100%);
   border-bottom: 1px solid rgba(96, 169, 223, 0.22);
 }
 
@@ -759,7 +759,7 @@ a {
 .category-card.selected {
   border-color: var(--color-primary);
   box-shadow: 0 0 0 4px rgba(238, 109, 136, 0.15);
-  background-color: #FFFDFB;
+  background-color: #F8FBFE;
 }
 
 .cat-top {
@@ -933,7 +933,7 @@ a {
   gap: 0.5rem;
 }
 .tag-badge {
-  background-color: rgba(250, 247, 242, 0.92);
+  background-color: rgba(244, 249, 253, 0.92);
   backdrop-filter: blur(4px);
   color: var(--text-main);
   font-size: 0.72rem;

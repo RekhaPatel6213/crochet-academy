@@ -63,7 +63,7 @@ export default function ShopProducts({
       {/* SHOP HERO BANNER */}
       <section 
         style={{ 
-          background: 'linear-gradient(135deg, rgba(238, 109, 136, 0.12) 0%, rgba(96, 169, 223, 0.08) 50%, #FAF6F0 100%)',
+          background: 'linear-gradient(135deg, rgba(238, 109, 136, 0.12) 0%, rgba(96, 169, 223, 0.12) 50%, #F4F9FD 100%)',
           borderBottom: '1px solid var(--border-subtle)',
           padding: '3rem 0 2.5rem'
         }}
@@ -249,7 +249,7 @@ export default function ShopProducts({
                 >
                   {/* Product Visual Image */}
                   <div>
-                    <div style={{ position: 'relative', height: '220px', overflow: 'hidden', backgroundColor: '#FAF7F2' }}>
+                    <div style={{ position: 'relative', height: '220px', overflow: 'hidden', backgroundColor: '#F4F9FD' }}>
                       <img 
                         src={product.coverImage || (product.images && product.images[0])} 
                         alt={product.title} 
@@ -355,7 +355,7 @@ export default function ShopProducts({
                   <div style={{ 
                     padding: '0.75rem 1rem', 
                     borderTop: '1px solid var(--border-subtle)', 
-                    backgroundColor: '#FAF7F2', 
+                    backgroundColor: '#F4F9FD', 
                     display: 'grid', 
                     gridTemplateColumns: '1fr 1fr', 
                     gap: '0.5rem',

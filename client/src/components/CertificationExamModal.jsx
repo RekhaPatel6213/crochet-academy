@@ -424,7 +424,7 @@ export default function CertificationExamModal({
 
         {/* Page Card */}
         <div style={{ backgroundColor: '#FFFFFF', borderRadius: '24px', border: '1px solid var(--border-subtle)', boxShadow: '0 10px 30px rgba(0,0,0,0.05)', overflow: 'hidden' }}>
-          <div style={{ padding: '1.75rem 2rem', borderBottom: '1px solid var(--border-subtle)', background: 'linear-gradient(135deg, #FAF7F2 0%, #FFFFFF 100%)', display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
+          <div style={{ padding: '1.75rem 2rem', borderBottom: '1px solid var(--border-subtle)', background: 'linear-gradient(135deg, #F4F9FD 0%, #FFFFFF 100%)', display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
             <div style={{ width: '46px', height: '46px', borderRadius: '12px', backgroundColor: 'var(--color-honey-light)', color: '#9E7333', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <Award size={26} />
             </div>

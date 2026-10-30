@@ -20,9 +20,9 @@ const YARN_OPTIONS = [
 ];
 
 const PALETTE_PRESETS = [
-  { id: 'Tishaya Signature (Petal & Loop)', colors: ['#EE6D88', '#60A9DF', '#FAF6F0'] },
-  { id: 'Meadow Sage & Blossom', colors: ['#72A179', '#EE6D88', '#FAF6F0'] },
-  { id: 'Warm Honey & Petal Rose', colors: ['#E29B4A', '#EE6D88', '#FAF6F0'] },
+  { id: 'Tishaya Signature (Petal & Loop)', colors: ['#EE6D88', '#60A9DF', '#F4F9FD'] },
+  { id: 'Meadow Sage & Blossom', colors: ['#72A179', '#EE6D88', '#F4F9FD'] },
+  { id: 'Warm Honey & Petal Rose', colors: ['#E29B4A', '#EE6D88', '#F4F9FD'] },
   { id: 'Midnight Twilight', colors: ['#2C3E50', '#99789E', '#EAE6E1'] },
   { id: 'Custom Palette', colors: ['#EE6D88', '#60A9DF', '#72A179'] }
 ];
@@ -161,7 +161,7 @@ export default function CustomOrderModal({
             </div>
 
             {/* Custom Commission Card */}
-            <div style={{ width: '100%', maxWidth: '520px', backgroundColor: '#FAF7F2', borderRadius: '18px', padding: '1.5rem', border: '1px solid var(--border-subtle)', textAlign: 'left', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+            <div style={{ width: '100%', maxWidth: '520px', backgroundColor: '#F4F9FD', borderRadius: '18px', padding: '1.5rem', border: '1px solid var(--border-subtle)', textAlign: 'left', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '0.75rem' }}>
                 <div>
                   <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 700 }}>Commission Project</span>
@@ -268,7 +268,7 @@ export default function CustomOrderModal({
                             padding: '1.25rem',
                             borderRadius: '16px',
                             border: isSelected ? '2px solid var(--color-primary)' : '1px solid var(--border-subtle)',
-                            backgroundColor: isSelected ? '#FAF7F2' : '#FFFFFF',
+                            backgroundColor: isSelected ? '#F4F9FD' : '#FFFFFF',
                             cursor: 'pointer',
                             display: 'flex',
                             flexDirection: 'column',
@@ -339,7 +339,7 @@ export default function CustomOrderModal({
                               padding: '1rem',
                               borderRadius: '12px',
                               border: isSelected ? '2px solid var(--color-primary)' : '1px solid var(--border-subtle)',
-                              backgroundColor: isSelected ? '#FAF7F2' : '#FFFFFF',
+                              backgroundColor: isSelected ? '#F4F9FD' : '#FFFFFF',
                               cursor: 'pointer'
                             }}
                           >
@@ -367,7 +367,7 @@ export default function CustomOrderModal({
                               padding: '0.85rem',
                               borderRadius: '12px',
                               border: isSelected ? '2px solid var(--color-primary)' : '1px solid var(--border-subtle)',
-                              backgroundColor: isSelected ? '#FAF7F2' : '#FFFFFF',
+                              backgroundColor: isSelected ? '#F4F9FD' : '#FFFFFF',
                               cursor: 'pointer'
                             }}
                           >
@@ -483,7 +483,7 @@ export default function CustomOrderModal({
                           padding: '0.85rem',
                           borderRadius: '10px',
                           border: formData.urgency.includes('Standard') ? '2px solid var(--color-primary)' : '1px solid var(--border-subtle)',
-                          backgroundColor: formData.urgency.includes('Standard') ? '#FAF7F2' : '#FFFFFF',
+                          backgroundColor: formData.urgency.includes('Standard') ? '#F4F9FD' : '#FFFFFF',
                           cursor: 'pointer'
                         }}
                       >
@@ -497,7 +497,7 @@ export default function CustomOrderModal({
                           padding: '0.85rem',
                           borderRadius: '10px',
                           border: formData.urgency.includes('Rush') ? '2px solid var(--color-primary)' : '1px solid var(--border-subtle)',
-                          backgroundColor: formData.urgency.includes('Rush') ? '#FAF7F2' : '#FFFFFF',
+                          backgroundColor: formData.urgency.includes('Rush') ? '#F4F9FD' : '#FFFFFF',
                           cursor: 'pointer'
                         }}
                       >
@@ -550,7 +550,7 @@ export default function CustomOrderModal({
               {/* STEP 4: CONTACT & DEPOSIT */}
               {step === 4 && (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-                  <div style={{ backgroundColor: '#FAF7F2', borderRadius: '14px', padding: '1rem', border: '1px solid var(--border-subtle)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <div style={{ backgroundColor: '#F4F9FD', borderRadius: '14px', padding: '1rem', border: '1px solid var(--border-subtle)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <div>
                       <strong style={{ fontSize: '0.95rem' }}>{formData.title || formData.itemType}</strong>
                       <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
@@ -623,7 +623,7 @@ export default function CustomOrderModal({
                           padding: '0.85rem',
                           borderRadius: '10px',
                           border: formData.paymentOption === 'deposit' ? '2px solid var(--color-primary)' : '1px solid var(--border-subtle)',
-                          backgroundColor: formData.paymentOption === 'deposit' ? '#FAF7F2' : '#FFFFFF',
+                          backgroundColor: formData.paymentOption === 'deposit' ? '#F4F9FD' : '#FFFFFF',
                           cursor: 'pointer'
                         }}
                       >
@@ -638,7 +638,7 @@ export default function CustomOrderModal({
                           padding: '0.85rem',
                           borderRadius: '10px',
                           border: formData.paymentOption === 'full' ? '2px solid var(--color-primary)' : '1px solid var(--border-subtle)',
-                          backgroundColor: formData.paymentOption === 'full' ? '#FAF7F2' : '#FFFFFF',
+                          backgroundColor: formData.paymentOption === 'full' ? '#F4F9FD' : '#FFFFFF',
                           cursor: 'pointer'
                         }}
                       >
@@ -713,7 +713,7 @@ export default function CustomOrderModal({
 
         {/* Page Card */}
         <div style={{ backgroundColor: '#FFFFFF', borderRadius: '24px', border: '1px solid var(--border-subtle)', boxShadow: '0 10px 30px rgba(0,0,0,0.05)', overflow: 'hidden' }}>
-          <div style={{ padding: '1.75rem 2rem', borderBottom: '1px solid var(--border-subtle)', background: 'linear-gradient(135deg, #FAF7F2 0%, #FFFFFF 100%)' }}>
+          <div style={{ padding: '1.75rem 2rem', borderBottom: '1px solid var(--border-subtle)', background: 'linear-gradient(135deg, #F4F9FD 0%, #FFFFFF 100%)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
               <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: 'var(--color-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#FFFFFF' }}>
                 <Sparkles size={20} />
@@ -760,7 +760,7 @@ export default function CustomOrderModal({
         }}
       >
         {/* Top Header */}
-        <div style={{ padding: '1.25rem 2rem', borderBottom: '1px solid var(--border-subtle)', backgroundColor: '#FAF7F2', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ padding: '1.25rem 2rem', borderBottom: '1px solid var(--border-subtle)', backgroundColor: '#F4F9FD', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
             <div style={{ width: '36px', height: '36px', borderRadius: '50%', backgroundColor: 'var(--color-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#FFFFFF' }}>
               <Sparkles size={18} />

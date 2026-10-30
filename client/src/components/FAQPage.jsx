@@ -167,11 +167,11 @@ export default function FAQPage({
   };
 
   return (
-    <div className="faq-page-wrapper" style={{ backgroundColor: 'var(--bg-canvas, #FDFBF7)', minHeight: '85vh', paddingBottom: '5rem' }}>
+    <div className="faq-page-wrapper" style={{ backgroundColor: 'var(--bg-canvas, #F4F9FD)', minHeight: '85vh', paddingBottom: '5rem' }}>
       
       {/* Top Breadcrumb & Hero Header */}
       <section style={{ 
-        background: 'linear-gradient(180deg, rgba(239, 230, 222, 0.6) 0%, rgba(253, 251, 247, 1) 100%)', 
+        background: 'linear-gradient(180deg, #E6F1F9 0%, #F4F9FD 100%)', 
         padding: '3rem 1.5rem 2.5rem',
         borderBottom: '1px solid var(--border-subtle)'
       }}>
@@ -490,7 +490,7 @@ export default function FAQPage({
                       width: '32px',
                       height: '32px',
                       borderRadius: '50%',
-                      backgroundColor: isOpen ? 'rgba(238, 109, 136, 0.12)' : 'var(--bg-canvas, #FDFBF7)',
+                      backgroundColor: isOpen ? 'rgba(238, 109, 136, 0.12)' : 'var(--bg-canvas, #F4F9FD)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center'
@@ -596,7 +596,7 @@ export default function FAQPage({
 
           {/* Quick Studio & Contact Box */}
           <div style={{ 
-            backgroundColor: 'var(--bg-canvas, #FDFBF7)', 
+            backgroundColor: 'var(--bg-canvas, #F4F9FD)', 
             borderRadius: '20px', 
             padding: '2rem', 
             border: '1px solid var(--border-subtle)',
