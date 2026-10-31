@@ -107,7 +107,7 @@ export default function Navbar({
           textOverflow: 'ellipsis',
           boxShadow: '0 1px 4px rgba(238, 109, 136, 0.2)'
         }}>
-          <span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>{settings.promoBannerText}</span>
+          <span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>{settings.promoBannerText?.replace(/♡/g, "🌸")}</span>
           {settings.contactPhone && (
             <span style={{ opacity: 0.9, fontSize: '0.74rem', borderLeft: '1px solid rgba(255,255,255,0.3)', paddingLeft: '0.75rem', flexShrink: 0 }}>
               📞 Helpline: {settings.contactPhone}
@@ -135,7 +135,7 @@ export default function Navbar({
             />
             <div className="brand-text-block">
               <span className="brand-script-name">
-                {brandParts.main} <span className="brand-heart">♡</span>
+                {brandParts.main} <span className="brand-heart" aria-hidden="true">🌸</span>
               </span>
               <span className="brand-sub-title">
                 {brandParts.sub === 'Petal & Loop' ? (

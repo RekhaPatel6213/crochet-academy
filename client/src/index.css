@@ -362,12 +362,13 @@ a {
 }
 
 .brand-heart {
-  color: var(--color-primary);
-  font-size: 0.56em;
-  font-weight: 300;
-  margin-left: 2px;
+  font-size: 0.52em;
+  margin-left: 3px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   transform: translateY(-2px);
-  display: inline-block;
 }
 
 .brand-sub-title {

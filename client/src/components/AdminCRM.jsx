@@ -128,7 +128,7 @@ export default function AdminCRM({
   // Settings State (Company Name, Logo, Favicon, Contact Info, Currency, GST, Discounts)
   const defaultSettingsState = {
     companyName: 'Tishaya Petal & Loop',
-    tagline: 'Handmade • Unique • With Love ♡',
+    tagline: 'Handmade • Unique • With Love 🌸',
     contactPhone: '+91 9099962395',
     whatsappNumber: '919099962395',
     contactEmail: 'anjalicrochetknit@gmail.com',
@@ -144,7 +144,7 @@ export default function AdminCRM({
     taxMode: 'exclusive',
     defaultDiscount: 10,
     promoCode: 'ANJALI10',
-    promoBannerText: '🌸 Tishaya Petal & Loop ♡ Bouquets from ₹499 & Keychains from ₹40 · WhatsApp: +91 9099962395 · Pan-India Delivery!',
+    promoBannerText: '🌸 Tishaya Petal & Loop 🌸 Bouquets from ₹499 & Keychains from ₹40 · WhatsApp: +91 9099962395 · Pan-India Delivery!',
     showPromoBanner: true,
     freeShippingThreshold: 499,
     supportHours: 'Open Every Day: 10:00 AM – 9:00 PM IST'
@@ -984,7 +984,7 @@ export default function AdminCRM({
     if (!window.confirm("Reset all store, currency, GST, and branding settings to factory defaults?")) return;
     const defaults = {
       companyName: "Tishaya Petal & Loop",
-      tagline: "Handmade • Unique • With Love ♡",
+      tagline: "Handmade • Unique • With Love 🌸",
       contactPhone: "+91 9099962395",
       whatsappNumber: "919099962395",
       contactEmail: "anjalicrochetknit@gmail.com",
@@ -1000,7 +1000,7 @@ export default function AdminCRM({
       taxMode: "exclusive",
       defaultDiscount: 10,
       promoCode: "ANJALI10",
-      promoBannerText: "🌸 Tishaya Petal & Loop ♡ Bouquets from ₹499 & Keychains from ₹40 · WhatsApp: +91 9099962395 · Pan-India Delivery!",
+      promoBannerText: "🌸 Tishaya Petal & Loop 🌸 Bouquets from ₹499 & Keychains from ₹40 · WhatsApp: +91 9099962395 · Pan-India Delivery!",
       showPromoBanner: true,
       freeShippingThreshold: 499,
       supportHours: "Open Every Day: 10:00 AM – 9:00 PM IST"
@@ -4228,7 +4228,7 @@ export default function AdminCRM({
                           <div style={{ padding: '1.25rem', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                             <div>
                               <div style={{ fontSize: '0.78rem', color: 'var(--color-primary)', fontWeight: 700, marginBottom: '0.25rem' }}>
-                                {slide.subtitle || 'Handmade with Love ♡'}
+                                {slide.subtitle || 'Handmade with Love 🌸'}
                               </div>
                               <h3 style={{ fontSize: '1.18rem', margin: '0 0 0.5rem', fontWeight: 800, color: 'var(--text-main)', lineHeight: 1.3, fontFamily: 'var(--font-serif)' }}>
                                 {slide.title}
@@ -4378,7 +4378,7 @@ export default function AdminCRM({
                               required
                               value={slideForm.subtitle}
                               onChange={e => setSlideForm({ ...slideForm, subtitle: e.target.value })}
-                              placeholder="e.g. Handmade with Love ♡ • Gaur City 2, Greater Noida West"
+                              placeholder="e.g. Handmade with Love 🌸 • Gaur City 2, Greater Noida West"
                               style={{ width: '100%', padding: '0.75rem', borderRadius: '10px', border: '1px solid var(--border-strong)', fontSize: '0.9rem' }}
                             />
                           </div>

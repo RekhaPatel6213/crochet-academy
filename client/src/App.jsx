@@ -81,7 +81,7 @@ export default function App() {
   // Store & Brand Settings (Company Name, Logo, Favicon, Currency, GST, Discounts, Contact)
   const [settings, setSettings] = useState({
     companyName: 'Tishaya Petal & Loop',
-    tagline: 'Handmade • Unique • With Love ♡',
+    tagline: 'Handmade • Unique • With Love 🌸',
     contactPhone: '+91 9099962395',
     whatsappNumber: '919099962395',
     contactEmail: 'anjalicrochetknit@gmail.com',
@@ -97,7 +97,7 @@ export default function App() {
     taxMode: 'exclusive',
     defaultDiscount: 10,
     promoCode: 'ANJALI10',
-    promoBannerText: '🌸 Tishaya Petal & Loop ♡ Bouquets from ₹499 & Keychains from ₹40 · WhatsApp: +91 9099962395 · Pan-India Delivery!',
+    promoBannerText: '🌸 Tishaya Petal & Loop 🌸 Bouquets from ₹499 & Keychains from ₹40 · WhatsApp: +91 9099962395 · Pan-India Delivery!',
     showPromoBanner: true,
     freeShippingThreshold: 499,
     supportHours: 'Open Every Day: 10:00 AM – 9:00 PM IST'
@@ -496,7 +496,7 @@ export default function App() {
                     <div>
                       <span className="badge badge-loop" style={{ marginBottom: '1rem', display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}>
                         <Sparkles size={14} />
-                        Tishaya Petal & Loop ♡ Handmade with Love • Gaur City 2, Gr. Noida West
+                        Tishaya Petal & Loop 🌸 Handmade with Love • Gaur City 2, Gr. Noida West
                       </span>
                     </div>
 
@@ -677,7 +677,7 @@ export default function App() {
                 Handcrafted Keepsakes
               </span>
               <h2 style={{ fontSize: '2.4rem', margin: '0 0 0.65rem', fontFamily: 'var(--font-serif)' }}>
-                Gifts for Every Occasion ♡
+                Gifts for Every Occasion 🌸
               </h2>
               <p style={{ color: 'var(--text-muted)', fontSize: '0.98rem', margin: 0, lineHeight: 1.6 }}>
                 Whether it's a romantic milestone, family celebration, or heartfelt return gift, our eternal hand-crocheted treasures make every moment unforgettable.

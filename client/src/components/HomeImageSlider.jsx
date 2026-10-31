@@ -25,7 +25,7 @@ export default function HomeImageSlider({
         {
           id: 'slide-default-1',
           title: 'Eternal Blooming Crochet Bouquets',
-          subtitle: 'Handmade with Love ♡ • Gaur City 2, Greater Noida West',
+          subtitle: 'Handmade with Love 🌸 • Gaur City 2, Greater Noida West',
           description: 'Never-wilting handmade red roses, calla lilies, and eucalyptus foliage hand-crocheted with 100% hypoallergenic milk cotton. Wrapped in artisanal Korean paper with satin ribbon.',
           image: 'https://images.unsplash.com/photo-1590736969955-71cc94801759?auto=format&fit=crop&w=1600&q=80',
           badge: '🌸 Bestseller Bouquet',
@@ -306,7 +306,7 @@ export default function HomeImageSlider({
                     backdropFilter: 'blur(4px)'
                   }}
                 >
-                  {currentSlide.subtitle || "Handmade with Love ♡"}
+                  {currentSlide.subtitle || "Handmade with Love 🌸"}
                 </span>
               </div>
             )}

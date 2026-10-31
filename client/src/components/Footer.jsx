@@ -3,7 +3,7 @@ import { Award, Heart, Phone, Mail, MapPin, Clock, MessageCircle, Sparkles } fro
 
 export default function Footer({ onOpenPackages, onOpenExam, settings, onNavigate }) {
   const companyName = settings?.companyName || "Tishaya Petal & Loop";
-  const tagline = settings?.tagline || "HANDMADE • UNIQUE • WITH LOVE ♡";
+  const tagline = (settings?.tagline || "HANDMADE • UNIQUE • WITH LOVE 🌸").replace(/♡/g, "🌸");
   const logo = settings?.logo || "/logo.png";
   const contactPhone = settings?.contactPhone || "+91 9099962395";
   const whatsappNum = settings?.whatsappNumber || "919099962395";
@@ -43,7 +43,7 @@ export default function Footer({ onOpenPackages, onOpenExam, settings, onNavigat
               />
               <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1 }}>
                 <span style={{ fontFamily: "'Great Vibes', cursive", fontSize: '2.3rem', color: '#FFFFFF', lineHeight: 0.9 }}>
-                  {brandParts.main} <span style={{ color: '#FFFFFF', fontSize: '0.6em' }}>♡</span>
+                  {brandParts.main} <span style={{ fontSize: '0.55em' }}>🌸</span>
                 </span>
                 <span style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: '1.25rem', fontWeight: 600, color: '#FFFFFF', marginLeft: '16px', lineHeight: 1.1 }}>
                   {brandParts.sub}

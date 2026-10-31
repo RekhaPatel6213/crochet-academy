@@ -1772,7 +1772,7 @@ app.post('/api/admin/slides', (req, res) => {
   const newSlide = {
     id: `slide-${Date.now()}`,
     title: req.body.title || 'New Craft Showcase',
-    subtitle: req.body.subtitle || 'Handmade with Love ♡',
+    subtitle: req.body.subtitle || 'Handmade with Love 🌸',
     description: req.body.description || '',
     image: req.body.image || 'https://images.unsplash.com/photo-1590736969955-71cc94801759?auto=format&fit=crop&w=1600&q=80',
     badge: req.body.badge || 'Featured',
