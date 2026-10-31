@@ -1070,26 +1070,42 @@ a {
 
 /* FOOTER */
 .site-footer {
-  background-color: #2D231E;
-  color: #FAF7F2;
+  background: linear-gradient(135deg, #E65C7B 0%, #EE6D88 52%, #60A9DF 100%);
+  color: #FFFFFF;
   padding: 4.5rem 0 2.5rem;
   margin-top: 6rem;
-  border-top: 1px solid rgba(44, 34, 30, 0.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
+  position: relative;
+  overflow: hidden;
+}
+.site-footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 85% 15%, rgba(255, 255, 255, 0.12) 0%, transparent 60%);
+  pointer-events: none;
 }
 .footer-grid {
   display: grid;
   grid-template-columns: 1.2fr 0.8fr 1fr 1fr;
   gap: 3rem;
   padding-bottom: 3.5rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.22);
+  position: relative;
+  z-index: 1;
 }
 .footer-bottom {
   padding-top: 2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 0.8rem;
-  color: #9E938B;
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.88);
+  position: relative;
+  z-index: 1;
 }
 
 /* RESPONSIVE BREAKPOINTS */
