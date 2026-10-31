@@ -937,7 +937,9 @@ export default function App() {
           {/* BULK & WHOLESALE ORDERS BANNER (As per anjalicrochet.store) */}
           <div className="bulk-banner-card" style={{
             marginTop: '5rem',
-            backgroundColor: '#2C2420',
+            background: 'linear-gradient(135deg, #E65C7B 0%, #EE6D88 52%, #60A9DF 100%)',
+            boxShadow: '0 16px 40px rgba(230, 92, 123, 0.25)',
+            border: '1px solid rgba(255, 255, 255, 0.3)',
             borderRadius: '28px',
             color: '#FFFFFF',
             display: 'flex',
@@ -948,14 +950,37 @@ export default function App() {
             position: 'relative',
             overflow: 'hidden'
           }}>
+            {/* Subtle radial lighting overlay */}
+            <div style={{
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              width: '500px',
+              height: '100%',
+              background: 'radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.16) 0%, transparent 70%)',
+              pointerEvents: 'none'
+            }} />
             <div style={{ maxWidth: '640px', zIndex: 2 }}>
-              <span style={{ backgroundColor: 'rgba(217,155,67,0.2)', color: 'var(--color-honey)', fontSize: '0.75rem', fontWeight: 800, padding: '4px 12px', borderRadius: '999px', display: 'inline-flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.85rem' }}>
-                <Sparkles size={13} /> Bulk & Wholesale Gifting Partner
+              <span style={{
+                backgroundColor: 'rgba(255, 255, 255, 0.22)',
+                color: '#FFFFFF',
+                fontSize: '0.75rem',
+                fontWeight: 800,
+                padding: '4px 14px',
+                borderRadius: '999px',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.4rem',
+                marginBottom: '0.85rem',
+                border: '1px solid rgba(255, 255, 255, 0.35)',
+                backdropFilter: 'blur(4px)'
+              }}>
+                <Sparkles size={13} color="#FFFFFF" /> Bulk & Wholesale Gifting Partner
               </span>
-              <h3 style={{ fontSize: '2.2rem', color: '#FFFFFF', margin: '0 0 0.75rem', lineHeight: 1.2 }}>
+              <h3 style={{ fontSize: '2.2rem', color: '#FFFFFF', margin: '0 0 0.75rem', lineHeight: 1.2, fontWeight: 700 }}>
                 Planning a Wedding, Return Gift, or Corporate Event?
               </h3>
-              <p style={{ color: '#D8CCC4', fontSize: '0.95rem', lineHeight: 1.6, margin: 0 }}>
+              <p style={{ color: 'rgba(255, 255, 255, 0.95)', fontSize: '0.95rem', lineHeight: 1.6, margin: 0 }}>
                 Get custom gift hampers, forever flower arrangements, and keychains handcrafted to match your event color theme. We provide wholesale rates (starting from 5+ pieces), bespoke calligraphy tags, and Pan-India bulk courier shipping.
               </p>
             </div>
@@ -985,7 +1010,17 @@ export default function App() {
               <button
                 onClick={() => handleOpenCustomOrder({ itemType: 'Bulk Wholesale Hamper' })}
                 className="btn btn-secondary"
-                style={{ padding: '0.85rem 1.4rem', fontSize: '0.95rem', backgroundColor: 'transparent', color: '#FFFFFF', borderColor: 'rgba(255,255,255,0.3)' }}
+                style={{
+                  padding: '0.85rem 1.4rem',
+                  fontSize: '0.95rem',
+                  backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                  color: '#FFFFFF',
+                  border: '1.5px solid rgba(255, 255, 255, 0.5)',
+                  backdropFilter: 'blur(4px)',
+                  fontWeight: 700,
+                  borderRadius: '12px',
+                  cursor: 'pointer'
+                }}
               >
                 Request Custom Quote
               </button>
