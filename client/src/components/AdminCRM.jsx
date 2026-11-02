@@ -10,8 +10,9 @@ import {
   Phone, Mail, MapPin, Percent, Coins, Globe, HelpCircle
 } from 'lucide-react';
 
-export default function AdminCRM({ 
-  categories, 
+export default function AdminCRM({
+  initialTab = 'dashboard',
+  categories = [], 
   courses, 
   packages: initialPackages = [], 
   products: initialProducts = [],
