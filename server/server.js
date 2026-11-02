@@ -1366,7 +1366,7 @@ app.delete('/api/admin/products/:id', (req, res) => {
 
 // A1. Create Category
 app.post('/api/admin/categories', (req, res) => {
-  const { title, subtitle, description, badge, accent, iconName, difficulty, coverImage, images, videoUrl } = req.body;
+  const { title, subtitle, description, badge, accent, iconName, difficulty, coverImage, images, videoUrl, parentId } = req.body;
   if (!title || !description) {
     return res.status(400).json({ success: false, message: "Category title and description are required." });
   }
@@ -1392,6 +1392,7 @@ app.post('/api/admin/categories', (req, res) => {
 
   const newCategory = {
     id,
+    parentId: (parentId && String(parentId).trim()) ? String(parentId).trim() : null,
     title: title.trim(),
     subtitle: subtitle?.trim() || "Handcrafted collection",
     description: description.trim(),
@@ -1407,13 +1408,14 @@ app.post('/api/admin/categories', (req, res) => {
 
   db.categories.push(newCategory);
   saveDB(db);
+  if (typeof syncCategoryToMySQL === 'function') syncCategoryToMySQL(newCategory);
   res.json({ success: true, message: "Category created successfully!", data: newCategory });
 });
 
 // A1.1 Update Category
 app.put('/api/admin/categories/:id', (req, res) => {
   const { id } = req.params;
-  const { title, subtitle, description, badge, accent, iconName, difficulty, coverImage, images, videoUrl } = req.body;
+  const { title, subtitle, description, badge, accent, iconName, difficulty, coverImage, images, videoUrl, parentId } = req.body;
 
   const db = loadDB();
   const index = db.categories.findIndex(c => c.id === id);
@@ -1435,8 +1437,14 @@ app.put('/api/admin/categories/:id', (req, res) => {
 
   const formattedVideo = formatYouTubeUrl(videoUrl);
 
+  let cleanParentId = db.categories[index].parentId || null;
+  if (parentId !== undefined) {
+    cleanParentId = (parentId && String(parentId).trim() && String(parentId).trim() !== id) ? String(parentId).trim() : null;
+  }
+
   db.categories[index] = {
     ...db.categories[index],
+    parentId: cleanParentId,
     title: title ? title.trim() : db.categories[index].title,
     subtitle: subtitle !== undefined ? subtitle.trim() : db.categories[index].subtitle,
     description: description !== undefined ? description.trim() : db.categories[index].description,
@@ -1450,6 +1458,7 @@ app.put('/api/admin/categories/:id', (req, res) => {
   };
 
   saveDB(db);
+  if (typeof syncCategoryToMySQL === 'function') syncCategoryToMySQL(db.categories[index]);
   res.json({ success: true, message: "Category updated successfully!", data: db.categories[index] });
 });
 
@@ -1463,9 +1472,14 @@ app.delete('/api/admin/categories/:id', (req, res) => {
   }
 
   db.categories.splice(index, 1);
+  // Unset parentId for child categories
+  db.categories.forEach(c => {
+    if (c.parentId === id) c.parentId = null;
+  });
   // Also remove or reassign associated courses
   db.courses = db.courses.filter(c => c.categoryId !== id);
   saveDB(db);
+  if (typeof deleteCategoryFromMySQL === 'function') deleteCategoryFromMySQL(id);
   res.json({ success: true, message: "Category and associated classes deleted." });
 });
 

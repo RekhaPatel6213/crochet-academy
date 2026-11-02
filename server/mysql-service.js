@@ -474,3 +474,64 @@ export async function syncAllFaqsToMySQL(faqs) {
   }
 }
 
+
+export async function syncCategoryToMySQL(cat) {
+  if (!isMySQLConnected || !pool) return;
+  try {
+    await pool.execute(
+      `INSERT INTO categories (id, parent_id, title, subtitle, description, badge, accent, icon_name, project_count, difficulty, cover_image, images, video_url)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+       ON DUPLICATE KEY UPDATE 
+         parent_id=VALUES(parent_id),
+         title=VALUES(title),
+         subtitle=VALUES(subtitle),
+         description=VALUES(description),
+         badge=VALUES(badge),
+         accent=VALUES(accent),
+         icon_name=VALUES(icon_name),
+         project_count=VALUES(project_count),
+         difficulty=VALUES(difficulty),
+         cover_image=VALUES(cover_image),
+         images=VALUES(images),
+         video_url=VALUES(video_url)`,
+      [
+        cat.id,
+        cat.parentId || null,
+        cat.title || '',
+        cat.subtitle || '',
+        cat.description || '',
+        cat.badge || '',
+        cat.accent || '#EE6D88',
+        cat.iconName || 'Sparkles',
+        cat.projectCount || 0,
+        cat.difficulty || 'All Levels',
+        cat.coverImage || '',
+        JSON.stringify(cat.images || []),
+        cat.videoUrl || ''
+      ]
+    );
+  } catch (e) {
+    console.error('⚠️ [MySQL] Failed to sync category:', e.message);
+  }
+}
+
+export async function deleteCategoryFromMySQL(id) {
+  if (!isMySQLConnected || !pool) return;
+  try {
+    await pool.execute(`UPDATE categories SET parent_id = NULL WHERE parent_id = ?`, [id]);
+    await pool.execute(`DELETE FROM categories WHERE id = ?`, [id]);
+  } catch (e) {
+    console.error('⚠️ [MySQL] Failed to delete category:', e.message);
+  }
+}
+
+export async function syncAllCategoriesToMySQL(categories) {
+  if (!isMySQLConnected || !pool || !Array.isArray(categories)) return;
+  try {
+    for (const cat of categories) {
+      await syncCategoryToMySQL(cat);
+    }
+  } catch (e) {
+    console.error('⚠️ [MySQL] Failed to sync all categories:', e.message);
+  }
+}

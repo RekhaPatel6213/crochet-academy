@@ -102,10 +102,10 @@
       "difficulty": "Advanced Mastery",
       "coverImage": "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=800&q=80",
       "images": [
-        "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=800&q=80",
-        "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=800&q=80"
+        "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=800&q=80"
       ],
-      "videoUrl": "https://www.youtube.com/embed/S2pEw7qFv3A"
+      "videoUrl": "https://www.youtube.com/embed/S2pEw7qFv3A",
+      "parentId": null
     },
     {
       "id": "wearables",

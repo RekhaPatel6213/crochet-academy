@@ -191,13 +191,15 @@ export default function AdminCRM({
   const [isAddingCategory, setIsAddingCategory] = useState(false);
   const [editingCategoryId, setEditingCategoryId] = useState(null);
   const [categorySearch, setCategorySearch] = useState('');
-  const [categoryViewMode, setCategoryViewMode] = useState('table'); // 'table' | 'grid'
+  const [categoryViewMode, setCategoryViewMode] = useState('table');
+  const [categoryHierarchyFilter, setCategoryHierarchyFilter] = useState('all'); // 'all' | 'parents' | 'children' // 'table' | 'grid'
   const [selectedPreviewCat, setSelectedPreviewCat] = useState(null);
   const [newImageUrl, setNewImageUrl] = useState('');
   const [richEditorTab, setRichEditorTab] = useState('editor'); // 'editor' | 'preview'
   const descTextareaRef = useRef(null);
 
   const initialCatForm = {
+    parentId: '',
     title: '',
     subtitle: '',
     description: '<p>Master <strong>essential crochet skills</strong> with high-definition video tutorials and illustrated stitch charts.</p><ul><li>Zero-gap tension control</li><li>Step-by-step foundation technique</li><li>Boutique artisan finishing</li></ul>',
@@ -697,6 +699,7 @@ export default function AdminCRM({
   const handleEditCategory = (cat) => {
     setEditingCategoryId(cat.id);
     setCatForm({
+      parentId: cat.parentId || '',
       title: cat.title || '',
       subtitle: cat.subtitle || '',
       description: cat.description || '',
@@ -720,12 +723,16 @@ export default function AdminCRM({
   };
 
   // Filtered Categories for Table List
-  const filteredCategories = categories.filter(c => 
-    !categorySearch ||
-    c.title?.toLowerCase().includes(categorySearch.toLowerCase()) ||
-    c.subtitle?.toLowerCase().includes(categorySearch.toLowerCase()) ||
-    c.id?.toLowerCase().includes(categorySearch.toLowerCase())
-  );
+  const filteredCategories = categories.filter(c => {
+    const matchSearch = !categorySearch ||
+      c.title?.toLowerCase().includes(categorySearch.toLowerCase()) ||
+      c.subtitle?.toLowerCase().includes(categorySearch.toLowerCase()) ||
+      c.id?.toLowerCase().includes(categorySearch.toLowerCase());
+    if (!matchSearch) return false;
+    if (categoryHierarchyFilter === 'parents') return !c.parentId;
+    if (categoryHierarchyFilter === 'children') return Boolean(c.parentId);
+    return true;
+  });
 
   // Delete Category
   const handleDeleteCategory = async (id, title) => {
@@ -1501,7 +1508,15 @@ export default function AdminCRM({
                             value={courseForm.categoryId} onChange={e => setCourseForm({ ...courseForm, categoryId: e.target.value })}
                             style={{ width: '100%', padding: '0.6rem', borderRadius: '8px', border: '1px solid var(--border-strong)', fontSize: '0.88rem', backgroundColor: '#FFFFFF' }}
                           >
-                            {categories.map(c => <option key={c.id} value={c.id}>{c.title}</option>)}
+                            {categories.map(c => {
+                          const isChild = Boolean(c.parentId);
+                          const parent = isChild ? categories.find(p => p.id === c.parentId) : null;
+                          return (
+                            <option key={c.id} value={c.id}>
+                              {isChild ? `  ↳ ${c.title} (under ${parent?.title || c.parentId})` : `📁 ${c.title}`}
+                            </option>
+                          );
+                        })}
                           </select>
                         </div>
                       </div>
@@ -1634,7 +1649,26 @@ export default function AdminCRM({
                       </p>
                     </div>
 
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '0.75rem' }}>
+                      {/* Hierarchy Filter */}
+                      <select
+                        value={categoryHierarchyFilter}
+                        onChange={e => setCategoryHierarchyFilter(e.target.value)}
+                        style={{
+                          padding: '0.5rem 0.75rem',
+                          borderRadius: '8px',
+                          border: '1px solid var(--border-strong)',
+                          fontSize: '0.82rem',
+                          backgroundColor: '#FFFFFF',
+                          fontWeight: 600,
+                          cursor: 'pointer'
+                        }}
+                      >
+                        <option value="all">All Categories ({categories.length})</option>
+                        <option value="parents">Top-Level Parents ({categories.filter(c => !c.parentId).length})</option>
+                        <option value="children">Subcategories ({categories.filter(c => Boolean(c.parentId)).length})</option>
+                      </select>
+
                       {/* Search Bar */}
                       <div style={{ position: 'relative', width: '220px' }}>
                         <Search size={15} style={{ position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-subtle)' }} />
@@ -1807,8 +1841,36 @@ export default function AdminCRM({
                         </div>
                       </div>
 
-                      {/* Icon & Difficulty Row */}
-                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
+                      {/* Hierarchy, Icon & Difficulty Row */}
+                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(210px, 1fr))', gap: '1rem' }}>
+                        <div>
+                          <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 700, marginBottom: '0.25rem' }}>
+                            Parent Category (Hierarchy)
+                          </label>
+                          <select 
+                            value={catForm.parentId || ''} 
+                            onChange={e => setCatForm({ ...catForm, parentId: e.target.value })} 
+                            style={{ width: '100%', padding: '0.6rem', borderRadius: '8px', border: '1px solid var(--border-strong)', fontSize: '0.88rem', backgroundColor: '#FFF' }}
+                          >
+                            <option value="">📁 None — Top-Level Parent Category</option>
+                            {categories
+                              .filter(c => !editingCategoryId || c.id !== editingCategoryId)
+                              .map(c => {
+                                const parent = c.parentId ? categories.find(p => p.id === c.parentId) : null;
+                                return (
+                                  <option key={c.id} value={c.id}>
+                                    {c.parentId ? `  ↳ Subcategory of ${parent?.title || c.parentId}: ${c.title}` : `📁 ${c.title} (Root Parent)`}
+                                  </option>
+                                );
+                              })}
+                          </select>
+                          <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', marginTop: '0.2rem', display: 'block' }}>
+                            {catForm.parentId 
+                              ? `Subcategory under: "${categories.find(c => c.id === catForm.parentId)?.title || catForm.parentId}"` 
+                              : "Root parent category. Can have child subcategories."}
+                          </span>
+                        </div>
+
                         <div>
                           <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 700, marginBottom: '0.25rem' }}>
                             Category Icon
@@ -2267,17 +2329,68 @@ export default function AdminCRM({
                                   </div>
                                 </td>
 
-                                {/* 2. Title & Slug */}
+                                {/* 2. Title & Slug & Hierarchy */}
                                 <td style={{ padding: '0.75rem 0.65rem', verticalAlign: 'middle' }}>
-                                  <strong style={{ fontSize: '0.92rem', color: 'var(--text-main)', display: 'block' }}>
-                                    {c.title}
-                                  </strong>
-                                  <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+                                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', flexWrap: 'wrap' }}>
+                                    <strong style={{ fontSize: '0.92rem', color: 'var(--text-main)' }}>
+                                      {c.title}
+                                    </strong>
+                                    <code style={{ fontSize: '0.68rem', backgroundColor: 'var(--bg-canvas)', padding: '1px 5px', borderRadius: '4px', color: 'var(--color-primary)' }}>
+                                      #{c.id}
+                                    </code>
+                                  </div>
+                                  <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '2px' }}>
                                     {c.subtitle}
                                   </div>
-                                  <code style={{ fontSize: '0.68rem', backgroundColor: 'var(--bg-canvas)', padding: '1px 5px', borderRadius: '4px', color: 'var(--color-primary)', marginTop: '2px', display: 'inline-block' }}>
-                                    #{c.id}
-                                  </code>
+                                  {c.parentId ? (
+                                    <div style={{ marginTop: '0.35rem' }}>
+                                      <span style={{ 
+                                        display: 'inline-flex', 
+                                        alignItems: 'center', 
+                                        gap: '0.35rem', 
+                                        fontSize: '0.72rem', 
+                                        backgroundColor: 'rgba(96, 169, 223, 0.14)', 
+                                        color: 'var(--color-loop-blue)', 
+                                        padding: '2px 8px', 
+                                        borderRadius: '6px', 
+                                        fontWeight: 700,
+                                        border: '1px solid rgba(96, 169, 223, 0.28)'
+                                      }}>
+                                        ↳ Sub of: {categories.find(p => p.id === c.parentId)?.title || c.parentId}
+                                      </span>
+                                    </div>
+                                  ) : (
+                                    (() => {
+                                      const childList = categories.filter(child => child.parentId === c.id);
+                                      return (
+                                        <div style={{ marginTop: '0.35rem' }}>
+                                          <span style={{ 
+                                            display: 'inline-flex', 
+                                            alignItems: 'center', 
+                                            gap: '0.35rem', 
+                                            fontSize: '0.72rem', 
+                                            backgroundColor: 'rgba(74, 124, 89, 0.12)', 
+                                            color: 'var(--color-sage)', 
+                                            padding: '2px 8px', 
+                                            borderRadius: '6px', 
+                                            fontWeight: 700,
+                                            border: '1px solid rgba(74, 124, 89, 0.25)'
+                                          }}>
+                                            📁 Top-Level Parent {childList.length > 0 ? `(${childList.length} subcategories)` : '(Root)'}
+                                          </span>
+                                          {childList.length > 0 && (
+                                            <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)', marginTop: '2px', display: 'flex', flexWrap: 'wrap', gap: '3px' }}>
+                                              {childList.map(ch => (
+                                                <span key={ch.id} style={{ backgroundColor: 'var(--bg-canvas)', padding: '1px 5px', borderRadius: '4px', border: '1px solid var(--border-subtle)' }}>
+                                                  ↳ {ch.title}
+                                                </span>
+                                              ))}
+                                            </div>
+                                          )}
+                                        </div>
+                                      );
+                                    })()
+                                  )}
                                 </td>
 
                                 {/* 3. Theme & Badge */}
@@ -2416,6 +2529,46 @@ export default function AdminCRM({
                               </div>
                               <h4 style={{ fontSize: '1.15rem', margin: '0.2rem 0' }}>{c.title}</h4>
                               <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.4rem' }}>{c.subtitle}</div>
+                              {c.parentId ? (
+                                <div style={{ marginBottom: '0.4rem' }}>
+                                  <span style={{ 
+                                    display: 'inline-flex', 
+                                    alignItems: 'center', 
+                                    gap: '0.3rem', 
+                                    fontSize: '0.72rem', 
+                                    backgroundColor: 'rgba(96, 169, 223, 0.14)', 
+                                    color: 'var(--color-loop-blue)', 
+                                    padding: '2px 8px', 
+                                    borderRadius: '6px', 
+                                    fontWeight: 700,
+                                    border: '1px solid rgba(96, 169, 223, 0.28)'
+                                  }}>
+                                    ↳ Subcategory of: {categories.find(p => p.id === c.parentId)?.title || c.parentId}
+                                  </span>
+                                </div>
+                              ) : (
+                                (() => {
+                                  const childList = categories.filter(child => child.parentId === c.id);
+                                  return (
+                                    <div style={{ marginBottom: '0.4rem' }}>
+                                      <span style={{ 
+                                        display: 'inline-flex', 
+                                        alignItems: 'center', 
+                                        gap: '0.3rem', 
+                                        fontSize: '0.72rem', 
+                                        backgroundColor: 'rgba(74, 124, 89, 0.12)', 
+                                        color: 'var(--color-sage)', 
+                                        padding: '2px 8px', 
+                                        borderRadius: '6px', 
+                                        fontWeight: 700,
+                                        border: '1px solid rgba(74, 124, 89, 0.25)'
+                                      }}>
+                                        📁 Top-Level Parent {childList.length > 0 ? `(${childList.length} subcategories)` : ''}
+                                      </span>
+                                    </div>
+                                  );
+                                })()
+                              )}
                               <div 
                                 style={{ fontSize: '0.8rem', color: 'var(--text-muted)', margin: 0, maxHeight: '60px', overflow: 'hidden' }}
                                 dangerouslySetInnerHTML={{ __html: c.description }}
