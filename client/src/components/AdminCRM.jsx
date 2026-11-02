@@ -39,8 +39,68 @@ export default function AdminCRM({
   const [loginError, setLoginError] = useState('');
   const [loggingIn, setLoggingIn] = useState(false);
 
+  const TAB_ROUTE_MAP = {
+    dashboard: '/admin',
+    courses: '/admin/courses',
+    categories: '/admin/category',
+    packages: '/admin/packages',
+    products: '/admin/products',
+    'shop-orders': '/admin/shop-orders',
+    'custom-orders': '/admin/custom-orders',
+    orders: '/admin/orders',
+    certifications: '/admin/certifications',
+    slider: '/admin/slider',
+    settings: '/admin/settings',
+    faqs: '/admin/faqs'
+  };
+
+  const getTabFromPath = () => {
+    const p = window.location.pathname.toLowerCase();
+    const sub = p.replace(/^\/admin\/?/i, '').split('/')[0].split('?')[0];
+    if (sub === 'category' || sub === 'categories') return 'categories';
+    if (sub === 'course' || sub === 'courses' || sub === 'classes') return 'courses';
+    if (sub === 'package' || sub === 'packages' || sub === 'pricing') return 'packages';
+    if (sub === 'product' || sub === 'products' || sub === 'shop') return 'products';
+    if (sub === 'shop-orders' || sub === 'shop-order') return 'shop-orders';
+    if (sub === 'custom-orders' || sub === 'custom-order' || sub === 'commissions') return 'custom-orders';
+    if (sub === 'orders' || sub === 'order' || sub === 'enrollments') return 'orders';
+    if (sub === 'certifications' || sub === 'certification' || sub === 'exams') return 'certifications';
+    if (sub === 'slider' || sub === 'slides') return 'slider';
+    if (sub === 'settings' || sub === 'setting') return 'settings';
+    if (sub === 'faqs' || sub === 'faq') return 'faqs';
+    if (sub === 'dashboard') return 'dashboard';
+    return null;
+  };
+
   // CRM Active Tab: 'dashboard' | 'courses' | 'categories' | 'orders' | 'certifications'
-  const [crmTab, setCrmTab] = useState('dashboard');
+  const [crmTab, setCrmTab] = useState(() => {
+    return initialTab || getTabFromPath() || 'dashboard';
+  });
+
+  const handleTabChange = (tab) => {
+    setCrmTab(tab);
+    const targetUrl = TAB_ROUTE_MAP[tab] || `/admin/${tab}`;
+    if (window.location.pathname !== targetUrl) {
+      window.history.pushState(null, '', targetUrl);
+    }
+  };
+
+  useEffect(() => {
+    if (initialTab && initialTab !== crmTab) {
+      setCrmTab(initialTab);
+    }
+  }, [initialTab]);
+
+  useEffect(() => {
+    const handleAdminPop = () => {
+      const detected = getTabFromPath();
+      if (detected) {
+        setCrmTab(detected);
+      }
+    };
+    window.addEventListener('popstate', handleAdminPop);
+    return () => window.removeEventListener('popstate', handleAdminPop);
+  }, []);
 
   // CRM Data State
   const [stats, setStats] = useState({
@@ -1224,7 +1284,7 @@ export default function AdminCRM({
               </div>
 
               <button
-                onClick={() => setCrmTab('dashboard')}
+                onClick={() => handleTabChange('dashboard')}
                 className={`tab-btn ${crmTab === 'dashboard' ? 'active' : ''}`}
                 style={{ width: '100%', justifyContent: 'flex-start', padding: '0.65rem 0.85rem', fontSize: '0.85rem' }}
               >
@@ -1232,7 +1292,7 @@ export default function AdminCRM({
               </button>
 
               <button
-                onClick={() => setCrmTab('courses')}
+                onClick={() => handleTabChange('courses')}
                 className={`tab-btn ${crmTab === 'courses' ? 'active' : ''}`}
                 style={{ width: '100%', justifyContent: 'flex-start', padding: '0.65rem 0.85rem', fontSize: '0.85rem' }}
               >
@@ -1240,7 +1300,7 @@ export default function AdminCRM({
               </button>
 
               <button
-                onClick={() => setCrmTab('categories')}
+                onClick={() => handleTabChange('categories')}
                 className={`tab-btn ${crmTab === 'categories' ? 'active' : ''}`}
                 style={{ width: '100%', justifyContent: 'flex-start', padding: '0.65rem 0.85rem', fontSize: '0.85rem' }}
               >
@@ -1248,7 +1308,7 @@ export default function AdminCRM({
               </button>
 
               <button
-                onClick={() => setCrmTab('packages')}
+                onClick={() => handleTabChange('packages')}
                 className={`tab-btn ${crmTab === 'packages' ? 'active' : ''}`}
                 style={{ width: '100%', justifyContent: 'flex-start', padding: '0.65rem 0.85rem', fontSize: '0.85rem' }}
               >
@@ -1256,7 +1316,7 @@ export default function AdminCRM({
               </button>
 
               <button
-                onClick={() => setCrmTab('products')}
+                onClick={() => handleTabChange('products')}
                 className={`tab-btn ${crmTab === 'products' ? 'active' : ''}`}
                 style={{ width: '100%', justifyContent: 'flex-start', padding: '0.65rem 0.85rem', fontSize: '0.85rem' }}
               >
@@ -1264,7 +1324,7 @@ export default function AdminCRM({
               </button>
 
               <button
-                onClick={() => setCrmTab('shop-orders')}
+                onClick={() => handleTabChange('shop-orders')}
                 className={`tab-btn ${crmTab === 'shop-orders' ? 'active' : ''}`}
                 style={{ width: '100%', justifyContent: 'flex-start', padding: '0.65rem 0.85rem', fontSize: '0.85rem' }}
               >
@@ -1272,7 +1332,7 @@ export default function AdminCRM({
               </button>
 
               <button
-                onClick={() => setCrmTab('custom-orders')}
+                onClick={() => handleTabChange('custom-orders')}
                 className={`tab-btn ${crmTab === 'custom-orders' ? 'active' : ''}`}
                 style={{ width: '100%', justifyContent: 'flex-start', padding: '0.65rem 0.85rem', fontSize: '0.85rem' }}
               >
@@ -1280,7 +1340,7 @@ export default function AdminCRM({
               </button>
 
               <button
-                onClick={() => setCrmTab('orders')}
+                onClick={() => handleTabChange('orders')}
                 className={`tab-btn ${crmTab === 'orders' ? 'active' : ''}`}
                 style={{ width: '100%', justifyContent: 'flex-start', padding: '0.65rem 0.85rem', fontSize: '0.85rem' }}
               >
@@ -1288,7 +1348,7 @@ export default function AdminCRM({
               </button>
 
               <button
-                onClick={() => setCrmTab('certifications')}
+                onClick={() => handleTabChange('certifications')}
                 className={`tab-btn ${crmTab === 'certifications' ? 'active' : ''}`}
                 style={{ width: '100%', justifyContent: 'flex-start', padding: '0.65rem 0.85rem', fontSize: '0.85rem' }}
               >
@@ -1301,7 +1361,7 @@ export default function AdminCRM({
               </div>
 
               <button
-                onClick={() => setCrmTab('slider')}
+                onClick={() => handleTabChange('slider')}
                 className={`tab-btn ${crmTab === 'slider' ? 'active' : ''}`}
                 style={{ 
                   width: '100%', 
@@ -1317,7 +1377,7 @@ export default function AdminCRM({
               </button>
 
               <button
-                onClick={() => setCrmTab('settings')}
+                onClick={() => handleTabChange('settings')}
                 className={`tab-btn ${crmTab === 'settings' ? 'active' : ''}`}
                 style={{ 
                   width: '100%', 
@@ -1333,7 +1393,7 @@ export default function AdminCRM({
               </button>
 
               <button
-                onClick={() => setCrmTab('faqs')}
+                onClick={() => handleTabChange('faqs')}
                 className={`tab-btn ${crmTab === 'faqs' ? 'active' : ''}`}
                 style={{ 
                   width: '100%', 
@@ -1428,7 +1488,7 @@ export default function AdminCRM({
                   <div style={{ backgroundColor: '#FFFFFF', borderRadius: '18px', padding: '1.5rem', border: '1px solid var(--border-subtle)' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
                       <h3 style={{ fontSize: '1.15rem', margin: 0 }}>Recent Student Enrollments</h3>
-                      <button onClick={() => setCrmTab('orders')} className="btn btn-secondary" style={{ padding: '0.35rem 0.85rem', fontSize: '0.75rem' }}>
+                      <button onClick={() => handleTabChange('orders')} className="btn btn-secondary" style={{ padding: '0.35rem 0.85rem', fontSize: '0.75rem' }}>
                         View All Orders →
                       </button>
                     </div>

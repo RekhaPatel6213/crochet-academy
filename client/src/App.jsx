@@ -29,7 +29,23 @@ export const resolveRoute = (pathname = window.location.pathname, hash = window.
   const h = (hash || '').toLowerCase();
 
   if (p.startsWith('/admin') || h.includes('admin')) {
-    return { tab: 'admin', categoryId: null };
+    let adminTab = 'dashboard';
+    const sub = p.replace(/^\/admin\/?/i, '').split('/')[0].split('?')[0];
+    if (sub) {
+      if (sub === 'category' || sub === 'categories') adminTab = 'categories';
+      else if (sub === 'course' || sub === 'courses' || sub === 'classes') adminTab = 'courses';
+      else if (sub === 'package' || sub === 'packages' || sub === 'pricing') adminTab = 'packages';
+      else if (sub === 'product' || sub === 'products' || sub === 'shop') adminTab = 'products';
+      else if (sub === 'shop-orders' || sub === 'shop-order') adminTab = 'shop-orders';
+      else if (sub === 'custom-orders' || sub === 'custom-order' || sub === 'commissions') adminTab = 'custom-orders';
+      else if (sub === 'orders' || sub === 'order' || sub === 'enrollments') adminTab = 'orders';
+      else if (sub === 'certifications' || sub === 'certification' || sub === 'exams') adminTab = 'certifications';
+      else if (sub === 'slider' || sub === 'slides') adminTab = 'slider';
+      else if (sub === 'settings' || sub === 'setting') adminTab = 'settings';
+      else if (sub === 'faqs' || sub === 'faq') adminTab = 'faqs';
+      else adminTab = sub;
+    }
+    return { tab: 'admin', adminTab, categoryId: null };
   }
   if (p.startsWith('/shop') || h.includes('shop')) {
     return { tab: 'shop', categoryId: null };
@@ -151,6 +167,7 @@ export default function App() {
   const [isExamOpen, setIsExamOpen] = useState(false);
   const [activeCertificate, setActiveCertificate] = useState(null);
   const [isAdminOpen, setIsAdminOpen] = useState(initialRoute.tab === 'admin');
+  const [adminTab, setAdminTab] = useState(initialRoute.adminTab || 'dashboard');
 
   // Central Navigation handler supporting HTML5 History API and instant page view updates
   const navigate = (to, shouldPush = true) => {
@@ -160,6 +177,9 @@ export default function App() {
     const route = resolveRoute(window.location.pathname, window.location.hash);
     if (route.tab === 'admin') {
       setIsAdminOpen(true);
+      if (route.adminTab) {
+        setAdminTab(route.adminTab);
+      }
     } else {
       setIsAdminOpen(false);
       setActiveTab(route.tab);
@@ -187,6 +207,9 @@ export default function App() {
       const route = resolveRoute(window.location.pathname, window.location.hash);
       if (route.tab === 'admin') {
         setIsAdminOpen(true);
+        if (route.adminTab) {
+          setAdminTab(route.adminTab);
+        }
       } else {
         setIsAdminOpen(false);
         setActiveTab(route.tab);
@@ -1290,6 +1313,7 @@ export default function App() {
 
       {isAdminOpen && (
         <AdminCRM 
+          initialTab={adminTab}
           categories={categories}
           courses={courses}
           packages={packages}
