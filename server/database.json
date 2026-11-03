@@ -731,11 +731,13 @@
     "currencyCode": "INR",
     "supportHours": "Open Every Day: 10:00 AM – 9:00 PM IST",
     "currencySymbol": "₹",
+    "enablePackages": true,
     "whatsappNumber": "919099962395",
     "defaultDiscount": 10,
     "promoBannerText": "🌸 Tishaya Petal & Loop 🌸 Bouquets from ₹499 & Keychains from ₹40 · WhatsApp: +91 9099962395 · Pan-India Delivery!",
     "showPromoBanner": true,
     "currencyPosition": "prefix",
+    "enableCertification": true,
     "freeShippingThreshold": 499
   },
   "adminUser": {

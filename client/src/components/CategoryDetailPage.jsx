@@ -13,7 +13,8 @@ export default function CategoryDetailPage({
   onSwitchCategory,
   onSelectCourse, 
   onOpenPackages,
-  onOpenExam
+  onOpenExam,
+  settings = null
 }) {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [activeSubTab, setActiveSubTab] = useState('all'); // 'all', 'video', 'gallery', 'syllabus', 'classes'

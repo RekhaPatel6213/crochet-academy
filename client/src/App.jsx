@@ -115,6 +115,8 @@ export default function App() {
     promoCode: 'ANJALI10',
     promoBannerText: '🌸 Tishaya Petal & Loop 🌸 Bouquets from ₹499 & Keychains from ₹40 · WhatsApp: +91 9099962395 · Pan-India Delivery!',
     showPromoBanner: true,
+    enablePackages: true,
+    enableCertification: true,
     freeShippingThreshold: 499,
     supportHours: 'Open Every Day: 10:00 AM – 9:00 PM IST'
   });
@@ -464,6 +466,7 @@ export default function App() {
             onSelectCourse={(course) => setActiveCourse(course)}
             onOpenPackages={() => navigate('/packages')}
             onOpenExam={() => navigate('/certification')}
+            settings={settings}
           />
         ) : activeTab === 'shop' ? (
           <ShopProducts 
@@ -484,7 +487,7 @@ export default function App() {
             }}
             settings={settings}
           />
-        ) : activeTab === 'packages' ? (
+        ) : (activeTab === 'packages' && settings?.enablePackages !== false) ? (
           <PackagesModal 
             packages={packages}
             userStatus={userStatus}
@@ -492,7 +495,7 @@ export default function App() {
             onEnrollSuccess={handleEnrollSuccess}
             isPage={true}
           />
-        ) : activeTab === 'certification' ? (
+        ) : (activeTab === 'certification' && settings?.enableCertification !== false) ? (
           <CertificationExamModal 
             onClose={handleBackToHome}
             userStatus={userStatus}

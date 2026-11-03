@@ -208,7 +208,9 @@ export default function AdminCRM({
     promoBannerText: '🌸 Tishaya Petal & Loop 🌸 Bouquets from ₹499 & Keychains from ₹40 · WhatsApp: +91 9099962395 · Pan-India Delivery!',
     showPromoBanner: true,
     freeShippingThreshold: 499,
-    supportHours: 'Open Every Day: 10:00 AM – 9:00 PM IST'
+    supportHours: 'Open Every Day: 10:00 AM – 9:00 PM IST',
+    enablePackages: true,
+    enableCertification: true
   };
   const [settingsForm, setSettingsForm] = useState(initialSettings || defaultSettingsState);
   const [isSavingSettings, setIsSavingSettings] = useState(false);
@@ -4025,6 +4027,86 @@ export default function AdminCRM({
                             </div>
                           </div>
                         )}
+                      </div>
+
+                    </div>
+
+                    {/* CARD 2.5: FEATURE PAGES & MODULE VISIBILITY (PACKAGES & CERTIFICATION TOGGLES) */}
+                    <div style={{ backgroundColor: '#FFFFFF', borderRadius: '20px', padding: '1.75rem', border: '1px solid var(--border-subtle)', boxShadow: 'var(--shadow-sm)', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '0.85rem' }}>
+                        <div style={{ width: '36px', height: '36px', borderRadius: '10px', backgroundColor: 'rgba(96, 169, 223, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--color-loop-blue)' }}>
+                          <Layers size={18} />
+                        </div>
+                        <div>
+                          <h3 style={{ fontSize: '1.15rem', margin: 0, fontFamily: 'var(--font-serif)' }}>Feature Pages & Module Visibility</h3>
+                          <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>Enable or disable public website pages for Membership Packages and Artisan Certifications</div>
+                        </div>
+                      </div>
+
+                      {/* Packages Page Toggle */}
+                      <div style={{ backgroundColor: '#FAF7F2', borderRadius: '14px', padding: '1.25rem', border: '1px solid var(--border-subtle)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <div>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                            <strong style={{ fontSize: '0.92rem' }}>Enable Packages & Pricing Page (/packages)</strong>
+                            <span className={settingsForm.enablePackages !== false ? "badge badge-sage" : "badge badge-terracotta"} style={{ fontSize: '0.65rem' }}>
+                              {settingsForm.enablePackages !== false ? "✓ Enabled / Live" : "✕ Disabled / Hidden"}
+                            </span>
+                          </div>
+                          <span style={{ fontSize: '0.76rem', color: 'var(--text-muted)', display: 'block', marginTop: '0.2rem' }}>
+                            When enabled, shows the Membership Tiers & Pricing page, header navigation links, and enrollment buttons. When disabled, hides links and pages across the store.
+                          </span>
+                        </div>
+                        <label style={{ position: 'relative', display: 'inline-block', width: '48px', height: '26px', flexShrink: 0 }}>
+                          <input 
+                            type="checkbox"
+                            checked={settingsForm.enablePackages !== false}
+                            onChange={e => setSettingsForm({ ...settingsForm, enablePackages: e.target.checked })}
+                            style={{ opacity: 0, width: 0, height: 0 }}
+                          />
+                          <span style={{
+                            position: 'absolute', cursor: 'pointer', inset: 0,
+                            backgroundColor: settingsForm.enablePackages !== false ? 'var(--color-primary)' : '#D0C9C0',
+                            borderRadius: '34px', transition: '0.2s'
+                          }}>
+                            <span style={{
+                              position: 'absolute', content: '""', height: '20px', width: '20px', left: settingsForm.enablePackages !== false ? '24px' : '3px', bottom: '3px',
+                              backgroundColor: '#FFFFFF', borderRadius: '50%', transition: '0.2s', boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
+                            }} />
+                          </span>
+                        </label>
+                      </div>
+
+                      {/* Certification Page Toggle */}
+                      <div style={{ backgroundColor: '#FAF7F2', borderRadius: '14px', padding: '1.25rem', border: '1px solid var(--border-subtle)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <div>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                            <strong style={{ fontSize: '0.92rem' }}>Enable Artisan Certification & Exam Page (/certification)</strong>
+                            <span className={settingsForm.enableCertification !== false ? "badge badge-sage" : "badge badge-terracotta"} style={{ fontSize: '0.65rem' }}>
+                              {settingsForm.enableCertification !== false ? "✓ Enabled / Live" : "✕ Disabled / Hidden"}
+                            </span>
+                          </div>
+                          <span style={{ fontSize: '0.76rem', color: 'var(--text-muted)', display: 'block', marginTop: '0.2rem' }}>
+                            When enabled, shows the 10-Question MCQ Certification exam page, homepage assessment banner, and certificate credentials. When disabled, hides all exam callouts and links.
+                          </span>
+                        </div>
+                        <label style={{ position: 'relative', display: 'inline-block', width: '48px', height: '26px', flexShrink: 0 }}>
+                          <input 
+                            type="checkbox"
+                            checked={settingsForm.enableCertification !== false}
+                            onChange={e => setSettingsForm({ ...settingsForm, enableCertification: e.target.checked })}
+                            style={{ opacity: 0, width: 0, height: 0 }}
+                          />
+                          <span style={{
+                            position: 'absolute', cursor: 'pointer', inset: 0,
+                            backgroundColor: settingsForm.enableCertification !== false ? 'var(--color-primary)' : '#D0C9C0',
+                            borderRadius: '34px', transition: '0.2s'
+                          }}>
+                            <span style={{
+                              position: 'absolute', content: '""', height: '20px', width: '20px', left: settingsForm.enableCertification !== false ? '24px' : '3px', bottom: '3px',
+                              backgroundColor: '#FFFFFF', borderRadius: '50%', transition: '0.2s', boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
+                            }} />
+                          </span>
+                        </label>
                       </div>
 
                     </div>

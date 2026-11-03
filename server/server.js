@@ -1685,6 +1685,8 @@ const DEFAULT_SETTINGS = {
   promoCode: "PETAL10",
   promoBannerText: "🌸 Spring Guild Offer: Use PETAL10 for 10% off all handcrafted creations!",
   showPromoBanner: true,
+  enablePackages: true,
+  enableCertification: true,
   freeShippingThreshold: 50,
   supportHours: "Mon - Fri: 9:00 AM - 6:00 PM EST"
 };
@@ -1711,6 +1713,12 @@ app.put('/api/admin/settings', (req, res) => {
   }
   if (updated.freeShippingThreshold !== undefined) {
     updated.freeShippingThreshold = Number(updated.freeShippingThreshold) || 50;
+  }
+  if (updated.enablePackages !== undefined) {
+    updated.enablePackages = Boolean(updated.enablePackages);
+  }
+  if (updated.enableCertification !== undefined) {
+    updated.enableCertification = Boolean(updated.enableCertification);
   }
 
   db.settings = updated;

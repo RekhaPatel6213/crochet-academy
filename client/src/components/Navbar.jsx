@@ -235,35 +235,39 @@ export default function Navbar({
               </button>
 
               <div className="more-menu-panel">
-                <a
-                  href="/packages"
-                  onClick={(e) => { e.preventDefault(); handleNav('/packages'); }}
-                  className={`more-menu-item ${activeTab === 'packages' ? 'active' : ''}`}
-                  style={{ textDecoration: 'none' }}
-                >
-                  <div className="more-item-icon" style={{ backgroundColor: '#FFF4E5', color: '#D97706' }}>
-                    <Layers size={15} />
-                  </div>
-                  <div style={{ textAlign: 'left', minWidth: 0 }}>
-                    <div style={{ fontWeight: 700, fontSize: '0.82rem', color: 'var(--text-main)' }}>Crochet Packages</div>
-                    <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>Starter, Artisan & Master passes</div>
-                  </div>
-                </a>
+                {settings?.enablePackages !== false && (
+                  <a
+                    href="/packages"
+                    onClick={(e) => { e.preventDefault(); handleNav('/packages'); }}
+                    className={`more-menu-item ${activeTab === 'packages' ? 'active' : ''}`}
+                    style={{ textDecoration: 'none' }}
+                  >
+                    <div className="more-item-icon" style={{ backgroundColor: '#FFF4E5', color: '#D97706' }}>
+                      <Layers size={15} />
+                    </div>
+                    <div style={{ textAlign: 'left', minWidth: 0 }}>
+                      <div style={{ fontWeight: 700, fontSize: '0.82rem', color: 'var(--text-main)' }}>Crochet Packages</div>
+                      <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>Starter, Artisan & Master passes</div>
+                    </div>
+                  </a>
+                )}
 
-                <a
-                  href="/certification"
-                  onClick={(e) => { e.preventDefault(); handleNav('/certification'); }}
-                  className={`more-menu-item ${activeTab === 'certification' ? 'active' : ''}`}
-                  style={{ textDecoration: 'none' }}
-                >
-                  <div className="more-item-icon" style={{ backgroundColor: '#FEF3C7', color: '#B45309' }}>
-                    <Award size={15} />
-                  </div>
-                  <div style={{ textAlign: 'left', minWidth: 0 }}>
-                    <div style={{ fontWeight: 700, fontSize: '0.82rem', color: 'var(--text-main)' }}>MCQ Certification</div>
-                    <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>Take 80% passing assessment</div>
-                  </div>
-                </a>
+                {settings?.enableCertification !== false && (
+                  <a
+                    href="/certification"
+                    onClick={(e) => { e.preventDefault(); handleNav('/certification'); }}
+                    className={`more-menu-item ${activeTab === 'certification' ? 'active' : ''}`}
+                    style={{ textDecoration: 'none' }}
+                  >
+                    <div className="more-item-icon" style={{ backgroundColor: '#FEF3C7', color: '#B45309' }}>
+                      <Award size={15} />
+                    </div>
+                    <div style={{ textAlign: 'left', minWidth: 0 }}>
+                      <div style={{ fontWeight: 700, fontSize: '0.82rem', color: 'var(--text-main)' }}>MCQ Certification</div>
+                      <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>Take 80% passing assessment</div>
+                    </div>
+                  </a>
+                )}
 
                 <a
                   href="/faq"
@@ -403,25 +407,29 @@ export default function Navbar({
                 <span>Custom Commission Order</span>
               </a>
 
-              <a
-                href="/packages"
-                onClick={(e) => { e.preventDefault(); handleNav('/packages'); }}
-                className={`mobile-nav-item ${activeTab === 'packages' ? 'active' : ''}`}
-                style={{ textDecoration: 'none' }}
-              >
-                <Layers size={16} color="#D97706" />
-                <span>Crochet Packages & Classes</span>
-              </a>
+              {settings?.enablePackages !== false && (
+                <a
+                  href="/packages"
+                  onClick={(e) => { e.preventDefault(); handleNav('/packages'); }}
+                  className={`mobile-nav-item ${activeTab === 'packages' ? 'active' : ''}`}
+                  style={{ textDecoration: 'none' }}
+                >
+                  <Layers size={16} color="#D97706" />
+                  <span>Crochet Packages & Classes</span>
+                </a>
+              )}
 
-              <a
-                href="/certification"
-                onClick={(e) => { e.preventDefault(); handleNav('/certification'); }}
-                className={`mobile-nav-item ${activeTab === 'certification' ? 'active' : ''}`}
-                style={{ textDecoration: 'none' }}
-              >
-                <Award size={16} color="var(--color-honey)" />
-                <span>Take 80% MCQ Assessment</span>
-              </a>
+              {settings?.enableCertification !== false && (
+                <a
+                  href="/certification"
+                  onClick={(e) => { e.preventDefault(); handleNav('/certification'); }}
+                  className={`mobile-nav-item ${activeTab === 'certification' ? 'active' : ''}`}
+                  style={{ textDecoration: 'none' }}
+                >
+                  <Award size={16} color="var(--color-honey)" />
+                  <span>Take 80% MCQ Assessment</span>
+                </a>
+              )}
 
               <a
                 href="/faq"
