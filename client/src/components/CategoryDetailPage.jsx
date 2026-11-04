@@ -748,23 +748,27 @@ export default function CategoryDetailPage({
           </div>
 
           <div style={{ display: 'flex', gap: '0.85rem', flexWrap: 'wrap' }}>
-            <button
-              onClick={onOpenPackages}
-              className="btn btn-primary"
-              style={{ padding: '0.85rem 1.65rem', fontSize: '0.92rem' }}
-            >
-              <Sparkles size={16} />
-              <span>Choose Package</span>
-            </button>
+            {settings?.enablePackages !== false && (
+              <button
+                onClick={onOpenPackages}
+                className="btn btn-primary"
+                style={{ padding: '0.85rem 1.65rem', fontSize: '0.92rem' }}
+              >
+                <Sparkles size={16} />
+                <span>Choose Package</span>
+              </button>
+            )}
 
-            <button
-              onClick={onOpenExam}
-              className="btn btn-secondary"
-              style={{ padding: '0.85rem 1.65rem', fontSize: '0.92rem' }}
-            >
-              <Award size={16} color="var(--color-honey)" />
-              <span>Take 80% MCQ Exam</span>
-            </button>
+            {settings?.enableCertification !== false && (
+              <button
+                onClick={onOpenExam}
+                className="btn btn-secondary"
+                style={{ padding: '0.85rem 1.65rem', fontSize: '0.92rem' }}
+              >
+                <Award size={16} color="var(--color-honey)" />
+                <span>Take 80% MCQ Exam</span>
+              </button>
+            )}
           </div>
         </div>
 

@@ -858,7 +858,8 @@ export default function App() {
             </div>
           </div>
 
-          {/* CERTIFICATION OVERVIEW SECTION */}
+          {/* CERTIFICATION OVERVIEW SECTION (Only visible if enabled in Admin Settings) */}
+          {settings?.enableCertification !== false && (
           <div style={{ marginTop: '5rem' }}>
             <div style={{ backgroundColor: '#FFFFFF', borderRadius: '28px', padding: '3.5rem', border: '1px solid var(--border-subtle)', boxShadow: 'var(--shadow-sm)', display: 'grid', gridTemplateColumns: '1.2fr 0.8fr', gap: '3rem', alignItems: 'center' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
@@ -935,6 +936,8 @@ export default function App() {
 
             </div>
           </div>
+
+                    )}
 
           {/* BULK & WHOLESALE ORDERS BANNER (As per anjalicrochet.store) */}
           <div className="bulk-banner-card" style={{

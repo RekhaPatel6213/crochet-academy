@@ -137,57 +137,72 @@ export default function Footer({ onOpenPackages, onOpenExam, settings, onNavigat
             </a>
           </div>
 
-          {/* Certification Guild */}
+          {/* Certification Guild / Craft Studio */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
             <h4 style={{ color: '#FFFFFF', fontSize: '1rem', margin: 0, display: 'flex', alignItems: 'center', gap: '0.45rem', fontWeight: 700 }}>
-              <Award size={17} color="#FFFFFF" />
-              Artisan Certification
+              {settings?.enableCertification !== false ? (
+                <>
+                  <Award size={17} color="#FFFFFF" />
+                  Artisan Certification
+                </>
+              ) : (
+                <>
+                  <Sparkles size={17} color="#FFFFFF" />
+                  Craft Studio & Learning
+                </>
+              )}
             </h4>
             <p style={{ fontSize: '0.82rem', color: 'rgba(255, 255, 255, 0.92)', margin: 0, lineHeight: 1.5 }}>
-              Pass our 10-Question MCQ test with 80% or higher to earn an official accredited credential.
+              {settings?.enableCertification !== false
+                ? "Pass our 10-Question MCQ test with 80% or higher to earn an official accredited credential."
+                : "Join our hands-on crochet workshops in Gaur City 2, Greater Noida West or learn through self-paced video lessons."}
             </p>
-            <div>
-              <a
-                href="/certification"
-                onClick={(e) => {
-                  e.preventDefault();
-                  if (onNavigate) onNavigate('/certification');
-                  else if (onOpenExam) onOpenExam();
-                }}
-                style={{ color: '#FFFFFF', fontWeight: 700, fontSize: '0.84rem', textDecoration: 'underline', textUnderlineOffset: '3px', display: 'inline-block' }}
-              >
-                Take Assessment (80%) →
-              </a>
-            </div>
-            <div>
-              <a
-                href="/packages"
-                onClick={(e) => {
-                  e.preventDefault();
-                  if (onNavigate) onNavigate('/packages');
-                  else if (onOpenPackages) onOpenPackages();
-                }}
-                className="btn"
-                style={{ 
-                  padding: '0.55rem 1.25rem', 
-                  fontSize: '0.82rem', 
-                  fontWeight: 800, 
-                  backgroundColor: '#FFFFFF', 
-                  color: '#E65C7B', 
-                  borderRadius: '999px', 
-                  boxShadow: '0 4px 14px rgba(0,0,0,0.18)', 
-                  border: 'none', 
-                  textDecoration: 'none', 
-                  display: 'inline-flex', 
-                  alignItems: 'center', 
-                  gap: '0.4rem', 
-                  transition: 'all 0.2s ease' 
-                }}
-              >
-                <Sparkles size={14} color="#E65C7B" />
-                <span>View Packages & Enroll</span>
-              </a>
-            </div>
+            {settings?.enableCertification !== false && (
+              <div>
+                <a
+                  href="/certification"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (onNavigate) onNavigate('/certification');
+                    else if (onOpenExam) onOpenExam();
+                  }}
+                  style={{ color: '#FFFFFF', fontWeight: 700, fontSize: '0.84rem', textDecoration: 'underline', textUnderlineOffset: '3px', display: 'inline-block' }}
+                >
+                  Take Assessment (80%) →
+                </a>
+              </div>
+            )}
+            {settings?.enablePackages !== false && (
+              <div>
+                <a
+                  href="/packages"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (onNavigate) onNavigate('/packages');
+                    else if (onOpenPackages) onOpenPackages();
+                  }}
+                  className="btn"
+                  style={{ 
+                    padding: '0.55rem 1.25rem', 
+                    fontSize: '0.82rem', 
+                    fontWeight: 800, 
+                    backgroundColor: '#FFFFFF', 
+                    color: '#E65C7B', 
+                    borderRadius: '999px', 
+                    boxShadow: '0 4px 14px rgba(0,0,0,0.18)', 
+                    border: 'none', 
+                    textDecoration: 'none', 
+                    display: 'inline-flex', 
+                    alignItems: 'center', 
+                    gap: '0.4rem', 
+                    transition: 'all 0.2s ease' 
+                  }}
+                >
+                  <Sparkles size={14} color="#E65C7B" />
+                  <span>View Packages & Enroll</span>
+                </a>
+              </div>
+            )}
             <div style={{ marginTop: '0.2rem' }}>
               <a
                 href="/faq"
