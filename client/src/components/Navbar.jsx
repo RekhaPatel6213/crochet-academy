@@ -41,7 +41,9 @@ export default function Navbar({
     if (onNavigate) {
       onNavigate(path);
     } else {
-      if (path === '/') {
+      if (path === '/categories' || path === '/disciplines') {
+        setActiveTab('categories');
+      } else if (path === '/') {
         if (onBackToHome) onBackToHome();
         else setActiveTab('explore');
       } else if (path === '/shop') {
@@ -158,6 +160,14 @@ export default function Navbar({
               href="/"
               onClick={(e) => { e.preventDefault(); handleNav('/'); }}
               className={`nav-link-item ${activeTab === 'explore' ? 'active' : ''}`}
+            >
+              Home
+            </a>
+
+            <a
+              href="/categories"
+              onClick={(e) => { e.preventDefault(); handleNav('/categories'); }}
+              className={`nav-link-item ${activeTab === 'categories' ? 'active' : ''}`}
             >
               Categories & Classes
             </a>
@@ -379,7 +389,16 @@ export default function Navbar({
                 className={`mobile-nav-item ${activeTab === 'explore' ? 'active' : ''}`}
                 style={{ textDecoration: 'none' }}
               >
-                Categories & Classes
+                <span>Home</span>
+              </a>
+
+              <a
+                href="/categories"
+                onClick={(e) => { e.preventDefault(); handleNav('/categories'); }}
+                className={`mobile-nav-item ${activeTab === 'categories' ? 'active' : ''}`}
+                style={{ textDecoration: 'none' }}
+              >
+                <span>Categories & Classes</span>
               </a>
 
               <a

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import CategoryGrid from './components/CategoryGrid';
+import CategoriesPage from './components/CategoriesPage';
 import CourseCard from './components/CourseCard';
 import CourseDetailModal from './components/CourseDetailModal';
 import PackagesModal from './components/PackagesModal';
@@ -46,6 +47,9 @@ export const resolveRoute = (pathname = window.location.pathname, hash = window.
       else adminTab = sub;
     }
     return { tab: 'admin', adminTab, categoryId: null };
+  }
+  if (p.startsWith('/categories') || p.startsWith('/disciplines') || h.includes('categories') || h.includes('disciplines')) {
+    return { tab: 'categories', categoryId: null };
   }
   if (p.startsWith('/shop') || h.includes('shop')) {
     return { tab: 'shop', categoryId: null };
@@ -456,7 +460,16 @@ export default function App() {
       )}
 
       <main style={{ flex: 1 }}>
-        {activeTab === 'category-detail' && activeCategoryDetail ? (
+        {activeTab === 'categories' ? (
+          <CategoriesPage 
+            categories={categories}
+            courses={courses}
+            onOpenCategoryDetail={handleOpenCategoryDetail}
+            onBackToHome={handleBackToHome}
+            onNavigate={navigate}
+            settings={settings}
+          />
+        ) : activeTab === 'category-detail' && activeCategoryDetail ? (
           <CategoryDetailPage 
             category={activeCategoryDetail}
             categories={categories}
@@ -793,15 +806,7 @@ export default function App() {
             </div>
           </div>
 
-          {/* CATEGORIES SECTION */}
-          <div id="categories">
-            <CategoryGrid 
-              categories={categories}
-              selectedCategory={selectedCategory}
-              onSelectCategory={(id) => setSelectedCategory(id)}
-              onOpenCategoryDetail={handleOpenCategoryDetail}
-            />
-          </div>
+
 
           {/* PROJECT MASTERCLASSES SECTION */}
           <div>
@@ -852,6 +857,15 @@ export default function App() {
                     </button>
                   ))}
                 </div>
+
+                <button
+                  onClick={() => navigate('/categories')}
+                  className="btn btn-secondary"
+                  style={{ fontSize: '0.82rem', padding: '0.45rem 0.9rem', display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}
+                >
+                  <span>Browse All Disciplines</span>
+                  <span>→</span>
+                </button>
 
               </div>
             </div>

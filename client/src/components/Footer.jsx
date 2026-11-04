@@ -117,6 +117,24 @@ export default function Footer({ onOpenPackages, onOpenExam, settings, onNavigat
               <div>Home Plant Hangers</div>
               <div>Beginner Stitch Lab</div>
             </div>
+            <a
+              href="/categories"
+              onClick={(e) => {
+                e.preventDefault();
+                if (onNavigate) onNavigate('/categories');
+              }}
+              style={{
+                color: '#FFFFFF',
+                fontWeight: 700,
+                fontSize: '0.82rem',
+                textDecoration: 'underline',
+                textUnderlineOffset: '3px',
+                marginTop: '0.25rem',
+                display: 'inline-block'
+              }}
+            >
+              View All Disciplines →
+            </a>
           </div>
 
           {/* Certification Guild */}
