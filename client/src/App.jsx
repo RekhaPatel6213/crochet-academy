@@ -19,7 +19,7 @@ import Footer from './components/Footer';
 import HomeImageSlider from './components/HomeImageSlider';
 import FAQPage from './components/FAQPage';
 import { 
-  Search, Sparkles, Award, CheckCircle2, 
+  Video, Search, Sparkles, Award, CheckCircle2, 
   Play, Check, BookOpen, ShoppingBag,
   MessageCircle, Heart, Star, Truck, ShieldCheck, 
   ChevronDown, ChevronUp, Gift, Clock, MapPin, ExternalLink, HelpCircle
