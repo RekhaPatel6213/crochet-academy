@@ -43,6 +43,8 @@ export default function Navbar({
     } else {
       if (path === '/categories' || path === '/disciplines') {
         setActiveTab('categories');
+      } else if (path === '/masterclasses' || path === '/courses' || path === '/classes') {
+        setActiveTab('masterclasses');
       } else if (path === '/') {
         if (onBackToHome) onBackToHome();
         else setActiveTab('explore');
@@ -169,7 +171,15 @@ export default function Navbar({
               onClick={(e) => { e.preventDefault(); handleNav('/categories'); }}
               className={`nav-link-item ${activeTab === 'categories' ? 'active' : ''}`}
             >
-              Categories & Classes
+              Disciplines
+            </a>
+
+            <a
+              href="/masterclasses"
+              onClick={(e) => { e.preventDefault(); handleNav('/masterclasses'); }}
+              className={`nav-link-item ${activeTab === 'masterclasses' ? 'active' : ''}`}
+            >
+              Masterclasses
             </a>
 
             <a
@@ -398,7 +408,16 @@ export default function Navbar({
                 className={`mobile-nav-item ${activeTab === 'categories' ? 'active' : ''}`}
                 style={{ textDecoration: 'none' }}
               >
-                <span>Categories & Classes</span>
+                <span>Disciplines & Curriculums</span>
+              </a>
+
+              <a
+                href="/masterclasses"
+                onClick={(e) => { e.preventDefault(); handleNav('/masterclasses'); }}
+                className={`mobile-nav-item ${activeTab === 'masterclasses' ? 'active' : ''}`}
+                style={{ textDecoration: 'none' }}
+              >
+                <span>All Crochet Masterclasses</span>
               </a>
 
               <a

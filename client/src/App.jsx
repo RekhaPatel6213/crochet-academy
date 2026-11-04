@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import CategoryGrid from './components/CategoryGrid';
 import CategoriesPage from './components/CategoriesPage';
+import MasterclassesPage from './components/MasterclassesPage';
 import CourseCard from './components/CourseCard';
 import CourseDetailModal from './components/CourseDetailModal';
 import PackagesModal from './components/PackagesModal';
@@ -50,6 +51,9 @@ export const resolveRoute = (pathname = window.location.pathname, hash = window.
   }
   if (p.startsWith('/categories') || p.startsWith('/disciplines') || h.includes('categories') || h.includes('disciplines')) {
     return { tab: 'categories', categoryId: null };
+  }
+  if (p.startsWith('/masterclasses') || p.startsWith('/courses') || p.startsWith('/classes') || h.includes('masterclasses') || h.includes('courses') || h.includes('classes')) {
+    return { tab: 'masterclasses', categoryId: null };
   }
   if (p.startsWith('/shop') || h.includes('shop')) {
     return { tab: 'shop', categoryId: null };
@@ -469,6 +473,16 @@ export default function App() {
             onNavigate={navigate}
             settings={settings}
           />
+        ) : activeTab === 'masterclasses' ? (
+          <MasterclassesPage 
+            courses={courses}
+            categories={categories}
+            userStatus={userStatus}
+            onSelectCourse={(course) => setActiveCourse(course)}
+            onBackToHome={handleBackToHome}
+            onNavigate={navigate}
+            settings={settings}
+          />
         ) : activeTab === 'category-detail' && activeCategoryDetail ? (
           <CategoryDetailPage 
             category={activeCategoryDetail}
@@ -808,92 +822,40 @@ export default function App() {
 
 
 
-          {/* PROJECT MASTERCLASSES SECTION */}
-          <div>
-            <div className="filter-toolbar">
-              <div>
-                <span className="badge badge-sage" style={{ marginBottom: '0.4rem' }}>
-                  Video & Illustrated Guides
-                </span>
-                <h3 style={{ fontSize: '2rem', margin: 0 }}>
-                  {selectedCategory 
-                    ? `${categories.find(c => c.id === selectedCategory)?.title || 'Selected'} Projects` 
-                    : 'All Crochet Masterclasses'}
-                </h3>
-              </div>
-
-              {/* Search & Level Filters */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
-                
-                {/* Search Bar */}
-                <div className="search-box-wrapper">
-                  <Search size={16} className="search-icon-pos" />
-                  <input 
-                    type="text"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="Search projects or stitches..."
-                    className="search-input"
-                  />
-                  {searchQuery && (
-                    <button 
-                      onClick={() => setSearchQuery('')}
-                      style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-subtle)', fontWeight: 700 }}
-                    >
-                      ×
-                    </button>
-                  )}
-                </div>
-
-                {/* Level selector */}
-                <div className="filter-pills">
-                  {['All', 'Beginner', 'Intermediate'].map((lvl) => (
-                    <button
-                      key={lvl}
-                      onClick={() => setLevelFilter(lvl)}
-                      className={`pill-btn ${levelFilter === lvl ? 'active' : ''}`}
-                    >
-                      {lvl}
-                    </button>
-                  ))}
-                </div>
-
-                <button
-                  onClick={() => navigate('/categories')}
-                  className="btn btn-secondary"
-                  style={{ fontSize: '0.82rem', padding: '0.45rem 0.9rem', display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}
-                >
-                  <span>Browse All Disciplines</span>
-                  <span>→</span>
-                </button>
-
-              </div>
+          {/* QUICK MASTERCLASSES BANNER */}
+          <div style={{
+            marginTop: '4rem',
+            background: 'linear-gradient(135deg, #FFFDFB 0%, #F5EDE6 100%)',
+            border: '1px solid rgba(44, 34, 30, 0.08)',
+            borderRadius: '24px',
+            padding: '2.5rem',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: '2rem',
+            flexWrap: 'wrap'
+          }}>
+            <div style={{ maxWidth: '620px' }}>
+              <span className="badge badge-sage" style={{ marginBottom: '0.5rem', display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}>
+                <Video size={13} /> Video & Illustrated Guides
+              </span>
+              <h3 style={{ fontSize: '1.9rem', color: 'var(--color-espresso)', margin: '0 0 0.5rem', fontWeight: 700 }}>
+                Learn Handmade Crochet with Step-by-Step Masterclasses
+              </h3>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', lineHeight: 1.6, margin: 0 }}>
+                Explore our full library of video tutorials, stitch charts, and photo guides ranging from beginner stitch foundations to complex heirloom cardigans and plushies.
+              </p>
             </div>
-
-            {/* Courses Grid */}
-            {filteredCourses.length > 0 ? (
-              <div className="courses-grid">
-                {filteredCourses.map((course) => (
-                  <CourseCard 
-                    key={course.id}
-                    course={course}
-                    completedSteps={userStatus.completedSteps?.[course.id] || []}
-                    onSelectCourse={(c) => setActiveCourse(c)}
-                  />
-                ))}
-              </div>
-            ) : (
-              <div style={{ backgroundColor: '#FFFFFF', borderRadius: '24px', padding: '3.5rem', textAlign: 'center', border: '1px solid var(--border-subtle)' }}>
-                <p style={{ fontSize: '1.25rem', fontFamily: 'var(--font-serif)', marginBottom: '1rem' }}>No projects match your filter criteria.</p>
-                <button
-                  onClick={() => { setSelectedCategory(null); setSearchQuery(''); setLevelFilter('All'); }}
-                  className="btn btn-outline-primary"
-                  style={{ padding: '0.5rem 1.25rem', fontSize: '0.85rem' }}
-                >
-                  Clear All Filters
-                </button>
-              </div>
-            )}
+            <div style={{ display: 'flex', gap: '0.85rem', flexWrap: 'wrap' }}>
+              <button
+                onClick={() => navigate('/masterclasses')}
+                className="btn btn-primary"
+                style={{ padding: '0.8rem 1.5rem', fontSize: '0.92rem', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}
+              >
+                <span>View All Masterclasses</span>
+                <span>→</span>
+              </button>
+            </div>
           </div>
 
           {/* CERTIFICATION OVERVIEW SECTION */}
