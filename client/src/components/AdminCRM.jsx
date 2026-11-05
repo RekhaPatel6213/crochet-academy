@@ -7,7 +7,7 @@ import {
   Edit3, Bold, Italic, Underline, List, Heading, 
   Quote, Code, Play, X, Check, RefreshCw, LayoutGrid, LayoutList,
   Package, ShoppingBag, Truck, Tag, SlidersHorizontal, Settings,
-  Phone, Mail, MapPin, Percent, Coins, Globe, HelpCircle
+  Phone, Mail, MapPin, Percent, Coins, Globe, HelpCircle, Star, MessageSquare
 } from 'lucide-react';
 
 export default function AdminCRM({
@@ -20,6 +20,8 @@ export default function AdminCRM({
   onUpdateSlides = null,
   faqs: initialFaqs = [],
   onUpdateFaqs = null,
+  testimonials: initialTestimonials = [],
+  onUpdateTestimonials = null,
   onClose, 
   onRefreshData,
   settings: initialSettings = null,
@@ -52,7 +54,8 @@ export default function AdminCRM({
     certifications: '/admin/certifications',
     slider: '/admin/slider',
     settings: '/admin/settings',
-    faqs: '/admin/faqs'
+    faqs: '/admin/faqs',
+    testimonials: '/admin/testimonials'
   };
 
   const getTabFromPath = () => {
@@ -69,6 +72,7 @@ export default function AdminCRM({
     if (sub === 'slider' || sub === 'slides') return 'slider';
     if (sub === 'settings' || sub === 'setting') return 'settings';
     if (sub === 'faqs' || sub === 'faq') return 'faqs';
+    if (sub === 'testimonials' || sub === 'testimonial' || sub === 'reviews' || sub === 'review') return 'testimonials';
     if (sub === 'dashboard') return 'dashboard';
     return null;
   };
@@ -169,6 +173,21 @@ export default function AdminCRM({
   };
   const [slideForm, setSlideForm] = useState(initialSlideForm);
   const [dbInfo, setDbInfo] = useState(null);
+
+  // Testimonials Management State
+  const [testimonialsList, setTestimonialsList] = useState(initialTestimonials || []);
+  const [editingTestimonialId, setEditingTestimonialId] = useState(null);
+  const [testimonialModalOpen, setTestimonialModalOpen] = useState(false);
+  const [testimonialForm, setTestimonialForm] = useState({
+    name: '',
+    location: '',
+    review: '',
+    tag: 'Eternal Bouquet',
+    rating: 5,
+    active: true
+  });
+  const [isSavingTestimonial, setIsSavingTestimonial] = useState(false);
+  const [testimonialSearch, setTestimonialSearch] = useState('');
 
   // FAQ Management State
   const [faqsList, setFaqsList] = useState(initialFaqs || []);
@@ -311,7 +330,7 @@ export default function AdminCRM({
   const fetchCRMData = async () => {
     setCrmLoading(true);
     try {
-      const [statsRes, ordersRes, subsRes, pkgRes, prodRes, prodOrdersRes, custOrdersRes, settingsRes, slidesRes, faqsRes, dbStatusRes] = await Promise.all([
+      const [statsRes, ordersRes, subsRes, pkgRes, prodRes, prodOrdersRes, custOrdersRes, settingsRes, slidesRes, faqsRes, dbStatusRes, testRes] = await Promise.all([
         fetch('/api/admin/crm/stats'),
         fetch('/api/admin/crm/orders'),
         fetch('/api/admin/crm/submissions'),
@@ -322,10 +341,11 @@ export default function AdminCRM({
         fetch('/api/settings'),
         fetch('/api/slides'),
         fetch('/api/faqs?all=true'),
-        fetch('/api/db-status')
+        fetch('/api/db-status'),
+        fetch('/api/testimonials?all=true')
       ]);
 
-      const [statsData, ordersData, subsData, pkgData, prodData, prodOrdersData, custOrdersData, settingsData, slidesData, faqsData, dbStatusData] = await Promise.all([
+      const [statsData, ordersData, subsData, pkgData, prodData, prodOrdersData, custOrdersData, settingsData, slidesData, faqsData, dbStatusData, testData] = await Promise.all([
         statsRes.json(),
         ordersRes.json(),
         subsRes.json(),
@@ -336,7 +356,8 @@ export default function AdminCRM({
         settingsRes.json(),
         slidesRes.json(),
         faqsRes.json(),
-        dbStatusRes.json()
+        dbStatusRes.json(),
+        testRes.json()
       ]);
 
       if (statsData.success) setStats(statsData.data);
@@ -351,6 +372,10 @@ export default function AdminCRM({
       if (faqsData.success && faqsData.data) {
         setFaqsList(faqsData.data);
         if (onUpdateFaqs) onUpdateFaqs(faqsData.data);
+      }
+      if (testData.success && testData.data) {
+        setTestimonialsList(testData.data);
+        if (onUpdateTestimonials) onUpdateTestimonials(testData.data);
       }
       if (dbStatusData.success) setDbInfo(dbStatusData);
     } catch (err) {
@@ -447,6 +472,112 @@ export default function AdminCRM({
       }
     } catch (err) {
       console.error("Error toggling slide status", err);
+    }
+  };
+
+  // Testimonials CRUD Handlers
+  const handleOpenAddTestimonial = () => {
+    setEditingTestimonialId(null);
+    setTestimonialForm({
+      name: '',
+      location: '',
+      review: '',
+      tag: 'Eternal Bouquet',
+      rating: 5,
+      active: true
+    });
+    setTestimonialModalOpen(true);
+  };
+
+  const handleOpenEditTestimonial = (test) => {
+    setEditingTestimonialId(test.id);
+    setTestimonialForm({
+      name: test.name || '',
+      location: test.location || '',
+      review: test.review || '',
+      tag: test.tag || 'Customer Review',
+      rating: Number(test.rating) || 5,
+      active: test.active !== false
+    });
+    setTestimonialModalOpen(true);
+  };
+
+  const handleSaveTestimonial = async (e) => {
+    e.preventDefault();
+    if (!testimonialForm.name.trim() || !testimonialForm.review.trim()) {
+      alert("Please provide customer name and review content.");
+      return;
+    }
+
+    try {
+      setIsSavingTestimonial(true);
+      const url = editingTestimonialId ? `/api/admin/testimonials/${editingTestimonialId}` : '/api/admin/testimonials';
+      const method = editingTestimonialId ? 'PUT' : 'POST';
+
+      const res = await fetch(url, {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(testimonialForm)
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        setFeedback({
+          type: 'success',
+          message: editingTestimonialId ? 'Testimonial updated successfully!' : 'New testimonial published successfully!'
+        });
+        setTestimonialModalOpen(false);
+        const refreshed = await (await fetch('/api/testimonials?all=true')).json();
+        if (refreshed.success) {
+          setTestimonialsList(refreshed.data);
+          if (onUpdateTestimonials) onUpdateTestimonials(refreshed.data);
+        }
+      } else {
+        alert(data.message || "Failed to save testimonial.");
+      }
+    } catch (err) {
+      alert("Error saving testimonial: " + err.message);
+    } finally {
+      setIsSavingTestimonial(false);
+    }
+  };
+
+  const handleDeleteTestimonial = async (id, name) => {
+    if (!window.confirm(`Delete testimonial from "${name}"?`)) return;
+    try {
+      const res = await fetch(`/api/admin/testimonials/${id}`, { method: 'DELETE' });
+      const data = await res.json();
+      if (data.success) {
+        setFeedback({ type: 'success', message: 'Testimonial deleted successfully.' });
+        const refreshed = await (await fetch('/api/testimonials?all=true')).json();
+        if (refreshed.success) {
+          setTestimonialsList(refreshed.data);
+          if (onUpdateTestimonials) onUpdateTestimonials(refreshed.data);
+        }
+      } else {
+        alert(data.message || "Failed to delete testimonial.");
+      }
+    } catch (err) {
+      alert("Error deleting testimonial: " + err.message);
+    }
+  };
+
+  const handleToggleTestimonialStatus = async (test) => {
+    try {
+      const updatedActive = test.active === false ? true : false;
+      const res = await fetch(`/api/admin/testimonials/${test.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...test, active: updatedActive })
+      });
+      const data = await res.json();
+      if (data.success) {
+        const updatedList = testimonialsList.map(t => t.id === test.id ? { ...t, active: updatedActive } : t);
+        setTestimonialsList(updatedList);
+        if (onUpdateTestimonials) onUpdateTestimonials(updatedList);
+      }
+    } catch (err) {
+      console.error("Error toggling testimonial status", err);
     }
   };
 
@@ -1409,6 +1540,22 @@ export default function AdminCRM({
                 }}
               >
                 <HelpCircle size={16} /> FAQs Manager ({faqsList.length})
+              </button>
+
+              <button
+                onClick={() => handleTabChange('testimonials')}
+                className={`tab-btn ${crmTab === 'testimonials' ? 'active' : ''}`}
+                style={{ 
+                  width: '100%', 
+                  justifyContent: 'flex-start', 
+                  padding: '0.65rem 0.85rem', 
+                  fontSize: '0.85rem',
+                  backgroundColor: crmTab === 'testimonials' ? 'var(--color-primary)' : 'transparent',
+                  color: crmTab === 'testimonials' ? '#FFFFFF' : 'var(--text-main)',
+                  fontWeight: crmTab === 'testimonials' ? 700 : 500
+                }}
+              >
+                <Star size={16} /> Testimonials & Reviews ({testimonialsList.length})
               </button>
             </aside>
 
@@ -5404,6 +5551,392 @@ export default function AdminCRM({
                             </button>
                           </div>
 
+                        </form>
+                      </div>
+                    </div>
+                  )}
+
+                </div>
+              )}
+
+              {/* MODULE 12: TESTIMONIALS & REVIEWS MANAGEMENT */}
+              {crmTab === 'testimonials' && (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+                  
+                  {/* Header & Action Bar */}
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem' }}>
+                    <div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.35rem' }}>
+                        <span className="badge badge-terracotta" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}>
+                          <Star size={12} fill="#D97706" color="#D97706" /> Customer Ratings & Social Proof
+                        </span>
+                        <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+                          • Live Homepage Slider Module
+                        </span>
+                      </div>
+                      <h2 style={{ fontSize: '1.85rem', margin: 0, color: 'var(--color-espresso)' }}>
+                        Loved by Crochet Enthusiasts & Givers
+                      </h2>
+                      <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', margin: '0.25rem 0 0' }}>
+                        Manage customer reviews, student testimonials, and verified ratings displayed on your homepage.
+                      </p>
+                    </div>
+
+                    <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+                      <a
+                        href="/#testimonials"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="btn btn-secondary"
+                        style={{ padding: '0.65rem 1.15rem', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.4rem', textDecoration: 'none' }}
+                      >
+                        <ExternalLink size={15} /> View Live on Home
+                      </a>
+                      <button
+                        onClick={handleOpenAddTestimonial}
+                        className="btn btn-primary"
+                        style={{ padding: '0.65rem 1.25rem', fontSize: '0.88rem', display: 'flex', alignItems: 'center', gap: '0.45rem', fontWeight: 700 }}
+                      >
+                        <Plus size={16} /> Add New Review
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Testimonial Metrics Cards */}
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.25rem' }}>
+                    <div style={{ backgroundColor: '#FFFFFF', padding: '1.35rem', borderRadius: '16px', border: '1px solid var(--border-subtle)', boxShadow: 'var(--shadow-sm)' }}>
+                      <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Total Reviews</div>
+                      <div style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--color-espresso)', marginTop: '0.35rem' }}>
+                        {testimonialsList.length}
+                      </div>
+                      <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '0.2rem' }}>
+                        In studio database
+                      </div>
+                    </div>
+
+                    <div style={{ backgroundColor: '#FFFFFF', padding: '1.35rem', borderRadius: '16px', border: '1px solid var(--border-subtle)', boxShadow: 'var(--shadow-sm)' }}>
+                      <div style={{ fontSize: '0.78rem', color: 'var(--color-sage)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Published & Live</div>
+                      <div style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--color-sage)', marginTop: '0.35rem' }}>
+                        {testimonialsList.filter(t => t.active !== false).length}
+                      </div>
+                      <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '0.2rem' }}>
+                        {testimonialsList.length > 4 ? 'Displaying as Scroll Slider (> 4)' : 'Displaying as 4-card Grid'}
+                      </div>
+                    </div>
+
+                    <div style={{ backgroundColor: '#FFFFFF', padding: '1.35rem', borderRadius: '16px', border: '1px solid var(--border-subtle)', boxShadow: 'var(--shadow-sm)' }}>
+                      <div style={{ fontSize: '0.78rem', color: '#D97706', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>5-Star Ratings</div>
+                      <div style={{ fontSize: '2rem', fontWeight: 800, color: '#D97706', marginTop: '0.35rem' }}>
+                        {testimonialsList.filter(t => (t.rating || 5) >= 5).length}
+                      </div>
+                      <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '0.2rem' }}>
+                        100% verified satisfaction
+                      </div>
+                    </div>
+
+                    <div style={{ backgroundColor: '#FFFFFF', padding: '1.35rem', borderRadius: '16px', border: '1px solid var(--border-subtle)', boxShadow: 'var(--shadow-sm)' }}>
+                      <div style={{ fontSize: '0.78rem', color: 'var(--color-primary)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Average Rating</div>
+                      <div style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--color-primary)', marginTop: '0.35rem' }}>
+                        5.0 ★
+                      </div>
+                      <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '0.2rem' }}>
+                        Google & Studio verified
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Search Bar */}
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+                    <div className="search-box-wrapper" style={{ width: '100%', maxWidth: '380px' }}>
+                      <Search size={16} className="search-icon-pos" />
+                      <input 
+                        type="text"
+                        value={testimonialSearch}
+                        onChange={(e) => setTestimonialSearch(e.target.value)}
+                        placeholder="Search by customer name, city, tag or quote..."
+                        className="search-input"
+                      />
+                      {testimonialSearch && (
+                        <button 
+                          onClick={() => setTestimonialSearch('')}
+                          style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-subtle)', fontWeight: 700 }}
+                        >
+                          ×
+                        </button>
+                      )}
+                    </div>
+                    <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
+                      Showing <strong>{testimonialsList.filter(t => !testimonialSearch || t.name.toLowerCase().includes(testimonialSearch.toLowerCase()) || (t.location && t.location.toLowerCase().includes(testimonialSearch.toLowerCase())) || (t.tag && t.tag.toLowerCase().includes(testimonialSearch.toLowerCase()))).length}</strong> reviews
+                    </span>
+                  </div>
+
+                  {/* Testimonials Grid */}
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '1.5rem' }}>
+                    {testimonialsList
+                      .filter(t => {
+                        if (!testimonialSearch.trim()) return true;
+                        const q = testimonialSearch.toLowerCase();
+                        return (t.name && t.name.toLowerCase().includes(q)) ||
+                               (t.location && t.location.toLowerCase().includes(q)) ||
+                               (t.tag && t.tag.toLowerCase().includes(q)) ||
+                               (t.review && t.review.toLowerCase().includes(q));
+                      })
+                      .map((test) => {
+                        const isActive = test.active !== false;
+                        return (
+                          <div 
+                            key={test.id}
+                            style={{ 
+                              backgroundColor: '#FFFFFF', 
+                              borderRadius: '18px', 
+                              padding: '1.5rem', 
+                              border: isActive ? '1px solid var(--border-subtle)' : '1px dashed #DC2626',
+                              opacity: isActive ? 1 : 0.65,
+                              boxShadow: 'var(--shadow-sm)',
+                              display: 'flex',
+                              flexDirection: 'column',
+                              justifyContent: 'space-between',
+                              position: 'relative'
+                            }}
+                          >
+                            <div>
+                              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.85rem' }}>
+                                <div style={{ color: '#D97706', fontSize: '0.9rem', letterSpacing: '2px' }}>
+                                  {'★'.repeat(test.rating || 5)}
+                                </div>
+                                <span style={{ fontSize: '0.72rem', backgroundColor: 'var(--bg-canvas)', color: 'var(--color-primary)', fontWeight: 700, padding: '3px 10px', borderRadius: '999px', border: '1px solid rgba(238, 109, 136, 0.2)' }}>
+                                  {test.tag || 'Customer Review'}
+                                </span>
+                              </div>
+
+                              <p style={{ fontSize: '0.9rem', color: 'var(--text-main)', lineHeight: 1.6, fontStyle: 'italic', margin: '0 0 1.25rem' }}>
+                                "{test.review}"
+                              </p>
+                            </div>
+
+                            <div>
+                              <div style={{ borderTop: '1px solid var(--border-subtle)', paddingTop: '0.85rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+                                  <div style={{ width: '38px', height: '38px', borderRadius: '50%', backgroundColor: 'var(--color-sage-light)', color: 'var(--color-sage)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '0.9rem' }}>
+                                    {(test.name || 'C')[0].toUpperCase()}
+                                  </div>
+                                  <div>
+                                    <div style={{ fontWeight: 700, fontSize: '0.88rem', color: 'var(--text-main)' }}>
+                                      {test.name}
+                                    </div>
+                                    <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+                                      📍 {test.location || 'India'}
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                                  <button
+                                    onClick={() => handleToggleTestimonialStatus(test)}
+                                    className="btn btn-secondary"
+                                    style={{
+                                      padding: '0.35rem 0.65rem',
+                                      fontSize: '0.75rem',
+                                      backgroundColor: isActive ? 'var(--color-sage-light)' : 'rgba(220, 38, 38, 0.1)',
+                                      color: isActive ? 'var(--color-sage)' : '#DC2626',
+                                      border: 'none',
+                                      borderRadius: '8px',
+                                      fontWeight: 700
+                                    }}
+                                    title={isActive ? 'Hide from homepage slider' : 'Publish to live homepage'}
+                                  >
+                                    {isActive ? '✓ Live' : 'Hidden'}
+                                  </button>
+
+                                  <button
+                                    onClick={() => handleOpenEditTestimonial(test)}
+                                    className="btn btn-secondary"
+                                    style={{ padding: '0.35rem 0.65rem', fontSize: '0.78rem', borderRadius: '8px' }}
+                                    title="Edit Testimonial"
+                                  >
+                                    <Edit3 size={14} />
+                                  </button>
+
+                                  <button
+                                    onClick={() => handleDeleteTestimonial(test.id, test.name)}
+                                    className="btn btn-secondary"
+                                    style={{ padding: '0.35rem 0.65rem', fontSize: '0.78rem', color: '#DC2626', borderRadius: '8px' }}
+                                    title="Delete Testimonial"
+                                  >
+                                    <Trash2 size={14} />
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                  </div>
+
+                  {/* ADD / EDIT TESTIMONIAL MODAL */}
+                  {testimonialModalOpen && (
+                    <div style={{
+                      position: 'fixed',
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      backgroundColor: 'rgba(0,0,0,0.6)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      zIndex: 9999,
+                      padding: '1rem'
+                    }}>
+                      <div style={{
+                        backgroundColor: '#FFFFFF',
+                        borderRadius: '24px',
+                        width: '100%',
+                        maxWidth: '560px',
+                        maxHeight: '90vh',
+                        overflowY: 'auto',
+                        padding: '2.5rem',
+                        boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+                        position: 'relative'
+                      }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '1rem' }}>
+                          <div>
+                            <span className="badge badge-terracotta" style={{ fontSize: '0.72rem', marginBottom: '0.35rem' }}>
+                              {editingTestimonialId ? 'Edit Review' : 'New Social Proof'}
+                            </span>
+                            <h3 style={{ margin: 0, fontSize: '1.4rem', color: 'var(--color-espresso)' }}>
+                              {editingTestimonialId ? 'Edit Customer Review' : 'Add Customer Testimonial'}
+                            </h3>
+                          </div>
+                          <button
+                            onClick={() => setTestimonialModalOpen(false)}
+                            style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-subtle)', fontSize: '1.5rem', padding: '0.25rem' }}
+                          >
+                            <X size={20} />
+                          </button>
+                        </div>
+
+                        <form onSubmit={handleSaveTestimonial} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+                          <div>
+                            <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, marginBottom: '0.4rem', color: 'var(--text-main)' }}>
+                              Customer Name *
+                            </label>
+                            <input 
+                              type="text"
+                              value={testimonialForm.name}
+                              onChange={(e) => setTestimonialForm({ ...testimonialForm, name: e.target.value })}
+                              placeholder="e.g. Pooja Sharma, Ananya Rao"
+                              required
+                              className="search-input"
+                              style={{ width: '100%' }}
+                            />
+                          </div>
+
+                          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                            <div>
+                              <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, marginBottom: '0.4rem', color: 'var(--text-main)' }}>
+                                Location / City
+                              </label>
+                              <input 
+                                type="text"
+                                value={testimonialForm.location}
+                                onChange={(e) => setTestimonialForm({ ...testimonialForm, location: e.target.value })}
+                                placeholder="e.g. Gaur City 2, Noida, Delhi, Bengaluru"
+                                className="search-input"
+                                style={{ width: '100%' }}
+                              />
+                            </div>
+
+                            <div>
+                              <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, marginBottom: '0.4rem', color: 'var(--text-main)' }}>
+                                Tag / Category
+                              </label>
+                              <input 
+                                type="text"
+                                value={testimonialForm.tag}
+                                onChange={(e) => setTestimonialForm({ ...testimonialForm, tag: e.target.value })}
+                                placeholder="e.g. Eternal Bouquet, Bulk Farewell Order"
+                                className="search-input"
+                                style={{ width: '100%' }}
+                              />
+                            </div>
+                          </div>
+
+                          <div>
+                            <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, marginBottom: '0.4rem', color: 'var(--text-main)' }}>
+                              Star Rating
+                            </label>
+                            <select
+                              value={testimonialForm.rating}
+                              onChange={(e) => setTestimonialForm({ ...testimonialForm, rating: Number(e.target.value) })}
+                              style={{
+                                width: '100%',
+                                padding: '0.65rem 0.85rem',
+                                borderRadius: '10px',
+                                border: '1px solid rgba(44, 34, 30, 0.15)',
+                                fontSize: '0.9rem',
+                                backgroundColor: '#FFFFFF'
+                              }}
+                            >
+                              <option value="5">★★★★★ (5 Stars - Exceptional)</option>
+                              <option value="4">★★★★☆ (4 Stars - Great)</option>
+                              <option value="3">★★★☆☆ (3 Stars - Average)</option>
+                            </select>
+                          </div>
+
+                          <div>
+                            <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, marginBottom: '0.4rem', color: 'var(--text-main)' }}>
+                              Review / Feedback Quote *
+                            </label>
+                            <textarea 
+                              rows={4}
+                              value={testimonialForm.review}
+                              onChange={(e) => setTestimonialForm({ ...testimonialForm, review: e.target.value })}
+                              placeholder="Write the customer quote or feedback here..."
+                              required
+                              style={{
+                                width: '100%',
+                                padding: '0.75rem',
+                                borderRadius: '10px',
+                                border: '1px solid rgba(44, 34, 30, 0.15)',
+                                fontSize: '0.88rem',
+                                fontFamily: 'inherit',
+                                resize: 'vertical'
+                              }}
+                            />
+                          </div>
+
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.25rem' }}>
+                            <input 
+                              type="checkbox"
+                              id="activeTestimonial"
+                              checked={testimonialForm.active}
+                              onChange={(e) => setTestimonialForm({ ...testimonialForm, active: e.target.checked })}
+                              style={{ width: '18px', height: '18px', cursor: 'pointer' }}
+                            />
+                            <label htmlFor="activeTestimonial" style={{ fontSize: '0.85rem', fontWeight: 600, cursor: 'pointer' }}>
+                              Publish on Homepage (Active on Live Store)
+                            </label>
+                          </div>
+
+                          <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.75rem', marginTop: '1rem', borderTop: '1px solid var(--border-subtle)', paddingTop: '1.25rem' }}>
+                            <button
+                              type="button"
+                              onClick={() => setTestimonialModalOpen(false)}
+                              className="btn btn-secondary"
+                              style={{ padding: '0.65rem 1.25rem', fontSize: '0.88rem' }}
+                            >
+                              Cancel
+                            </button>
+                            <button
+                              type="submit"
+                              disabled={isSavingTestimonial}
+                              className="btn btn-primary"
+                              style={{ padding: '0.65rem 1.4rem', fontSize: '0.88rem', fontWeight: 700 }}
+                            >
+                              {isSavingTestimonial ? 'Saving...' : (editingTestimonialId ? 'Update Testimonial' : 'Publish Testimonial')}
+                            </button>
+                          </div>
                         </form>
                       </div>
                     </div>

@@ -214,6 +214,24 @@ export async function loadDataFromMySQL() {
       db.faqs = [];
     }
 
+    // 15. Testimonials
+    try {
+      const [testRows] = await pool.query('SELECT * FROM testimonials ORDER BY sort_order ASC, id ASC');
+      db.testimonials = testRows.map(r => ({
+        id: r.id,
+        name: r.name,
+        location: r.location || '',
+        review: r.review || '',
+        tag: r.tag || 'Customer Review',
+        rating: Number(r.rating) || 5,
+        avatar: r.avatar || '',
+        sortOrder: Number(r.sort_order) || 0,
+        active: Boolean(r.active)
+      }));
+    } catch (e) {
+      db.testimonials = [];
+    }
+
     return db;
   } catch (err) {
     console.error('❌ [MySQL] Error loading data from MySQL:', err);
@@ -471,6 +489,60 @@ export async function syncAllFaqsToMySQL(faqs) {
     }
   } catch (e) {
     console.error('❌ [MySQL] Failed to sync all FAQs:', e.message);
+  }
+}
+
+export async function syncTestimonialToMySQL(test, sortOrder = 0) {
+  if (!isMySQLConnected || !pool) return;
+  try {
+    await pool.execute(
+      `INSERT INTO testimonials (id, name, location, review, tag, rating, avatar, sort_order, active)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+       ON DUPLICATE KEY UPDATE 
+         name = VALUES(name),
+         location = VALUES(location),
+         review = VALUES(review),
+         tag = VALUES(tag),
+         rating = VALUES(rating),
+         avatar = VALUES(avatar),
+         sort_order = VALUES(sort_order),
+         active = VALUES(active)`,
+      [
+        test.id,
+        test.name || 'Anonymous',
+        test.location || '',
+        test.review || '',
+        test.tag || 'Customer Review',
+        Number(test.rating) || 5,
+        test.avatar || '',
+        sortOrder,
+        test.active !== false
+      ]
+    );
+  } catch (e) {
+    console.error('❌ [MySQL] Failed to save testimonial:', e.message);
+  }
+}
+
+export async function deleteTestimonialFromMySQL(id) {
+  if (!isMySQLConnected || !pool) return;
+  try {
+    await pool.execute(`DELETE FROM testimonials WHERE id = ?`, [id]);
+  } catch (e) {
+    console.error('❌ [MySQL] Failed to delete testimonial:', e.message);
+  }
+}
+
+export async function syncAllTestimonialsToMySQL(items) {
+  if (!isMySQLConnected || !pool || !Array.isArray(items)) return;
+  try {
+    await pool.execute(`DELETE FROM testimonials`);
+    let order = 1;
+    for (const t of items) {
+      await syncTestimonialToMySQL(t, order++);
+    }
+  } catch (e) {
+    console.error('❌ [MySQL] Failed to sync all testimonials:', e.message);
   }
 }
 

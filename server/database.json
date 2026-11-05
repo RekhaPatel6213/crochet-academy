@@ -1283,5 +1283,62 @@
       "sortOrder": 12,
       "active": true
     }
+  ],
+  "testimonials": [
+    {
+      "id": "test-1",
+      "name": "Pooja Sharma",
+      "location": "Gaur City 2, Greater Noida",
+      "review": "I ordered the crochet rose & lily eternal bouquet for our wedding anniversary. It looks breathtaking in our living room and never wilts! Beautiful packaging.",
+      "tag": "Eternal Bouquet",
+      "rating": 5,
+      "avatar": "",
+      "sortOrder": 1,
+      "active": true
+    },
+    {
+      "id": "test-2",
+      "name": "Rahul Verma",
+      "location": "Sector 62, Noida",
+      "review": "Ordered 40 customized sunflower keychains for our college farewell. Tishaya delivered everything on time with cute individual packaging. Super reliable!",
+      "tag": "Bulk Farewell Order",
+      "rating": 5,
+      "avatar": "",
+      "sortOrder": 2,
+      "active": true
+    },
+    {
+      "id": "test-3",
+      "name": "Neha Gupta",
+      "location": "Delhi",
+      "review": "Joined Tishaya’s beginner crochet classes on weekends. She is so patient and broke down every stitch with ease. Now I can crochet granny square bags easily!",
+      "tag": "Crochet Student",
+      "rating": 5,
+      "avatar": "",
+      "sortOrder": 3,
+      "active": true
+    },
+    {
+      "id": "test-4",
+      "name": "Priya Sen",
+      "location": "Bengaluru, Karnataka",
+      "review": "Pan-India shipping was surprisingly fast. The baby booties and wooden rattle gift set were packed in a lovely box. My sister loved it for her baby shower!",
+      "tag": "Baby Shower Gift",
+      "rating": 5,
+      "avatar": "",
+      "sortOrder": 4,
+      "active": true
+    },
+    {
+      "id": "test-1793852901622",
+      "name": "Ananya Sharma",
+      "location": "Mumbai, Maharashtra",
+      "review": "Received the bespoke sunflower bouquet and crochet cardigans. The craftsmanship is pure art! Absolutely loved every petal.",
+      "tag": "Sunflower Bouquet",
+      "rating": 5,
+      "avatar": "",
+      "sortOrder": 5,
+      "active": true
+    }
   ]
 }

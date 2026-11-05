@@ -19,7 +19,10 @@ import {
   syncExamSubmissionToMySQL,
   syncFaqToMySQL,
   deleteFaqFromMySQL,
-  syncAllFaqsToMySQL
+  syncAllFaqsToMySQL,
+  syncTestimonialToMySQL,
+  deleteTestimonialFromMySQL,
+  syncAllTestimonialsToMySQL
 } from './mysql-service.js';
 
 dotenv.config();
@@ -1924,6 +1927,86 @@ app.put('/api/admin/faqs-reorder', (req, res) => {
     res.json({ success: true, message: "FAQs reordered successfully!", data: db.faqs });
   } else {
     res.status(400).json({ success: false, message: "Invalid FAQs array." });
+  }
+});
+
+// A9. Dynamic Testimonials & Reviews API
+app.get('/api/testimonials', (req, res) => {
+  const db = loadDB();
+  const includeInactive = req.query.all === 'true';
+  let list = db.testimonials || [];
+  if (!includeInactive) {
+    list = list.filter(t => t.active !== false);
+  }
+  list.sort((a, b) => (Number(a.sortOrder) || 0) - (Number(b.sortOrder) || 0));
+  res.json({ success: true, data: list });
+});
+
+app.post('/api/admin/testimonials', (req, res) => {
+  const db = loadDB();
+  if (!db.testimonials) db.testimonials = [];
+  const newItem = {
+    id: `test-${Date.now()}`,
+    name: req.body.name || 'Anonymous',
+    location: req.body.location || '',
+    review: req.body.review || '',
+    tag: req.body.tag || 'Customer Review',
+    rating: Number(req.body.rating) || 5,
+    avatar: req.body.avatar || '',
+    sortOrder: req.body.sortOrder !== undefined ? Number(req.body.sortOrder) : db.testimonials.length + 1,
+    active: req.body.active !== undefined ? Boolean(req.body.active) : true
+  };
+  db.testimonials.push(newItem);
+  saveDB(db);
+  syncTestimonialToMySQL(newItem, newItem.sortOrder);
+  res.json({ success: true, message: "Testimonial added successfully!", data: newItem });
+});
+
+app.put('/api/admin/testimonials/:id', (req, res) => {
+  const { id } = req.params;
+  const db = loadDB();
+  const index = (db.testimonials || []).findIndex(t => t.id === id);
+  if (index === -1) {
+    return res.status(404).json({ success: false, message: "Testimonial not found." });
+  }
+  db.testimonials[index] = {
+    ...db.testimonials[index],
+    name: req.body.name !== undefined ? req.body.name : db.testimonials[index].name,
+    location: req.body.location !== undefined ? req.body.location : db.testimonials[index].location,
+    review: req.body.review !== undefined ? req.body.review : db.testimonials[index].review,
+    tag: req.body.tag !== undefined ? req.body.tag : db.testimonials[index].tag,
+    rating: req.body.rating !== undefined ? Number(req.body.rating) : db.testimonials[index].rating,
+    avatar: req.body.avatar !== undefined ? req.body.avatar : db.testimonials[index].avatar,
+    sortOrder: req.body.sortOrder !== undefined ? Number(req.body.sortOrder) : db.testimonials[index].sortOrder,
+    active: req.body.active !== undefined ? Boolean(req.body.active) : db.testimonials[index].active
+  };
+  saveDB(db);
+  syncTestimonialToMySQL(db.testimonials[index], db.testimonials[index].sortOrder);
+  res.json({ success: true, message: "Testimonial updated successfully!", data: db.testimonials[index] });
+});
+
+app.delete('/api/admin/testimonials/:id', (req, res) => {
+  const { id } = req.params;
+  const db = loadDB();
+  const index = (db.testimonials || []).findIndex(t => t.id === id);
+  if (index === -1) {
+    return res.status(404).json({ success: false, message: "Testimonial not found." });
+  }
+  db.testimonials.splice(index, 1);
+  saveDB(db);
+  deleteTestimonialFromMySQL(id);
+  res.json({ success: true, message: "Testimonial deleted successfully." });
+});
+
+app.put('/api/admin/testimonials-reorder', (req, res) => {
+  const db = loadDB();
+  if (Array.isArray(req.body.testimonials)) {
+    db.testimonials = req.body.testimonials;
+    saveDB(db);
+    syncAllTestimonialsToMySQL(db.testimonials);
+    res.json({ success: true, message: "Testimonials reordered successfully!", data: db.testimonials });
+  } else {
+    res.status(400).json({ success: false, message: "Invalid testimonials array." });
   }
 });
 

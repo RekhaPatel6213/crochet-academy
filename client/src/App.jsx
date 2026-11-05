@@ -22,7 +22,7 @@ import {
   Video, Search, Sparkles, Award, CheckCircle2, 
   Play, Check, BookOpen, ShoppingBag,
   MessageCircle, Heart, Star, Truck, ShieldCheck, 
-  ChevronDown, ChevronUp, Gift, Clock, MapPin, ExternalLink, HelpCircle
+  ChevronDown, ChevronUp, ChevronLeft, ChevronRight, Gift, Clock, MapPin, ExternalLink, HelpCircle
 } from 'lucide-react';
 
 // URL Route parser for dedicated page navigation
@@ -45,6 +45,7 @@ export const resolveRoute = (pathname = window.location.pathname, hash = window.
       else if (sub === 'slider' || sub === 'slides') adminTab = 'slider';
       else if (sub === 'settings' || sub === 'setting') adminTab = 'settings';
       else if (sub === 'faqs' || sub === 'faq') adminTab = 'faqs';
+      else if (sub === 'testimonials' || sub === 'testimonial' || sub === 'reviews' || sub === 'review') adminTab = 'testimonials';
       else adminTab = sub;
     }
     return { tab: 'admin', adminTab, categoryId: null };
@@ -89,6 +90,8 @@ export default function App() {
   const [products, setProducts] = useState([]);
   const [slides, setSlides] = useState([]);
   const [faqs, setFaqs] = useState([]);
+  const testimonialsSliderRef = React.useRef(null);
+  const [testimonials, setTestimonials] = useState([]);
   const [userStatus, setUserStatus] = useState({
     activePackages: ['pkg-starter'],
     completedSteps: {},
@@ -237,7 +240,17 @@ export default function App() {
     };
 
     window.addEventListener('popstate', handlePopState);
-    return () => window.removeEventListener('popstate', handlePopState);
+    const scrollTestimonials = (direction) => {
+    if (testimonialsSliderRef.current) {
+      const scrollAmount = 310;
+      testimonialsSliderRef.current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
   const handleOpenAdmin = () => {
@@ -335,7 +348,7 @@ export default function App() {
   const fetchInitialData = async () => {
     try {
       setLoading(true);
-      const [catRes, courseRes, pkgRes, userRes, prodRes, settingsRes, slidesRes, faqRes] = await Promise.all([
+      const [catRes, courseRes, pkgRes, userRes, prodRes, settingsRes, slidesRes, faqRes, testRes] = await Promise.all([
         fetch('/api/categories'),
         fetch('/api/courses'),
         fetch('/api/packages'),
@@ -343,10 +356,11 @@ export default function App() {
         fetch('/api/products'),
         fetch('/api/settings'),
         fetch('/api/slides'),
-        fetch('/api/faqs?all=true')
+        fetch('/api/faqs?all=true'),
+        fetch('/api/testimonials')
       ]);
 
-      const [catData, courseData, pkgData, userData, prodData, settingsData, slidesData, faqData] = await Promise.all([
+      const [catData, courseData, pkgData, userData, prodData, settingsData, slidesData, faqData, testData] = await Promise.all([
         catRes.json(),
         courseRes.json(),
         pkgRes.json(),
@@ -354,7 +368,8 @@ export default function App() {
         prodRes.json(),
         settingsRes.json(),
         slidesRes.json(),
-        faqRes.json()
+        faqRes.json(),
+        testRes.json()
       ]);
 
       if (catData.success) {
@@ -375,6 +390,7 @@ export default function App() {
       if (settingsData.success && settingsData.data) setSettings(settingsData.data);
       if (slidesData.success && slidesData.data) setSlides(slidesData.data);
       if (faqData.success && faqData.data) setFaqs(faqData.data);
+      if (testData && testData.success && Array.isArray(testData.data)) setTestimonials(testData.data);
     } catch (err) {
       console.error("Error loading academy data:", err);
     } finally {
@@ -1063,74 +1079,163 @@ export default function App() {
             </div>
           </div>
 
-          {/* CUSTOMER REVIEWS & TESTIMONIALS (Google 5-Star Reviews) */}
-          <div style={{ marginTop: '5rem' }}>
-            <div style={{ textAlign: 'center', maxWidth: '640px', margin: '0 auto 2.5rem' }}>
-              <span className="badge badge-honey" style={{ marginBottom: '0.5rem' }}>
-                ★ 5.0 Google Verified Ratings
-              </span>
-              <h2 style={{ fontSize: '2.3rem', margin: '0 0 0.5rem', fontFamily: 'var(--font-serif)' }}>
-                Loved by Crochet Enthusiasts & Givers
-              </h2>
-              <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', margin: 0 }}>
-                Real feedback from our happy clients, students, and gift shoppers in Delhi-NCR and across India.
-              </p>
-            </div>
+          {/* CUSTOMER REVIEWS & TESTIMONIALS (Dynamic with Scroll Slider if > 4) */}
+          {testimonials.filter(t => t.active !== false).length > 0 && (
+            <div id="testimonials" style={{ marginTop: '5rem', position: 'relative' }}>
+              <div style={{ textAlign: 'center', maxWidth: '640px', margin: '0 auto 2.5rem' }}>
+                <span className="badge badge-honey" style={{ marginBottom: '0.5rem', display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}>
+                  <Star size={12} fill="#D97706" color="#D97706" /> ★ 5.0 Google Verified Ratings
+                </span>
+                <h2 style={{ fontSize: '2.3rem', margin: '0 0 0.5rem', fontFamily: 'var(--font-serif)' }}>
+                  Loved by Crochet Enthusiasts & Givers
+                </h2>
+                <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', margin: 0 }}>
+                  Real feedback from our happy clients, students, and gift shoppers in Delhi-NCR and across India.
+                </p>
+              </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1.5rem' }}>
-              {[
-                {
-                  name: 'Pooja Sharma',
-                  location: 'Gaur City 2, Greater Noida',
-                  review: 'I ordered the crochet rose & lily eternal bouquet for our wedding anniversary. It looks breathtaking in our living room and never wilts! Beautiful packaging.',
-                  tag: 'Eternal Bouquet'
-                },
-                {
-                  name: 'Rahul Verma',
-                  location: 'Sector 62, Noida',
-                  review: 'Ordered 40 customized sunflower keychains for our college farewell. Tishaya delivered everything on time with cute individual packaging. Super reliable!',
-                  tag: 'Bulk Farewell Order'
-                },
-                {
-                  name: 'Neha Gupta',
-                  location: 'Delhi',
-                  review: 'Joined Tishaya’s beginner crochet classes on weekends. She is so patient and broke down every stitch with ease. Now I can crochet granny square bags easily!',
-                  tag: 'Crochet Student'
-                },
-                {
-                  name: 'Priya Sen',
-                  location: 'Bengaluru, Karnataka',
-                  review: 'Pan-India shipping was surprisingly fast. The baby booties and wooden rattle gift set were packed in a lovely box. My sister loved it for her baby shower!',
-                  tag: 'Baby Shower Gift'
-                }
-              ].map((rev, i) => (
-                <div key={i} style={{ backgroundColor: '#FFFFFF', borderRadius: '18px', padding: '1.75rem', border: '1px solid var(--border-subtle)', boxShadow: 'var(--shadow-sm)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                  <div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
-                      <div style={{ color: 'var(--color-honey)', fontSize: '0.85rem', letterSpacing: '2px' }}>
-                        ★★★★★
+              {testimonials.filter(t => t.active !== false).length <= 4 ? (
+                /* Static Grid for 4 or fewer items */
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1.5rem' }}>
+                  {testimonials.filter(t => t.active !== false).map((rev) => (
+                    <div key={rev.id || rev.name} style={{ backgroundColor: '#FFFFFF', borderRadius: '18px', padding: '1.75rem', border: '1px solid var(--border-subtle)', boxShadow: 'var(--shadow-sm)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                      <div>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
+                          <div style={{ color: '#D97706', fontSize: '0.85rem', letterSpacing: '2px' }}>
+                            {'★'.repeat(rev.rating || 5)}
+                          </div>
+                          <span style={{ fontSize: '0.7rem', backgroundColor: 'var(--bg-canvas)', color: 'var(--color-primary)', fontWeight: 700, padding: '2px 8px', borderRadius: '6px' }}>
+                            {rev.tag || 'Customer Review'}
+                          </span>
+                        </div>
+                        <p style={{ fontSize: '0.88rem', color: 'var(--text-main)', lineHeight: 1.6, fontStyle: 'italic', margin: '0 0 1.25rem' }}>
+                          "{rev.review}"
+                        </p>
                       </div>
-                      <span style={{ fontSize: '0.7rem', backgroundColor: 'var(--bg-canvas)', color: 'var(--color-primary)', fontWeight: 700, padding: '2px 8px', borderRadius: '6px' }}>
-                        {rev.tag}
-                      </span>
+                      <div style={{ borderTop: '1px solid var(--border-subtle)', paddingTop: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+                        <div style={{ width: '36px', height: '36px', borderRadius: '50%', backgroundColor: 'var(--color-sage-light)', color: 'var(--color-sage)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '0.85rem' }}>
+                          {(rev.name || 'C')[0].toUpperCase()}
+                        </div>
+                        <div>
+                          <strong style={{ display: 'block', fontSize: '0.85rem', color: 'var(--text-main)' }}>{rev.name}</strong>
+                          <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>📍 {rev.location || 'India'}</span>
+                        </div>
+                      </div>
                     </div>
-                    <p style={{ fontSize: '0.88rem', color: 'var(--text-main)', lineHeight: 1.6, fontStyle: 'italic', margin: '0 0 1.25rem' }}>
-                      "{rev.review}"
-                    </p>
+                  ))}
+                </div>
+              ) : (
+                /* Horizontal Scroll Slider for More Than 4 items */
+                <div style={{ position: 'relative' }}>
+                  {/* Slider Scroll Track */}
+                  <div
+                    ref={testimonialsSliderRef}
+                    style={{
+                      display: 'flex',
+                      gap: '1.5rem',
+                      overflowX: 'auto',
+                      scrollSnapType: 'x mandatory',
+                      scrollBehavior: 'smooth',
+                      WebkitOverflowScrolling: 'touch',
+                      padding: '0.5rem 0.25rem 1.5rem',
+                      scrollbarWidth: 'thin'
+                    }}
+                  >
+                    {testimonials.filter(t => t.active !== false).map((rev) => (
+                      <div
+                        key={rev.id || rev.name}
+                        style={{
+                          flex: '0 0 calc(25% - 1.15rem)',
+                          minWidth: '280px',
+                          maxWidth: '320px',
+                          scrollSnapAlign: 'start',
+                          backgroundColor: '#FFFFFF',
+                          borderRadius: '18px',
+                          padding: '1.75rem',
+                          border: '1px solid var(--border-subtle)',
+                          boxShadow: 'var(--shadow-sm)',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          justifyContent: 'space-between',
+                          boxSizing: 'border-box'
+                        }}
+                      >
+                        <div>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
+                            <div style={{ color: '#D97706', fontSize: '0.85rem', letterSpacing: '2px' }}>
+                              {'★'.repeat(rev.rating || 5)}
+                            </div>
+                            <span style={{ fontSize: '0.7rem', backgroundColor: 'var(--bg-canvas)', color: 'var(--color-primary)', fontWeight: 700, padding: '2px 8px', borderRadius: '6px' }}>
+                              {rev.tag || 'Customer Review'}
+                            </span>
+                          </div>
+                          <p style={{ fontSize: '0.88rem', color: 'var(--text-main)', lineHeight: 1.6, fontStyle: 'italic', margin: '0 0 1.25rem' }}>
+                            "{rev.review}"
+                          </p>
+                        </div>
+                        <div style={{ borderTop: '1px solid var(--border-subtle)', paddingTop: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+                          <div style={{ width: '36px', height: '36px', borderRadius: '50%', backgroundColor: 'var(--color-sage-light)', color: 'var(--color-sage)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '0.85rem' }}>
+                            {(rev.name || 'C')[0].toUpperCase()}
+                          </div>
+                          <div>
+                            <strong style={{ display: 'block', fontSize: '0.85rem', color: 'var(--text-main)' }}>{rev.name}</strong>
+                            <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>📍 {rev.location || 'India'}</span>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                  <div style={{ borderTop: '1px solid var(--border-subtle)', paddingTop: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-                    <div style={{ width: '36px', height: '36px', borderRadius: '50%', backgroundColor: 'var(--color-sage-light)', color: 'var(--color-sage)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '0.85rem' }}>
-                      {rev.name[0]}
-                    </div>
-                    <div>
-                      <strong style={{ display: 'block', fontSize: '0.85rem', color: 'var(--text-main)' }}>{rev.name}</strong>
-                      <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>📍 {rev.location}</span>
-                    </div>
+
+                  {/* Navigation Arrows for Slider */}
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1rem', marginTop: '1rem' }}>
+                    <button
+                      onClick={() => scrollTestimonials('left')}
+                      className="btn btn-secondary"
+                      style={{
+                        width: '42px',
+                        height: '42px',
+                        borderRadius: '50%',
+                        padding: 0,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        boxShadow: 'var(--shadow-sm)',
+                        backgroundColor: '#FFFFFF',
+                        cursor: 'pointer'
+                      }}
+                      title="Scroll reviews left"
+                    >
+                      <ChevronLeft size={20} />
+                    </button>
+
+                    <span style={{ fontSize: '0.82rem', color: 'var(--text-muted)', fontWeight: 600 }}>
+                      Scroll or swipe to see all {testimonials.filter(t => t.active !== false).length} customer reviews
+                    </span>
+
+                    <button
+                      onClick={() => scrollTestimonials('right')}
+                      className="btn btn-secondary"
+                      style={{
+                        width: '42px',
+                        height: '42px',
+                        borderRadius: '50%',
+                        padding: 0,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        boxShadow: 'var(--shadow-sm)',
+                        backgroundColor: '#FFFFFF',
+                        cursor: 'pointer'
+                      }}
+                      title="Scroll reviews right"
+                    >
+                      <ChevronRight size={20} />
+                    </button>
                   </div>
                 </div>
-              ))}
+              )}
             </div>
-          </div>
+          )}
 
         </div>
           </>
@@ -1304,6 +1409,8 @@ export default function App() {
           onUpdateSlides={(newSlides) => setSlides(newSlides)}
           faqs={faqs}
           onUpdateFaqs={(newFaqs) => setFaqs(newFaqs)}
+          testimonials={testimonials}
+          onUpdateTestimonials={(newTests) => setTestimonials(newTests)}
           onClose={handleCloseAdmin}
           onRefreshData={fetchInitialData}
           settings={settings}
