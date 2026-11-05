@@ -3,6 +3,7 @@ import Navbar from './components/Navbar';
 import CategoryGrid from './components/CategoryGrid';
 import CategoriesPage from './components/CategoriesPage';
 import MasterclassesPage from './components/MasterclassesPage';
+import LearnSection from './components/LearnSection';
 import CourseCard from './components/CourseCard';
 import CourseDetailModal from './components/CourseDetailModal';
 import PackagesModal from './components/PackagesModal';
@@ -67,6 +68,9 @@ export const resolveRoute = (pathname = window.location.pathname, hash = window.
   }
   if (p.startsWith('/certification') || p.startsWith('/exam') || h.includes('certification') || h.includes('exam')) {
     return { tab: 'certification', categoryId: null };
+  }
+  if (p.startsWith('/learn') || h.includes('learn')) {
+    return { tab: 'explore', categoryId: null, scrollToLearn: true };
   }
   if (p.startsWith('/faq') || h.includes('faq')) {
     return { tab: 'faq', categoryId: null };
@@ -212,6 +216,15 @@ export default function App() {
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  useEffect(() => {
+    if (window.location.hash === '#learn' || window.location.pathname === '/learn') {
+      setTimeout(() => {
+        const el = document.getElementById('learn');
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 300);
+    }
+  }, [activeTab]);
 
   useEffect(() => {
     fetchInitialData();
@@ -873,6 +886,9 @@ export default function App() {
               </button>
             </div>
           </div>
+
+          {/* LEARN CROCHET SECTION (Same as anjalicrochet.store) */}
+          <LearnSection onNavigate={navigate} settings={settings} />
 
           {/* CERTIFICATION OVERVIEW SECTION (Only visible if enabled in Admin Settings) */}
           {settings?.enableCertification !== false && (

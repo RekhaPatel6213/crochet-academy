@@ -41,7 +41,14 @@ export default function Navbar({
     if (onNavigate) {
       onNavigate(path);
     } else {
-      if (path === '/categories' || path === '/disciplines') {
+      if (path === '/learn' || path === '/#learn') {
+        if (onNavigate) onNavigate('/#learn');
+        else setActiveTab('explore');
+        setTimeout(() => {
+          const el = document.getElementById('learn');
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }, 150);
+      } else if (path === '/categories' || path === '/disciplines') {
         setActiveTab('categories');
       } else if (path === '/masterclasses' || path === '/courses' || path === '/classes') {
         setActiveTab('masterclasses');
@@ -180,6 +187,15 @@ export default function Navbar({
               className={`nav-link-item ${activeTab === 'masterclasses' ? 'active' : ''}`}
             >
               Masterclasses
+            </a>
+
+            <a
+              href="/#learn"
+              onClick={(e) => { e.preventDefault(); handleNav('/#learn'); }}
+              className="nav-link-item"
+              title="Free video tutorials in Hindi & classes"
+            >
+              Learn Tutorials
             </a>
 
             <a
@@ -403,6 +419,15 @@ export default function Navbar({
                 style={{ textDecoration: 'none' }}
               >
                 <span>All Crochet Masterclasses</span>
+              </a>
+
+              <a
+                href="/#learn"
+                onClick={(e) => { e.preventDefault(); handleNav('/#learn'); }}
+                className="mobile-nav-item"
+                style={{ textDecoration: 'none' }}
+              >
+                <span>🌸 Learn Crochet (Free Videos & Classes)</span>
               </a>
 
               <a
