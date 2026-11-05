@@ -1370,34 +1370,6 @@ export default function App() {
         <span>Chat on WhatsApp</span>
       </a>
 
-      {/* Floating Admin Studio Button (Positioned at bottom-left) */}
-      <button
-        onClick={handleOpenAdmin}
-        className="floating-admin-btn"
-        style={{
-          position: 'fixed',
-          bottom: '22px',
-          left: '22px',
-          zIndex: 90,
-          backgroundColor: 'var(--color-primary)',
-          color: '#FFFFFF',
-          padding: '0.65rem 1.15rem',
-          borderRadius: '999px',
-          boxShadow: '0 6px 20px rgba(238, 109, 136, 0.4)',
-          border: '2px solid #FFFFFF',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '0.45rem',
-          fontWeight: 700,
-          cursor: 'pointer',
-          fontSize: '0.85rem'
-        }}
-        title="Open Admin CRM to manage students, orders, categories & classes"
-      >
-        <span>⚙️</span>
-        <span>Admin CRM</span>
-      </button>
-
       {isAdminOpen && (
         <AdminCRM 
           initialTab={adminTab}

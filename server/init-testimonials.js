@@ -105,3 +105,4 @@ if (process.argv[1] && process.argv[1].endsWith('init-testimonials.js')) {
     process.exit(0);
   });
 }
+

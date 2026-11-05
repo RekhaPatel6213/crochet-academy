@@ -304,22 +304,7 @@ export default function Navbar({
                   </div>
                 </a>
 
-                <div style={{ height: '1px', backgroundColor: 'var(--border-subtle)', margin: '0.25rem 0' }} />
 
-                <a
-                  href="/admin"
-                  onClick={(e) => { e.preventDefault(); handleNav('/admin'); }}
-                  className={`more-menu-item ${activeTab === 'admin' ? 'active' : ''}`}
-                  style={{ textDecoration: 'none' }}
-                >
-                  <div className="more-item-icon" style={{ backgroundColor: '#FDEAE4', color: 'var(--color-primary)' }}>
-                    <FolderPlus size={15} />
-                  </div>
-                  <div style={{ textAlign: 'left', minWidth: 0 }}>
-                    <div style={{ fontWeight: 700, fontSize: '0.82rem', color: 'var(--color-primary)' }}>Admin Studio CRM</div>
-                    <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>Catalogue, slider & store settings</div>
-                  </div>
-                </a>
               </div>
             </div>
           </nav>
@@ -479,15 +464,6 @@ export default function Navbar({
                 <span>Frequently Asked Questions</span>
               </a>
 
-              <a
-                href="/admin"
-                onClick={(e) => { e.preventDefault(); handleNav('/admin'); }}
-                className={`mobile-nav-item ${activeTab === 'admin' ? 'active' : ''}`}
-                style={{ color: 'var(--color-primary)', fontWeight: 700, textDecoration: 'none' }}
-              >
-                <FolderPlus size={16} color="var(--color-primary)" />
-                <span>Admin Studio CRM</span>
-              </a>
 
               {/* Direct WhatsApp Callout in Mobile Menu */}
               <a
