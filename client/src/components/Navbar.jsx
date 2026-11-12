@@ -41,13 +41,9 @@ export default function Navbar({
     if (onNavigate) {
       onNavigate(path);
     } else {
-      if (path === '/learn' || path === '/#learn') {
-        if (onNavigate) onNavigate('/#learn');
-        else setActiveTab('explore');
-        setTimeout(() => {
-          const el = document.getElementById('learn');
-          if (el) el.scrollIntoView({ behavior: 'smooth' });
-        }, 150);
+      if (path === '/learn' || path === '/tutorials' || path === '/crochet-tutorials' || path === '/#learn') {
+        if (onNavigate) onNavigate('/learn');
+        else setActiveTab('learn');
       } else if (path === '/categories' || path === '/disciplines') {
         setActiveTab('categories');
       } else if (path === '/masterclasses' || path === '/courses' || path === '/classes') {
@@ -190,9 +186,9 @@ export default function Navbar({
             </a>
 
             <a
-              href="/#learn"
-              onClick={(e) => { e.preventDefault(); handleNav('/#learn'); }}
-              className="nav-link-item"
+              href="/learn"
+              onClick={(e) => { e.preventDefault(); handleNav('/learn'); }}
+              className={`nav-link-item ${activeTab === 'learn' ? 'active' : ''}`}
               title="Free video tutorials in Hindi & classes"
             >
               Learn Tutorials
@@ -424,7 +420,7 @@ export default function Navbar({
               <a
                 href="/#learn"
                 onClick={(e) => { e.preventDefault(); handleNav('/#learn'); }}
-                className="mobile-nav-item"
+                className={`mobile-nav-item ${activeTab === 'learn' ? 'active' : ''}`}
                 style={{ textDecoration: 'none' }}
               >
                 <span>🌸 Learn Crochet (Free Videos & Classes)</span>
