@@ -1421,3 +1421,120 @@ a {
 .occ-ask-link:hover {
   color: var(--color-primary);
 }
+
+
+/* --- Learn Video Library Cards & Filter Pills --- */
+.learn-pill {
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--border, #e5ddd5);
+  background: #fff;
+  color: var(--text, #2d2420);
+  font-size: 0.88rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.learn-pill:hover {
+  border-color: var(--primary, #c96857);
+  color: var(--primary, #c96857);
+}
+
+.learn-pill.active {
+  background: var(--primary, #c96857);
+  border-color: var(--primary, #c96857);
+  color: #fff;
+}
+
+.vcard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.vcard {
+  background: #fff;
+  border: 1px solid var(--border, #eee4dc);
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.vcard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(45, 36, 32, 0.08);
+}
+
+.vthumb {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #f5efe9;
+  overflow: hidden;
+}
+
+.vthumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.vlen {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.78);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 6px;
+  z-index: 2;
+}
+
+.vbadge-live {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: #c93b3b;
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 999px;
+  z-index: 2;
+}
+
+.vcard-body {
+  padding: 14px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.vcard-cat {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--primary, #c96857);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.vtitle {
+  font-weight: 600;
+  font-size: 0.96rem;
+  line-height: 1.35;
+  color: var(--text, #2d2420);
+}
+
+.vviews {
+  font-size: 0.8rem;
+  color: var(--text-muted, #7a6f68);
+  margin-top: auto;
+}
