@@ -107,6 +107,15 @@ export default function AdminCRM({
     return () => window.removeEventListener('popstate', handleAdminPop);
   }, []);
 
+  // Lock document body scrolling while Admin CRM is mounted to eliminate duplicate window scrollbar
+  useEffect(() => {
+    const origOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = origOverflow;
+    };
+  }, []);
+
   // CRM Data State
   const [stats, setStats] = useState({
     totalCourses: 0,
@@ -1240,7 +1249,7 @@ export default function AdminCRM({
   );
 
   return (
-    <div style={{ position: 'fixed', inset: 0, zIndex: 1000, backgroundColor: '#F4F9FD', overflowY: 'auto', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ position: 'fixed', inset: 0, zIndex: 1000, backgroundColor: '#F4F9FD', overflow: adminUser ? 'hidden' : 'auto', display: 'flex', flexDirection: 'column' }}>
       
       {/* 1. LOGIN SCREEN IF NOT AUTHENTICATED */}
       {!adminUser ? (
@@ -1343,10 +1352,10 @@ export default function AdminCRM({
         </div>
       ) : (
         /* 2. AUTHENTICATED CRM DASHBOARD */
-        <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+        <div style={{ height: '100vh', maxHeight: '100vh', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
           
           {/* Top CRM Appbar */}
-          <header style={{ backgroundColor: '#FFFFFF', borderBottom: '1px solid var(--border-subtle)', padding: '0.75rem 2rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'sticky', top: 0, zIndex: 50 }}>
+          <header style={{ flexShrink: 0, backgroundColor: '#FFFFFF', borderBottom: '1px solid var(--border-subtle)', padding: '0.75rem 2rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', zIndex: 50 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
               <img 
                 src="/logo.png" 
@@ -1409,10 +1418,10 @@ export default function AdminCRM({
           </header>
 
           {/* CRM Body Grid */}
-          <div style={{ flex: 1, display: 'grid', gridTemplateColumns: '240px 1fr' }}>
+          <div style={{ flex: 1, minHeight: 0, display: 'grid', gridTemplateColumns: '240px 1fr', overflow: 'hidden' }}>
             
             {/* Left CRM Sidebar */}
-            <aside style={{ backgroundColor: '#FFFFFF', borderRight: '1px solid var(--border-subtle)', padding: '1.5rem 1rem', display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+            <aside style={{ height: '100%', overflowY: 'auto', backgroundColor: '#FFFFFF', borderRight: '1px solid var(--border-subtle)', padding: '1.5rem 1rem', display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
               <div style={{ fontSize: '0.72rem', fontWeight: 800, color: 'var(--text-subtle)', textTransform: 'uppercase', padding: '0 0.75rem 0.5rem' }}>
                 CRM Modules
               </div>
@@ -1560,7 +1569,7 @@ export default function AdminCRM({
             </aside>
 
             {/* Right Main CRM Content */}
-            <main style={{ padding: '2rem', overflowY: 'auto' }}>
+            <main style={{ height: '100%', minHeight: 0, padding: '2rem', overflowY: 'auto' }}>
               
               {feedback && (
                 <div style={{ marginBottom: '1.5rem', padding: '0.85rem 1.25rem', borderRadius: '12px', fontSize: '0.85rem', fontWeight: 600, backgroundColor: feedback.type === 'success' ? 'var(--color-sage-light)' : 'var(--color-primary-light)', color: feedback.type === 'success' ? 'var(--color-sage)' : 'var(--color-primary)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
