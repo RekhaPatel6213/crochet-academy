@@ -701,16 +701,8 @@
     }
   ],
   "userEnrollments": {
-    "activePackages": [
-      "pkg-starter",
-      "pkg-free"
-    ],
-    "completedSteps": {
-      "ami-honey-bee": [
-        1,
-        2
-      ]
-    },
+    "activePackages": [],
+    "completedSteps": {},
     "certificates": [],
     "studentName": "Rekha  Patel",
     "studentEmail": "php4@nividaweb.com"
@@ -959,142 +951,9 @@
       "inStock": true
     }
   ],
-  "productOrders": [
-    {
-      "id": "ORD-529679",
-      "customerName": "Clara Miller",
-      "customerEmail": "clara@test.com",
-      "customerPhone": "",
-      "customerAddress": {},
-      "items": [
-        {
-          "id": "prod-honeybee-plush",
-          "image": "",
-          "price": 28,
-          "title": "Handcrafted Honeybee Amigurumi Plush",
-          "quantity": 1
-        }
-      ],
-      "itemsCount": 1,
-      "subtotal": 28,
-      "discount": 0,
-      "gst": 0,
-      "shipping": 5.99,
-      "total": 33.99,
-      "paymentMethod": "Credit Card",
-      "status": "Processing",
-      "date": "2026-10-15"
-    },
-    {
-      "id": "ORD-8821",
-      "customerName": "Sophia Martinez",
-      "customerEmail": "sophia.m@gmail.com",
-      "customerPhone": "+1 555-019-2831",
-      "customerAddress": {},
-      "items": [
-        {
-          "id": "prod-honeybee-plush",
-          "image": "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=800&q=80",
-          "price": 28,
-          "title": "Handcrafted Honeybee Amigurumi Plush",
-          "quantity": 2
-        }
-      ],
-      "itemsCount": 1,
-      "subtotal": 56,
-      "discount": 5.6,
-      "gst": 0,
-      "shipping": 0,
-      "total": 50.4,
-      "paymentMethod": "Credit Card (Visa ending 4242)",
-      "status": "Processing",
-      "date": "2026-10-13"
-    }
-  ],
-  "customOrders": [
-    {
-      "id": "CUST-3351",
-      "customerName": "Emma Watson",
-      "customerEmail": "emma@test.com",
-      "customerPhone": "555-4422",
-      "projectType": "",
-      "colorPalette": "Warm Honey & Terracotta",
-      "dimensions": "",
-      "deadline": "",
-      "budget": "",
-      "referenceUrl": "",
-      "notes": "",
-      "status": "Under Review",
-      "date": ""
-    },
-    {
-      "id": "CUST-701",
-      "customerName": "Chloe Davenport",
-      "customerEmail": "chloe.davenport@artsy.com",
-      "customerPhone": "+1 555-832-1944",
-      "projectType": "",
-      "colorPalette": "Golden Honey & Cream",
-      "dimensions": "",
-      "deadline": "",
-      "budget": "",
-      "referenceUrl": "",
-      "notes": "",
-      "status": "In Production",
-      "date": ""
-    }
-  ],
-  "orders": [
-    {
-      "id": "ORD-5982",
-      "studentName": "Rekha  Patel",
-      "studentEmail": "php4@nividaweb.com",
-      "packageId": "pkg-starter",
-      "packageName": "Online Foundation Batch",
-      "price": 999,
-      "date": "2026-10-15",
-      "status": "Active"
-    },
-    {
-      "id": "ORD-9481",
-      "studentName": "Rekha Patel",
-      "studentEmail": "php4@nividaweb.com",
-      "packageId": "pkg-starter",
-      "packageName": "Starter Skein",
-      "price": 19,
-      "date": "2026-10-10",
-      "status": "Active"
-    },
-    {
-      "id": "ORD-9482",
-      "studentName": "Clara Vance",
-      "studentEmail": "clara.vance@gmail.com",
-      "packageId": "pkg-artisan",
-      "packageName": "Artisan Crafter Bundle",
-      "price": 49,
-      "date": "2026-10-11",
-      "status": "Active"
-    },
-    {
-      "id": "ORD-9483",
-      "studentName": "Elena Rostova",
-      "studentEmail": "elena.crafts@craftguild.org",
-      "packageId": "pkg-master",
-      "packageName": "Master Craftsman VIP",
-      "price": 89,
-      "date": "2026-10-11",
-      "status": "Active"
-    },
-    {
-      "id": "ORD-9484",
-      "studentName": "Mia Chen",
-      "studentEmail": "mia.chen@outlook.com",
-      "packageId": "pkg-free",
-      "packageName": "Free Community Skein",
-      "price": 0,
-      "date": "2026-10-12",
-      "status": "Active"
-    }
-  ],
+  "productOrders": [],
+  "customOrders": [],
+  "orders": [],
   "heroSlides": [
     {
       "id": "slide-1",
@@ -1157,35 +1016,7 @@
       "active": false
     }
   ],
-  "examSubmissions": [
-    {
-      "id": "SUB-101",
-      "studentName": "Clara Vance",
-      "score": 90,
-      "passed": true,
-      "credentialId": "PETAL-CERT-94A1",
-      "date": "2026-10-11",
-      "honors": "Master Artisan with Highest Distinction"
-    },
-    {
-      "id": "SUB-102",
-      "studentName": "Elena Rostova",
-      "score": 100,
-      "passed": true,
-      "credentialId": "PETAL-CERT-94A2",
-      "date": "2026-10-11",
-      "honors": "Master Artisan with Highest Distinction"
-    },
-    {
-      "id": "SUB-103",
-      "studentName": "Noah Bennett",
-      "score": 70,
-      "passed": false,
-      "credentialId": null,
-      "date": "2026-10-12",
-      "honors": "Below 80% (Needs Retake)"
-    }
-  ],
+  "examSubmissions": [],
   "faqs": [
     {
       "id": "faq-1",

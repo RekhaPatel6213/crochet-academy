@@ -629,10 +629,8 @@ const INITIAL_DATA = {
     }
   ],
   userEnrollments: {
-    activePackages: ["pkg-starter"],
-    completedSteps: {
-      "ami-honey-bee": [1, 2]
-    },
+    activePackages: [],
+    completedSteps: {},
     certificates: []
   }
 };
@@ -1192,7 +1190,7 @@ app.get('/api/admin/crm/stats', (req, res) => {
       totalProducts: (db.products || []).length,
       totalProductOrders: (db.productOrders || []).length,
       totalCustomOrders: (db.customOrders || []).length,
-      totalStudents: totalPackageOrders + (db.productOrders || []).length + 1,
+      totalStudents: totalPackageOrders + (db.productOrders || []).length,
       totalRevenue,
       packageRevenue,
       productRevenue,
