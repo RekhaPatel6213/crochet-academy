@@ -596,9 +596,9 @@ export default function App() {
                           navigate('/shop');
                         }}
                         className="btn btn-primary"
-                        style={{ padding: '0.85rem 1.75rem', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none' }}
+                        style={{ padding: '0.75rem 1.15rem', fontSize: '0.92rem', display: 'inline-flex', alignItems: 'center', gap: '0.45rem', textDecoration: 'none', whiteSpace: 'nowrap', flexShrink: 0 }}
                       >
-                        <ShoppingBag size={18} />
+                        <ShoppingBag size={17} />
                         <span>Explore Handcrafted Shop</span>
                       </a>
 
@@ -608,44 +608,46 @@ export default function App() {
                         rel="noopener noreferrer"
                         className="btn"
                         style={{ 
-                          padding: '0.85rem 1.5rem', 
-                          fontSize: '1rem', 
+                          padding: '0.75rem 1.15rem', 
+                          fontSize: '0.92rem', 
                           backgroundColor: '#25D366', 
                           color: '#FFFFFF', 
                           borderRadius: '12px',
-                          display: 'flex',
+                          display: 'inline-flex',
                           alignItems: 'center',
-                          gap: '0.5rem',
+                          gap: '0.45rem',
                           fontWeight: 700,
                           textDecoration: 'none',
-                          boxShadow: '0 4px 14px rgba(37, 211, 102, 0.35)'
+                          boxShadow: '0 4px 14px rgba(37, 211, 102, 0.35)',
+                          whiteSpace: 'nowrap',
+                          flexShrink: 0
                         }}
                       >
-                        <MessageCircle size={18} />
+                        <MessageCircle size={17} />
                         <span>Order on WhatsApp</span>
                       </a>
 
                       <button
                         onClick={() => setIsPackagesOpen(true)}
                         className="btn btn-loop"
-                        style={{ padding: '0.85rem 1.5rem', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+                        style={{ padding: '0.75rem 1.15rem', fontSize: '0.92rem', display: 'inline-flex', alignItems: 'center', gap: '0.45rem', whiteSpace: 'nowrap', flexShrink: 0 }}
                       >
-                        <Award size={18} color="#FFFFFF" />
+                        <Award size={17} color="#FFFFFF" />
                         <span>Crochet Classes & Cert</span>
                       </button>
                     </div>
 
                     <div className="hero-perks">
                       <div className="perk-item">
-                        <CheckCircle2 size={16} color="var(--color-sage)" />
+                        <CheckCircle2 size={15} color="var(--color-sage)" />
                         <span>100% Handcrafted with Love</span>
                       </div>
                       <div className="perk-item">
-                        <CheckCircle2 size={16} color="var(--color-sage)" />
+                        <CheckCircle2 size={15} color="var(--color-sage)" />
                         <span>Pan-India Doorstep Delivery</span>
                       </div>
                       <div className="perk-item">
-                        <CheckCircle2 size={16} color="var(--color-sage)" />
+                        <CheckCircle2 size={15} color="var(--color-sage)" />
                         <span>Direct WhatsApp Customization</span>
                       </div>
                     </div>
