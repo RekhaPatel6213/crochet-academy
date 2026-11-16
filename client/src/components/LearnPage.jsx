@@ -1,16 +1,14 @@
 import React, { useState, useMemo } from 'react';
-import { TUTORIAL_VIDEOS, VIDEO_CATEGORIES, ALL_VIDEOS } from '../data/learnVideos';
-
-const VIDEOS_PER_PAGE = 24;
+import { TUTORIAL_VIDEOS, VIDEO_CATEGORIES, VIDEO_SECTIONS, ALL_VIDEOS } from '../data/learnVideos';
 
 export default function LearnPage({ onNavigate, settings, onBackToHome }) {
-  const [activeTab, setActiveTab] = useState('tutorials'); // 'tutorials' | 'videos'
-  const [searchQuery, setSearchQuery] = useState('');
+  const [activeTab, setActiveTab] = useState('videos'); // 'videos' (Video Library) | 'tutorials' (18 Tutorials)
+  const [selectedCategory, setSelectedCategory] = useState('all'); // 'all' or category slug
   const [videoTypeFilter, setVideoTypeFilter] = useState('all'); // 'all' | 'tutorial' | 'live'
-  const [selectedCategory, setSelectedCategory] = useState('All');
-  const [visibleCount, setVisibleCount] = useState(VIDEOS_PER_PAGE);
+  const [searchQuery, setSearchQuery] = useState('');
   const [activeVideo, setActiveVideo] = useState(null);
 
+  // Filter 18 step-by-step tutorials
   const filteredTutorials = useMemo(() => {
     const q = searchQuery.trim().toLowerCase();
     if (!q) return TUTORIAL_VIDEOS;
@@ -22,38 +20,34 @@ export default function LearnPage({ onNavigate, settings, onBackToHome }) {
     );
   }, [searchQuery]);
 
-  const filteredVideos = useMemo(() => {
+  // Filter sections and their videos based on search, type, and category selection
+  const filteredSections = useMemo(() => {
     const q = searchQuery.trim().toLowerCase();
-    return ALL_VIDEOS.filter((v) => {
-      if (videoTypeFilter !== 'all' && v.type !== videoTypeFilter) return false;
-      if (selectedCategory !== 'All' && v.category !== selectedCategory) return false;
-      if (q && !v.title.toLowerCase().includes(q) && !v.category.toLowerCase().includes(q)) {
-        return false;
+
+    return VIDEO_SECTIONS.map((sec) => {
+      // If a specific category is chosen and it's not this one, filter out
+      if (selectedCategory !== 'all' && sec.slug !== selectedCategory) {
+        return null;
       }
-      return true;
-    });
-  }, [searchQuery, videoTypeFilter, selectedCategory]);
 
-  const visibleVideos = useMemo(
-    () => filteredVideos.slice(0, visibleCount),
-    [filteredVideos, visibleCount]
-  );
+      // Filter videos in this section
+      const matchingVideos = sec.videos.filter((v) => {
+        if (videoTypeFilter !== 'all' && v.type !== videoTypeFilter) return false;
+        if (q && !v.title.toLowerCase().includes(q)) return false;
+        return true;
+      });
 
-  const handleTabChange = (tab) => {
-    setActiveTab(tab);
-    setVisibleCount(VIDEOS_PER_PAGE);
-  };
+      if (matchingVideos.length === 0) return null;
 
-  const handleCategoryChange = (cat) => {
-    setSelectedCategory(cat);
-    setVisibleCount(VIDEOS_PER_PAGE);
-  };
+      return {
+        ...sec,
+        videos: matchingVideos,
+        matchCount: matchingVideos.length
+      };
+    }).filter(Boolean);
+  }, [selectedCategory, videoTypeFilter, searchQuery]);
 
-  const handleTypeChange = (type) => {
-    setVideoTypeFilter(type);
-    setVisibleCount(VIDEOS_PER_PAGE);
-  };
-
+  // Calculate live count and tutorial count across all 319 videos
   const tutorialCount = useMemo(
     () => ALL_VIDEOS.filter((v) => v.type === 'tutorial').length,
     []
@@ -63,14 +57,28 @@ export default function LearnPage({ onNavigate, settings, onBackToHome }) {
     []
   );
 
+  const totalFilteredVideos = useMemo(() => {
+    return filteredSections.reduce((sum, s) => sum + s.videos.length, 0);
+  }, [filteredSections]);
+
+  const handleCategoryClick = (slug) => {
+    setSelectedCategory(slug);
+    if (slug !== 'all') {
+      const el = document.getElementById(slug);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  };
+
   const waNumber = (settings?.whatsapp_number || '919999999999').replace(/[^0-9]/g, '');
 
   return (
     <div className="learn-page-wrapper">
-      <section className="section learn-hero-section">
+      {/* Hero Header */}
+      <section className="page-hero learn-hero-section">
         <div className="container">
-          {/* Top Back Bar */}
-          <div style={{ marginBottom: '24px' }}>
+          <div style={{ marginBottom: '20px' }}>
             <button
               type="button"
               className="btn-outline"
@@ -81,42 +89,99 @@ export default function LearnPage({ onNavigate, settings, onBackToHome }) {
             </button>
           </div>
 
-          {/* Header */}
-          <div className="section-header" style={{ textAlign: 'left', marginBottom: '28px' }}>
-            <div className="section-tag">Free Learning</div>
-            <h1 style={{ fontSize: 'clamp(2rem, 4.5vw, 3rem)', lineHeight: 1.15, marginBottom: '14px' }}>
-              Free Crochet Tutorials &amp; Video Library
-            </h1>
-            <p style={{ maxWidth: '720px', margin: '0', fontSize: '1.05rem', color: 'var(--text-muted)' }}>
-              Learn to crochet in simple Hindi &amp; English with {TUTORIAL_VIDEOS.length} step-by-step tutorials and {ALL_VIDEOS.length} full YouTube video lessons — from holding a hook to roses, sunflowers, keychains, bags, and Laddu Gopal dresses.
-            </p>
-          </div>
+          <p className="kicker" style={{ color: 'var(--primary, #c96857)', fontWeight: '600', marginBottom: '8px', fontSize: '1.05rem' }}>
+            Free videos in Hindi &amp; English · {ALL_VIDEOS.length} and counting
+          </p>
+          <h1 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', lineHeight: 1.15, marginBottom: '14px', color: 'var(--text, #2d2420)' }}>
+            Crochet Video Library
+          </h1>
+          <p className="lead" style={{ maxWidth: '800px', margin: '0 0 20px', fontSize: '1.05rem', color: 'var(--text-muted, #7a6f68)', lineHeight: 1.6 }}>
+            Every crochet tutorial and live class grouped by category, most-watched first. Pick a category, then press play — the video opens right here. <em>(Crosia sikhe — sabhi video ek jagah.)</em>
+          </p>
 
-          {/* Primary View Tabs */}
-          <div className="learn-tabs" style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', marginBottom: '20px' }}>
-            <button
-              type="button"
-              className={activeTab === 'tutorials' ? 'btn-primary' : 'btn-outline'}
-              onClick={() => handleTabChange('tutorials')}
-              style={{ padding: '10px 20px', fontSize: '0.95rem' }}
-            >
-              <i className="fa-solid fa-graduation-cap" style={{ marginRight: '8px' }} />
-              Step-by-Step Tutorials ({TUTORIAL_VIDEOS.length})
-            </button>
+          {/* Stats Bar */}
+          <ul className="vstats" style={{ display: 'flex', flexWrap: 'wrap', gap: '24px', listStyle: 'none', padding: 0, margin: '0 0 24px' }}>
+            <li style={{ fontSize: '0.95rem', color: 'var(--text-muted)' }}>
+              <strong style={{ fontSize: '1.5rem', color: 'var(--primary, #c96857)', marginRight: '6px' }}>{tutorialCount}</strong>
+              step-by-step tutorials
+            </li>
+            <li style={{ fontSize: '0.95rem', color: 'var(--text-muted)' }}>
+              <strong style={{ fontSize: '1.5rem', color: 'var(--primary, #c96857)', marginRight: '6px' }}>{liveCount}</strong>
+              live class recordings
+            </li>
+            <li style={{ fontSize: '0.95rem', color: 'var(--text-muted)' }}>
+              <strong style={{ fontSize: '1.5rem', color: 'var(--primary, #c96857)', marginRight: '6px' }}>{VIDEO_CATEGORIES.length}</strong>
+              categories
+            </li>
+          </ul>
+
+          {/* Hero CTAs */}
+          <div className="hero-ctas" style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', alignItems: 'center' }}>
             <button
               type="button"
               className={activeTab === 'videos' ? 'btn-primary' : 'btn-outline'}
-              onClick={() => handleTabChange('videos')}
-              style={{ padding: '10px 20px', fontSize: '0.95rem' }}
+              onClick={() => setActiveTab('videos')}
+              style={{ padding: '10px 22px' }}
             >
               <i className="fa-brands fa-youtube" style={{ marginRight: '8px' }} />
-              Full Video Library ({ALL_VIDEOS.length})
+              Video Library ({ALL_VIDEOS.length})
+            </button>
+            <button
+              type="button"
+              className={activeTab === 'tutorials' ? 'btn-primary' : 'btn-outline'}
+              onClick={() => setActiveTab('tutorials')}
+              style={{ padding: '10px 22px' }}
+            >
+              <i className="fa-solid fa-graduation-cap" style={{ marginRight: '8px' }} />
+              18 Tutorials with written steps
+            </button>
+            <button
+              type="button"
+              className="btn-outline"
+              onClick={() => onNavigate && onNavigate('classes')}
+              style={{ padding: '10px 20px' }}
+            >
+              Book a live 1:1 class
             </button>
           </div>
+        </div>
+      </section>
 
-          {/* Search & Filter Bar */}
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', alignItems: 'center', marginBottom: '24px' }}>
-            <div style={{ position: 'relative', flex: '1 1 280px', maxWidth: '460px' }}>
+      {/* Sticky Category Filter Bar (Only for Video Library tab) */}
+      {activeTab === 'videos' && (
+        <div className="cfilter-bar">
+          <div className="container">
+            <div className="cfilters" role="group" aria-label="Filter by category">
+              <button
+                type="button"
+                className="fchip"
+                aria-pressed={selectedCategory === 'all'}
+                onClick={() => handleCategoryClick('all')}
+              >
+                All ({ALL_VIDEOS.length})
+              </button>
+              {VIDEO_CATEGORIES.map((cat) => (
+                <button
+                  key={cat.slug}
+                  type="button"
+                  className="fchip"
+                  aria-pressed={selectedCategory === cat.slug}
+                  onClick={() => handleCategoryClick(cat.slug)}
+                >
+                  {cat.title} ({cat.count})
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Search & Type Filter Controls Bar */}
+      <section style={{ padding: '24px 0 10px', background: 'var(--bg-light, #fbf7f4)' }}>
+        <div className="container">
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '14px', alignItems: 'center', justifyContent: 'space-between' }}>
+            {/* Search Input */}
+            <div style={{ position: 'relative', flex: '1 1 300px', maxWidth: '480px' }}>
               <i
                 className="fa-solid fa-magnifying-glass"
                 style={{
@@ -131,20 +196,17 @@ export default function LearnPage({ onNavigate, settings, onBackToHome }) {
               <input
                 type="text"
                 value={searchQuery}
-                onChange={(e) => {
-                  setSearchQuery(e.target.value);
-                  setVisibleCount(VIDEOS_PER_PAGE);
-                }}
+                onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder={
-                  activeTab === 'tutorials'
-                    ? 'Search tutorials (e.g. rose, sunflower, magic ring, Hindi)...'
-                    : 'Search 319 videos (e.g. rose, keychain, rakhi, purse, tulip)...'
+                  activeTab === 'videos'
+                    ? 'Search 319 videos (e.g. rose, keychain, purse, tulip)...'
+                    : 'Search 18 tutorials (e.g. rose, sunflower, Hindi)...'
                 }
                 style={{
                   width: '100%',
                   padding: '10px 38px 10px 38px',
                   borderRadius: '10px',
-                  border: '1px solid var(--border)',
+                  border: '1px solid var(--border, #e5ddd5)',
                   background: '#fff',
                   fontSize: '0.95rem'
                 }}
@@ -156,7 +218,7 @@ export default function LearnPage({ onNavigate, settings, onBackToHome }) {
                   aria-label="Clear search"
                   style={{
                     position: 'absolute',
-                    right: '10px',
+                    right: '12px',
                     top: '50%',
                     transform: 'translateY(-50%)',
                     background: 'none',
@@ -170,59 +232,147 @@ export default function LearnPage({ onNavigate, settings, onBackToHome }) {
               )}
             </div>
 
+            {/* Type Pills (for Video Library) */}
             {activeTab === 'videos' && (
-              <>
-                <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-                  <button
-                    type="button"
-                    className={`learn-pill ${videoTypeFilter === 'all' ? 'active' : ''}`}
-                    onClick={() => handleTypeChange('all')}
-                  >
-                    All ({ALL_VIDEOS.length})
-                  </button>
-                  <button
-                    type="button"
-                    className={`learn-pill ${videoTypeFilter === 'tutorial' ? 'active' : ''}`}
-                    onClick={() => handleTypeChange('tutorial')}
-                  >
-                    Tutorials ({tutorialCount})
-                  </button>
-                  <button
-                    type="button"
-                    className={`learn-pill ${videoTypeFilter === 'live' ? 'active' : ''}`}
-                    onClick={() => handleTypeChange('live')}
-                  >
-                    Live Classes ({liveCount})
-                  </button>
-                </div>
-
-                <select
-                  value={selectedCategory}
-                  onChange={(e) => handleCategoryChange(e.target.value)}
-                  aria-label="Filter by category"
-                  style={{
-                    padding: '10px 14px',
-                    borderRadius: '10px',
-                    border: '1px solid var(--border)',
-                    background: '#fff',
-                    fontSize: '0.92rem',
-                    minWidth: '210px'
-                  }}
+              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'center' }}>
+                <span style={{ fontSize: '0.88rem', color: 'var(--text-muted)', marginRight: '4px' }}>Type:</span>
+                <button
+                  type="button"
+                  className={`learn-pill ${videoTypeFilter === 'all' ? 'active' : ''}`}
+                  onClick={() => setVideoTypeFilter('all')}
                 >
-                  <option value="All">All Categories ({VIDEO_CATEGORIES.length})</option>
-                  {VIDEO_CATEGORIES.map((cat) => (
-                    <option key={cat} value={cat}>
-                      {cat}
-                    </option>
-                  ))}
-                </select>
-              </>
+                  All ({ALL_VIDEOS.length})
+                </button>
+                <button
+                  type="button"
+                  className={`learn-pill ${videoTypeFilter === 'tutorial' ? 'active' : ''}`}
+                  onClick={() => setVideoTypeFilter('tutorial')}
+                >
+                  Tutorials ({tutorialCount})
+                </button>
+                <button
+                  type="button"
+                  className={`learn-pill ${videoTypeFilter === 'live' ? 'active' : ''}`}
+                  onClick={() => setVideoTypeFilter('live')}
+                >
+                  Live Classes ({liveCount})
+                </button>
+              </div>
             )}
           </div>
+        </div>
+      </section>
 
-          {/* TAB 1: 18 Step-by-Step Tutorials */}
+      {/* Main Content Area */}
+      <section style={{ padding: '20px 0 60px' }}>
+        <div className="container">
+          {/* TAB 1: Video Library Grouped by Category */}
+          {activeTab === 'videos' && (
+            <div>
+              {searchQuery && (
+                <div style={{ marginBottom: '24px', fontSize: '0.95rem', color: 'var(--text-muted)' }}>
+                  Found <strong>{totalFilteredVideos}</strong> videos matching "{searchQuery}" across categories:
+                </div>
+              )}
+
+              {filteredSections.map((sec) => (
+                <section
+                  key={sec.slug}
+                  id={sec.slug}
+                  data-cat={sec.slug}
+                  className="csec vsec"
+                  style={{ scrollMarginTop: '130px', marginBottom: '40px' }}
+                >
+                  <div className="csec-head" style={{ display: 'flex', alignItems: 'baseline', gap: '14px', flexWrap: 'wrap', marginBottom: '18px' }}>
+                    <h2 style={{ fontSize: '1.65rem', margin: 0, fontWeight: '700', color: 'var(--text, #2d2420)' }}>
+                      {sec.title}
+                    </h2>
+                    <p className="vcount" style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.92rem' }}>
+                      {sec.videos.length} video{sec.videos.length === 1 ? '' : 's'}
+                    </p>
+                  </div>
+
+                  <div className="vgrid">
+                    {sec.videos.map((v) => (
+                      <div
+                        key={v.id}
+                        className="vcard"
+                        role="button"
+                        tabIndex={0}
+                        onClick={() =>
+                          setActiveVideo({
+                            id: v.id,
+                            title: v.title,
+                            subtitle: sec.title,
+                            badge: v.type === 'live' ? 'Live class' : 'Tutorial',
+                            meta: [v.duration, v.views].filter(Boolean).join(' · '),
+                            youtubeUrl: v.youtubeUrl
+                          })
+                        }
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            setActiveVideo({
+                              id: v.id,
+                              title: v.title,
+                              subtitle: sec.title,
+                              badge: v.type === 'live' ? 'Live class' : 'Tutorial',
+                              meta: [v.duration, v.views].filter(Boolean).join(' · '),
+                              youtubeUrl: v.youtubeUrl
+                            });
+                          }
+                        }}
+                      >
+                        <span className="vthumb">
+                          <img src={v.img} alt={v.title} width="320" height="180" loading="lazy" />
+                          {v.duration && <span className="vlen">{v.duration}</span>}
+                          {v.type === 'live' && <span className="vbadge vbadge-live">Live class</span>}
+                          <div className="tcard-play-overlay">
+                            <span className="tcard-play-btn">
+                              <i className="fa-solid fa-play" />
+                            </span>
+                          </div>
+                        </span>
+                        <span className="vtitle">{v.title}</span>
+                        {v.views && <span className="vviews">{v.views}</span>}
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              ))}
+
+              {filteredSections.length === 0 && (
+                <div style={{ textAlign: 'center', padding: '60px 20px', color: 'var(--text-muted)' }}>
+                  <i className="fa-solid fa-video-slash" style={{ fontSize: '2.5rem', marginBottom: '14px', opacity: 0.4 }} />
+                  <h3>No videos found</h3>
+                  <p>No videos matched your criteria. Try clearing the search or choosing "All".</p>
+                  <button
+                    type="button"
+                    className="btn-primary"
+                    onClick={() => {
+                      setSearchQuery('');
+                      setSelectedCategory('all');
+                      setVideoTypeFilter('all');
+                    }}
+                    style={{ marginTop: '12px' }}
+                  >
+                    Reset all filters
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* TAB 2: 18 Step-by-Step Tutorials */}
           {activeTab === 'tutorials' && (
-            <>
+            <div>
+              <div style={{ marginBottom: '20px' }}>
+                <h2 style={{ fontSize: '1.65rem', marginBottom: '8px' }}>Step-by-Step Tutorials with Written Steps</h2>
+                <p style={{ color: 'var(--text-muted)', margin: 0 }}>
+                  Structured guides with stitch patterns, materials, and Hindi subtitles for fundamental crochet projects.
+                </p>
+              </div>
+
               <div className="tut-grid">
                 {filteredTutorials.map((item) => (
                   <div
@@ -269,108 +419,20 @@ export default function LearnPage({ onNavigate, settings, onBackToHome }) {
 
               {filteredTutorials.length === 0 && (
                 <div style={{ textAlign: 'center', padding: '40px 16px', color: 'var(--text-muted)' }}>
-                  No tutorials matched "{searchQuery}". Try searching in the Full Video Library tab!
+                  No tutorials matched "{searchQuery}".
                 </div>
               )}
-            </>
+            </div>
           )}
 
-          {/* TAB 2: All 319 Videos */}
-          {activeTab === 'videos' && (
-            <>
-              <div style={{ marginBottom: '16px', fontSize: '0.9rem', color: 'var(--text-muted)' }}>
-                Showing {visibleVideos.length} of {filteredVideos.length} videos
-                {selectedCategory !== 'All' ? ` in "${selectedCategory}"` : ''}
-              </div>
-
-              <div className="vcard-grid">
-                {visibleVideos.map((v, idx) => (
-                  <div
-                    key={`${v.id}-${idx}`}
-                    className="vcard"
-                    role="button"
-                    tabIndex={0}
-                    onClick={() =>
-                      setActiveVideo({
-                        id: v.id,
-                        title: v.title,
-                        subtitle: v.category,
-                        badge: v.type === 'live' ? 'Live class' : 'Tutorial',
-                        meta: [v.duration, v.views].filter(Boolean).join(' · '),
-                        youtubeUrl: v.youtubeUrl
-                      })
-                    }
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        setActiveVideo({
-                          id: v.id,
-                          title: v.title,
-                          subtitle: v.category,
-                          badge: v.type === 'live' ? 'Live class' : 'Tutorial',
-                          meta: [v.duration, v.views].filter(Boolean).join(' · '),
-                          youtubeUrl: v.youtubeUrl
-                        });
-                      }
-                    }}
-                  >
-                    <div className="vthumb">
-                      <img src={v.img} alt={v.title} width="320" height="180" loading="lazy" />
-                      {v.duration && <span className="vlen">{v.duration}</span>}
-                      {v.type === 'live' && <span className="vbadge-live">Live class</span>}
-                      <div className="tcard-play-overlay">
-                        <span className="tcard-play-btn">
-                          <i className="fa-solid fa-play" />
-                        </span>
-                      </div>
-                    </div>
-                    <div className="vcard-body">
-                      <span className="vcard-cat">{v.category}</span>
-                      <span className="vtitle">{v.title}</span>
-                      {v.views && <span className="vviews">{v.views}</span>}
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {filteredVideos.length === 0 && (
-                <div style={{ textAlign: 'center', padding: '40px 16px', color: 'var(--text-muted)' }}>
-                  No videos matched your filters. Try clearing the search or choosing "All Categories".
-                </div>
-              )}
-
-              {visibleCount < filteredVideos.length && (
-                <div style={{ textAlign: 'center', marginTop: '32px' }}>
-                  <button
-                    type="button"
-                    className="btn-primary"
-                    onClick={() => setVisibleCount((c) => c + VIDEOS_PER_PAGE)}
-                    style={{ padding: '12px 28px' }}
-                  >
-                    Load More Videos ({filteredVideos.length - visibleCount} remaining)
-                  </button>
-                </div>
-              )}
-            </>
-          )}
-
-          {/* Action Buttons */}
-          <div className="learn-ctas" style={{ marginTop: '44px' }}>
+          {/* Bottom Call to Actions & Info Cards */}
+          <div className="learn-ctas" style={{ marginTop: '50px' }}>
             <button
               type="button"
               className="btn-primary"
               onClick={() => onNavigate && onNavigate('classes')}
             >
               Book a live 1:1 class
-            </button>
-            <button
-              type="button"
-              className="btn-outline"
-              onClick={() => handleTabChange(activeTab === 'tutorials' ? 'videos' : 'tutorials')}
-            >
-              {activeTab === 'tutorials'
-                ? `Browse all ${ALL_VIDEOS.length} videos`
-                : `View ${TUTORIAL_VIDEOS.length} step-by-step tutorials`}
             </button>
             <a
               href={`https://wa.me/${waNumber}?text=${encodeURIComponent('Hi! I want to learn crochet and join a class.')}`}
@@ -379,22 +441,21 @@ export default function LearnPage({ onNavigate, settings, onBackToHome }) {
               className="btn-outline"
               style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}
             >
-              <i className="fa-brands fa-whatsapp" /> Ask on WhatsApp
+              <i className="fa-brands fa-whatsapp" style={{ color: '#25D366' }} /> Ask on WhatsApp
             </a>
           </div>
 
-          {/* Bottom 2-card info grid */}
-          <div className="occasions-info-grid" style={{ marginTop: '48px' }}>
+          <div className="occasions-info-grid" style={{ marginTop: '40px' }}>
             <div className="occasions-info-card">
-              <h3>Beginner friendly</h3>
+              <h3>Beginner Friendly</h3>
               <p>
-                Every tutorial uses simple stitches — chain, single crochet, double crochet — and step-by-step Hindi + English instructions.
+                Every tutorial uses simple stitches — chain, single crochet, double crochet — with clear step-by-step Hindi &amp; English instructions.
               </p>
             </div>
             <div className="occasions-info-card">
-              <h3>Watch &amp; practice</h3>
+              <h3>Watch &amp; Practice</h3>
               <p>
-                Click any tutorial or live class card above to watch the embedded video directly here, or open it on YouTube with full playback controls.
+                Click any tutorial or live class card above to watch directly in our embedded player without leaving the page.
               </p>
             </div>
           </div>

@@ -1538,3 +1538,92 @@ a {
   color: var(--text-muted, #7a6f68);
   margin-top: auto;
 }
+
+
+/* ===== Anjali Crochet Video Library Category Filter Bar & Grid ===== */
+.cfilter-bar {
+  position: sticky;
+  top: 72px;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border, #eee4dc);
+  box-shadow: 0 4px 12px rgba(45, 36, 32, 0.03);
+}
+
+.cfilters {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 12px 0;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.cfilters::-webkit-scrollbar {
+  display: none;
+}
+
+.fchip {
+  flex: none;
+  border: 1px solid var(--border, #e5ddd5);
+  background: #fff;
+  color: var(--text, #2d2420);
+  font: inherit;
+  font-weight: 600;
+  font-size: 0.88rem;
+  padding: 8px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.fchip:hover {
+  border-color: var(--primary, #c96857);
+  color: var(--primary, #c96857);
+  background: rgba(201, 104, 87, 0.05);
+}
+
+.fchip[aria-pressed="true"],
+.fchip.active {
+  background: var(--primary, #c96857);
+  border-color: var(--primary, #c96857);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(201, 104, 87, 0.25);
+}
+
+.vgrid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 16px;
+}
+
+@media (max-width: 1200px) {
+  .vgrid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .vgrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .vgrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .csec-head h2 {
+    font-size: 1.35rem !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .vgrid {
+    grid-template-columns: 1fr;
+  }
+}
